@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.web.tetraconnect.tetraconnect">
+    package="app.web.tetraconnect">
    <application
-        android:label="tetraconnect"
+        android:label="TetraConnect"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
