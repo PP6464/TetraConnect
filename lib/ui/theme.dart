@@ -2,6 +2,34 @@
 
 import 'package:flutter/material.dart';
 
+import '../provider/app.settings.dart';
+
+ThemeData checkBoxTheme(BuildContext context) => ThemeData(
+  brightness: provider(context).uiMode == ThemeMode.light
+      ? Brightness.light
+      : provider(context).uiMode == ThemeMode.dark
+          ? Brightness.dark
+          : MediaQuery.of(context).platformBrightness,
+  primaryColor: theme.blue.colour,
+  colorScheme: ColorScheme(
+    primary: theme.blue.colour,
+    brightness: provider(context).uiMode == ThemeMode.light
+        ? Brightness.light
+        : provider(context).uiMode == ThemeMode.dark
+            ? Brightness.dark
+            : MediaQuery.of(context).platformBrightness,
+    onPrimary: theme.blue.colour,
+    onSecondary: theme.blue.colour,
+    error: theme.blue.colour,
+    secondary: theme.blue.colour,
+    onBackground: theme.blue.colour,
+    background: theme.blue.colour,
+    onSurface: theme.blue.colour,
+    surface: theme.blue.colour,
+    onError: theme.blue.colour,
+  ),
+);
+
 enum theme {
   primary,
   secondary,
@@ -11,7 +39,8 @@ enum theme {
   red,
   green,
   blue,
-  pink
+  pink,
+  lightSurface,
 }
 
 extension ThemeExt on theme {
@@ -22,9 +51,9 @@ extension ThemeExt on theme {
       case theme.secondary:
         return const Color(0xFF000000);
       case theme.darkAppBar:
-        return const Color(0xFF202020);
-      case theme.darkSurface:
         return const Color(0xFF101010);
+      case theme.darkSurface:
+        return const Color(0xFF020202);
       case theme.error:
         return const Color(0xFFFF5858);
       case theme.red:
@@ -35,6 +64,8 @@ extension ThemeExt on theme {
         return const Color(0xFF00AAFF);
       case theme.pink:
         return const Color(0xFFFFCCCC);
+      case theme.lightSurface:
+        return const Color(0xFFDDDDDD);
     }
   }
 }
