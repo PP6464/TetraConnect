@@ -61,7 +61,7 @@ class _VerifyPageState extends State<VerifyPage> {
         title: Row(
           children: <Widget>[
             Text(
-              "ArtHub",
+              "TetraConnect",
               textScaleFactor: provider(context).tsf,
             ),
             const Spacer(),
