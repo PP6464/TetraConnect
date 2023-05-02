@@ -40,13 +40,7 @@ void main() async {
     values = AppSettingsValues(
       uiMode: uiModeFromString(preferences.getString("uiMode") ?? stringifyUIMode(ThemeMode.system)),
       tsf: preferences.getDouble("tsf") ?? 1.0,
-      user: User(
-        photoUrl: (await firestore.doc("users/$uid").get())["photoUrl"],
-        email: (await firestore.doc("users/$uid").get())["photoUrl"],
-        displayName: (await firestore.doc("users/$uid").get())["photoUrl"],
-        projectUserName: (await firestore.doc("users/$uid").get())["projectUserName"],
-        uid: uid,
-      ),
+      user: await User.fromUID(uid),
     );
   }
   runApp(
