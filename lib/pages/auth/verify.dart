@@ -30,7 +30,7 @@ class _VerifyPageState extends State<VerifyPage> {
 
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
-          (Timer t) async {
+      (Timer t) async {
         await checkEmailVerified();
       },
     );
@@ -75,7 +75,7 @@ class _VerifyPageState extends State<VerifyPage> {
                     MaterialPageRoute(
                       builder: (context) => route.logout.widget,
                     ),
-                        (route) => false,
+                    (route) => false,
                   );
                 }
               },
