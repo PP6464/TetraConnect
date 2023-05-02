@@ -7,14 +7,12 @@ class User {
   String email;
   String displayName;
   String photoUrl;
-  String projectUserName;
 
   User({
     required this.uid,
     required this.email,
     required this.displayName,
     required this.photoUrl,
-    required this.projectUserName,
   });
 
   update(Map<String, dynamic> changes) async {
@@ -30,7 +28,6 @@ class User {
       displayName: userRef["displayName"],
       email: userRef["email"],
       photoUrl: userRef["photoUrl"],
-      projectUserName: userRef["projectUserName"],
       uid: uid,
     );
   }
