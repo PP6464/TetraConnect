@@ -3,8 +3,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:profanity_filter/profanity_filter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../util/regex.dart';
 import '../../ui/theme.dart';
 import './verify.dart';
 import '../../util/api.dart';
@@ -88,8 +90,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    TextField(
+                    TextFormField(
                       controller: displayNameController,
+                      maxLength: 20,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) return AppLocalizations.of(context)!.displayNameEmpty;
+                        if (ProfanityFilter().hasProfanity(value)) return AppLocalizations.of(context)!.displayNameNoProfanity;
+                        return null;
+                      },
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.person),
@@ -100,8 +108,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    TextField(
+                    TextFormField(
                       controller: emailController,
+                      validator: (String? value) {
+                        if (value == null || value == "") return AppLocalizations.of(context)!.emailEmpty;
+                        if (whitespaces.hasMatch(value)) return AppLocalizations.of(context)!.emailNoWhiteSpace;
+                        if (!value.contains("@")) return AppLocalizations.of(context)!.emailFormat;
+                        if (!value.split("@")[1].contains(".")) return AppLocalizations.of(context)!.emailFormat;
+                        if (ProfanityFilter().hasProfanity(value)) return AppLocalizations.of(context)!.emailNoProfanity;
+                        return null;
+                      },
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.email),
@@ -112,9 +128,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    TextField(
+                    TextFormField(
                       controller: passwordController,
                       obscureText: obscurePassword,
+                      validator: (String? value) {
+                        if (value == null || value == "") return AppLocalizations.of(context)!.passwordEmpty;
+                        if (value.length < 10) return AppLocalizations.of(context)!.passwordLength;
+                        if (!password.hasMatch(value)) return AppLocalizations.of(context)!.passwordCharacters;
+                        return null;
+                      },
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.lock),
@@ -134,9 +156,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    TextField(
+                    TextFormField(
                       controller: confirmPasswordController,
                       obscureText: obscureConfirmPassword,
+                      validator: (String? value) {
+                        if (value != null && value != passwordController.text) return AppLocalizations.of(context)!.passwordsNotMatching;
+                        return null;
+                      },
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.lock),
