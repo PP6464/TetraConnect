@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Emails must be formatted as: abc@example.com"),
         "emailNoProfanity": MessageLookupByLibrary.simpleMessage(
             "Email must have no profanity"),
+        "emailNoWhiteSpace": MessageLookupByLibrary.simpleMessage(
+            "Email must have no whitespaces"),
         "enterDisplayName":
             MessageLookupByLibrary.simpleMessage("Enter display name"),
         "enterEmail": MessageLookupByLibrary.simpleMessage("Enter email"),
@@ -68,6 +70,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordCharacters": MessageLookupByLibrary.simpleMessage(
             "Password must have:\n- A special character\n- A capital letter\n- A number\n- A lower case letter"),
         "passwordEmpty": MessageLookupByLibrary.simpleMessage("Password empty"),
+        "passwordLength": MessageLookupByLibrary.simpleMessage(
+            "Password must be at least 10 characters long"),
         "passwordNoProfanity": MessageLookupByLibrary.simpleMessage(
             "Password must have no profanity"),
         "passwordsNotMatching":

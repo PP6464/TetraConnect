@@ -250,6 +250,16 @@ class S {
     );
   }
 
+  /// `Email must have no whitespaces`
+  String get emailNoWhiteSpace {
+    return Intl.message(
+      'Email must have no whitespaces',
+      name: 'emailNoWhiteSpace',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Password must have:\n- A special character\n- A capital letter\n- A number\n- A lower case letter`
   String get passwordCharacters {
     return Intl.message(
@@ -295,6 +305,16 @@ class S {
     return Intl.message(
       'Passwords don\'t match',
       name: 'passwordsNotMatching',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 10 characters long`
+  String get passwordLength {
+    return Intl.message(
+      'Password must be at least 10 characters long',
+      name: 'passwordLength',
       desc: '',
       args: [],
     );

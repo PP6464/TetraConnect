@@ -20,11 +20,13 @@
   "emailNoProfanity": "Email must have no profanity",
   "passwordNoProfanity": "Password must have no profanity",
   "emailFormat": "Emails must be formatted as: abc@example.com",
+  "emailNoWhiteSpace": "Email must have no whitespaces",
   "passwordCharacters": "Password must have:\n- A special character\n- A capital letter\n- A number\n- A lower case letter",
   "displayNameEmpty": "Display name is empty",
   "emailEmpty": "Email is empty",
   "passwordEmpty": "Password empty",
   "passwordsNotMatching": "Passwords don't match",
+  "passwordLength": "Password must be at least 10 characters long",
   "verificationEmail": "A verification email has been sent to {verificationEmail}",
   "@verificationEmail": {
     "placeholders": {
