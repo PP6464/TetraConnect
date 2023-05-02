@@ -30,6 +30,8 @@ dependencies:
   overlay_support: ^2.1.0
   # Localisation
   intl: ^0.17.0
+  # Profanity
+  profanity_filter: ^2.0.0
 
 icons_launcher:
   image_path: "assets/logo.png"
