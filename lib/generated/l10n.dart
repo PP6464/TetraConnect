@@ -519,6 +519,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Statistics`
+  String get statistics {
+    return Intl.message(
+      'Statistics',
+      name: 'statistics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Game Log`
+  String get gameLog {
+    return Intl.message(
+      'Game Log',
+      name: 'gameLog',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

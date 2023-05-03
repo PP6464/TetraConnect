@@ -51,5 +51,7 @@
   "randomise": "Randomise",
   "ok": "Ok",
   "error": "Oh snap! There's been an error 😢.",
-  "guide": "Guide"
+  "guide": "Guide",
+  "statistics": "Statistics",
+  "gameLog": "Game Log"
 }

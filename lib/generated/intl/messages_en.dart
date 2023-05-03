@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fundTetraConnect":
             MessageLookupByLibrary.simpleMessage("Fund TetraConnect"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+        "gameLog": MessageLookupByLibrary.simpleMessage("Game Log"),
         "guide": MessageLookupByLibrary.simpleMessage("Guide"),
         "hidePassword": MessageLookupByLibrary.simpleMessage("Hide password"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -86,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showPassword": MessageLookupByLibrary.simpleMessage("Show password"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "statistics": MessageLookupByLibrary.simpleMessage("Statistics"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "timeControl": MessageLookupByLibrary.simpleMessage("Time Control"),
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
