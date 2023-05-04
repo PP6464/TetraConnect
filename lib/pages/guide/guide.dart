@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../ui/elements.dart';
+import '../../util/route.dart';
+
 class GuidePage extends StatefulWidget {
   const GuidePage({Key? key}) : super(key: key);
 
@@ -10,8 +13,9 @@ class GuidePage extends StatefulWidget {
 class _GuidePageState extends State<GuidePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Guide"),
+    return Scaffold(
+      appBar: normalAppBar(context, route.home),
+      body: const Text("Guide"),
     );
   }
 }

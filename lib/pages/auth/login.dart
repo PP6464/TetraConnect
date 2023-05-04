@@ -58,149 +58,154 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Form(
-            key: key,
-            child: Column(
-              children: [
-                logo(
-                  radius: 90.0,
-                  padding: 16.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    AppLocalizations.of(context)!.login,
-                    textScaleFactor: provider(context).tsf,
-                    style: const TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: Container(
+            constraints: const BoxConstraints(
+              maxWidth: 500.0,
+            ),
+            child: Form(
+              key: key,
+              child: Column(
+                children: [
+                  logo(
+                    radius: 90.0,
+                    padding: 16.0,
                   ),
-                ),
-                const SizedBox(height: 8.0),
-                TextFormField(
-                  controller: emailController,
-                  validator: (String? value) {
-                    if (value == null || value == "") return AppLocalizations.of(context)!.emailEmpty;
-                    if (whitespaces.hasMatch(value)) return AppLocalizations.of(context)!.emailNoWhiteSpace;
-                    if (!value.contains("@")) return AppLocalizations.of(context)!.emailFormat;
-                    if (!value.split("@")[1].contains(".")) return AppLocalizations.of(context)!.emailFormat;
-                    if (ProfanityFilter().hasProfanity(value)) return AppLocalizations.of(context)!.emailNoProfanity;
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.email),
-                    label: Text(
-                      AppLocalizations.of(context)!.enterEmail,
-                      textScaleFactor: provider(context).tsf,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8.0),
-                TextFormField(
-                  controller: passwordController,
-                  obscureText: obscurePassword,
-                  validator: (String? value) {
-                    if (value == null || value == "") return AppLocalizations.of(context)!.passwordEmpty;
-                    if (value.length < 10) return AppLocalizations.of(context)!.passwordLength;
-                    if (!password.hasMatch(value)) return AppLocalizations.of(context)!.passwordCharacters;
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: obscurePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
-                      tooltip: obscurePassword ? AppLocalizations.of(context)!.showPassword : AppLocalizations.of(context)!.hidePassword,
-                      onPressed: () {
-                        setState(() {
-                          obscurePassword = !obscurePassword;
-                        });
-                      },
-                    ),
-                    label: Text(
-                      AppLocalizations.of(context)!.enterPassword,
-                      textScaleFactor: provider(context).tsf,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Theme(
-                        data: checkBoxTheme(context),
-                        child: Checkbox(
-                          value: keepLoggedIn,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              keepLoggedIn = value ?? false;
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 8.0),
-                      Text(
-                        AppLocalizations.of(context)!.keepLoggedIn,
-                        textScaleFactor: provider(context).tsf,
-                        style: const TextStyle(
-                          fontSize: 17.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[900],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                  onPressed: () async {
-                    if (!key.currentState!.validate()) return;
-                    try {
-                      UserCredential credential = await auth.signInWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                      (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
-                      (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
-                      await provider(context).updateUser(await models.User.fromUID(credential.user!.uid));
-                      if (credential.user!.emailVerified) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ));
-                      } else {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const VerifyPage(),
-                        ));
-                      }
-                    } on FirebaseException catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(e.message!),
-                          )
-                      );
-                    }
-                  },
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       AppLocalizations.of(context)!.login,
                       textScaleFactor: provider(context).tsf,
                       style: const TextStyle(
+                        fontSize: 25.0,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 17.5,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8.0),
+                  TextFormField(
+                    controller: emailController,
+                    validator: (String? value) {
+                      if (value == null || value == "") return AppLocalizations.of(context)!.emailEmpty;
+                      if (whitespaces.hasMatch(value)) return AppLocalizations.of(context)!.emailNoWhiteSpace;
+                      if (!value.contains("@")) return AppLocalizations.of(context)!.emailFormat;
+                      if (!value.split("@")[1].contains(".")) return AppLocalizations.of(context)!.emailFormat;
+                      if (ProfanityFilter().hasProfanity(value)) return AppLocalizations.of(context)!.emailNoProfanity;
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.email),
+                      label: Text(
+                        AppLocalizations.of(context)!.enterEmail,
+                        textScaleFactor: provider(context).tsf,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: obscurePassword,
+                    validator: (String? value) {
+                      if (value == null || value == "") return AppLocalizations.of(context)!.passwordEmpty;
+                      if (value.length < 10) return AppLocalizations.of(context)!.passwordLength;
+                      if (!password.hasMatch(value)) return AppLocalizations.of(context)!.passwordCharacters;
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: obscurePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                        tooltip: obscurePassword ? AppLocalizations.of(context)!.showPassword : AppLocalizations.of(context)!.hidePassword,
+                        onPressed: () {
+                          setState(() {
+                            obscurePassword = !obscurePassword;
+                          });
+                        },
+                      ),
+                      label: Text(
+                        AppLocalizations.of(context)!.enterPassword,
+                        textScaleFactor: provider(context).tsf,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Theme(
+                          data: checkBoxTheme(context),
+                          child: Checkbox(
+                            value: keepLoggedIn,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                keepLoggedIn = value ?? false;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          AppLocalizations.of(context)!.keepLoggedIn,
+                          textScaleFactor: provider(context).tsf,
+                          style: const TextStyle(
+                            fontSize: 17.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey[900],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    onPressed: () async {
+                      if (!key.currentState!.validate()) return;
+                      try {
+                        UserCredential credential = await auth.signInWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
+                        (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
+                        await provider(context).updateUser(await models.User.fromUID(credential.user!.uid));
+                        if (credential.user!.emailVerified) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ));
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const VerifyPage(),
+                          ));
+                        }
+                      } on FirebaseException catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(e.message!),
+                            )
+                        );
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        AppLocalizations.of(context)!.login,
+                        textScaleFactor: provider(context).tsf,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 17.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

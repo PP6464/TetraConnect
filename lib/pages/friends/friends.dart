@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../util/route.dart';
+import '../../ui/elements.dart';
+
 class FriendsPage extends StatefulWidget {
   const FriendsPage({Key? key}) : super(key: key);
 
@@ -10,8 +13,9 @@ class FriendsPage extends StatefulWidget {
 class _FriendsPageState extends State<FriendsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Friends"),
+    return Scaffold(
+      appBar: normalAppBar(context, route.friends),
+      body: const Text("Friends"),
     );
   }
 }

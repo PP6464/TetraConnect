@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../ui/elements.dart';
+import '../../util/route.dart';
+
 class FundTetraConnectPage extends StatefulWidget {
   const FundTetraConnectPage({Key? key}) : super(key: key);
 
@@ -10,8 +13,9 @@ class FundTetraConnectPage extends StatefulWidget {
 class _FundTetraConnectPageState extends State<FundTetraConnectPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("Fund TetraConnect"),
+    return Scaffold(
+      appBar: normalAppBar(context, route.home),
+      body: const Text("Fund TetraConnect"),
     );
   }
 }

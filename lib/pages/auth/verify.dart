@@ -11,7 +11,7 @@ import '../../util/api.dart';
 import '../../util/route.dart';
 import '../../ui/theme.dart';
 import '../../provider/app.settings.dart';
-import '../home/home.dart';
+import '../guide/guide.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class _VerifyPageState extends State<VerifyPage> {
       timer.cancel();
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const GuidePage(),
         ),
       );
     }
