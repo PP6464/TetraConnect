@@ -12,6 +12,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  GlobalKey<FormState> key = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool obscurePassword = true;
+  bool keepLoggedIn = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    for (var e in <TextEditingController>[
+      emailController,
+      passwordController,
+    ]) {
+      e.dispose();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,26 +45,29 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-      body:  Center(
+      body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              logo(
-                radius: 90.0,
-                padding: 16.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  AppLocalizations.of(context)!.login,
-                  textScaleFactor: provider(context).tsf,
-                  style: const TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
+          child: Form(
+            key: key,
+            child: Column(
+              children: [
+                logo(
+                  radius: 90.0,
+                  padding: 16.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.login,
+                    textScaleFactor: provider(context).tsf,
+                    style: const TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
