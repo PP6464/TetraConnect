@@ -53,5 +53,6 @@
   "error": "Oh snap! There's been an error 😢.",
   "guide": "Guide",
   "statistics": "Statistics",
-  "gameLog": "Game Log"
+  "gameLog": "Game Log",
+  "continueToHome": "Continue to home"
 }

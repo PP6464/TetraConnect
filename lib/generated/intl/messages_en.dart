@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose initials colour"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "continueToHome":
+            MessageLookupByLibrary.simpleMessage("Continue to home"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "displayNameEmpty":
             MessageLookupByLibrary.simpleMessage("Display name is empty"),
