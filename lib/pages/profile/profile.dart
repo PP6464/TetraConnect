@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../provider/app.settings.dart';
 import '../../ui/elements.dart';
@@ -21,9 +22,20 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              CircleAvatar(
-                foregroundImage: NetworkImage(provider(context).user!.photoUrl),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CircleAvatar(
+                  foregroundImage: NetworkImage(provider(context).user!.photoUrl),
+                  radius: 90.0,
+                ),
+              ),
+              Text(
+                AppLocalizations.of(context)!.profile,
+                textScaleFactor: provider(context).tsf,
+                style: TextStyle(
+                  fontSize: 20.0,
 
+                ),
               ),
             ],
           ),

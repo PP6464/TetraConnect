@@ -22,7 +22,7 @@ AppBar normalAppBar(BuildContext context, route? removedRoute) => AppBar(
       title: Row(
         children: [
           Text(
-            "ArtHub",
+            "TetraConnect",
             textScaleFactor: provider(context, true).tsf,
           ),
           const Spacer(),
