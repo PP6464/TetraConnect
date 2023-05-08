@@ -17,7 +17,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: normalAppBar(context, route.profile),
-      body: Center(
+      body: Align(
+        alignment: Alignment.topCenter,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -32,9 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 AppLocalizations.of(context)!.profile,
                 textScaleFactor: provider(context).tsf,
-                style: TextStyle(
-                  fontSize: 20.0,
-
+                style: const TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],

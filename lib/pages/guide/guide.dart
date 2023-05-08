@@ -21,6 +21,9 @@ class _GuidePageState extends State<GuidePage> {
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
         ),
         onPressed: () {
           Navigator.of(context).push(
@@ -30,6 +33,7 @@ class _GuidePageState extends State<GuidePage> {
           );
         },
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(
               Icons.home,
