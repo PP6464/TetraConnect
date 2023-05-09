@@ -290,27 +290,31 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 8.0),
-                                TextFormField(
-                                  controller: profileDisplayName,
-                                  decoration: InputDecoration(
-                                    label: Text(
-                                      AppLocalizations.of(context)!.enterDisplayName,
-                                      textScaleFactor: provider(context).tsf,
+                                Focus(
+                                  onFocusChange: (bool hasFocus) {
+                                    if (!hasFocus && picSrc == PicSrc.initials) {
+                                      setState(() {
+                                        picLocation = Uri.encodeFull(picLocation.split(nameQueryParameter).join("name=${profileDisplayName.text}"));
+                                      });
+                                    }
+                                  },
+                                  child: TextFormField(
+                                    controller: profileDisplayName,
+                                    decoration: InputDecoration(
+                                      label: Text(
+                                        AppLocalizations.of(context)!.enterDisplayName,
+                                        textScaleFactor: provider(context).tsf,
+                                      ),
+                                      prefixIcon: const Icon(Icons.person),
+                                      border: const OutlineInputBorder(),
                                     ),
-                                    prefixIcon: const Icon(Icons.person),
-                                    border: const OutlineInputBorder(),
+                                    maxLength: 20,
+                                    validator: (String? value) {
+                                      if (value == null || value.isEmpty) return AppLocalizations.of(context)!.enterDisplayName;
+                                      if (ProfanityFilter().hasProfanity(value)) return AppLocalizations.of(context)!.displayNameNoProfanity;
+                                      return null;
+                                    },
                                   ),
-                                  maxLength: 20,
-                                  validator: (String? value) {
-                                    if (value == null || value.isEmpty) return AppLocalizations.of(context)!.enterDisplayName;
-                                    if (ProfanityFilter().hasProfanity(value)) return AppLocalizations.of(context)!.displayNameNoProfanity;
-                                    return null;
-                                  },
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      picLocation = Uri.encodeFull(picLocation.split(nameQueryParameter).join("name=$value"));
-                                    });
-                                  },
                                 ),
                                 const SizedBox(height: 8.0),
                                 TextFormField(
