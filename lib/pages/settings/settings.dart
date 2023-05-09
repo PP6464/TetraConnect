@@ -79,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                   min: tsfMin,
                   max: tsfMax,
-                  divisions: 20,
+                  divisions: 10,
                 ),
                 Row(
                   children: [

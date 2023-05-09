@@ -18,6 +18,7 @@ class _GuidePageState extends State<GuidePage> {
     return Scaffold(
       appBar: normalAppBar(context, route.home),
       body: const Text("Guide"),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.blue,

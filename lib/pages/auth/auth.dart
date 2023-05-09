@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tetraconnect/pages/auth/verify.dart';
+import 'package:tetraconnect/pages/home/home.dart';
 
+import '../../util/api.dart';
 import './login.dart';
 import './signup.dart';
 import '../../provider/app.settings.dart';
@@ -14,6 +17,23 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  @override
+  void initState() {
+    super.initState();
+    if (provider(context).user != null) {
+      Future.delayed(
+        Duration.zero,
+        () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => auth.currentUser!.emailVerified ? const HomePage() : const VerifyPage(),
+            ),
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
