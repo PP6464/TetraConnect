@@ -35,6 +35,14 @@ dependencies:
   profanity_filter: ^2.0.0
   # Version info
   package_info_plus: ^3.1.2
+  # File picking
+  images_picker: ^1.2.11
+  file_picker: ^5.2.9
+  image_picker: ^0.8.7+4
+  # Color picking
+  flutter_colorpicker: ^1.0.3
+  random_color: ^1.0.6-nullsafety
+
 
 icons_launcher:
   image_path: "assets/logo.png"
