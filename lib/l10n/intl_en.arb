@@ -42,6 +42,7 @@
   "system": "System",
   "reAuth": "Re-authentication",
   "reAuthDesc": "You must re-authenticate before modifying your profile to ensure your account is secure",
+  "reAuthVerb": "Re-authenticate",
   "blank": "Blank",
   "camera": "Camera",
   "gallery": "Gallery",
@@ -54,5 +55,16 @@
   "guide": "Guide",
   "statistics": "Statistics",
   "gameLog": "Game Log",
-  "continueToHome": "Continue to home"
+  "account": "Account",
+  "accountDesc": "Manage your account details",
+  "gameLogDesc": "View all of your games",
+  "statisticsDesc": "View your game statistics",
+  "continueToHome": "Continue to home",
+  "yourID":  "Your ID: {id}",
+  "@yourID": {
+    "placeholders": {
+      "id": {}
+    }
+  },
+  "saveChanges": "Save changes"
 }

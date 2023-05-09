@@ -420,6 +420,16 @@ class S {
     );
   }
 
+  /// `Re-authenticate`
+  String get reAuthVerb {
+    return Intl.message(
+      'Re-authenticate',
+      name: 'reAuthVerb',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Blank`
   String get blank {
     return Intl.message(
@@ -540,11 +550,71 @@ class S {
     );
   }
 
+  /// `Account`
+  String get account {
+    return Intl.message(
+      'Account',
+      name: 'account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage your account details`
+  String get accountDesc {
+    return Intl.message(
+      'Manage your account details',
+      name: 'accountDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View all of your games`
+  String get gameLogDesc {
+    return Intl.message(
+      'View all of your games',
+      name: 'gameLogDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View your game statistics`
+  String get statisticsDesc {
+    return Intl.message(
+      'View your game statistics',
+      name: 'statisticsDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Continue to home`
   String get continueToHome {
     return Intl.message(
       'Continue to home',
       name: 'continueToHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your ID: {id}`
+  String yourID(Object id) {
+    return Intl.message(
+      'Your ID: $id',
+      name: 'yourID',
+      desc: '',
+      args: [id],
+    );
+  }
+
+  /// `Save changes`
+  String get saveChanges {
+    return Intl.message(
+      'Save changes',
+      name: 'saveChanges',
       desc: '',
       args: [],
     );

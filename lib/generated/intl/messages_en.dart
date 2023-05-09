@@ -25,8 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(verificationEmail) =>
       "A verification email has been sent to ${verificationEmail}";
 
+  static String m2(id) => "Your ID: ${id}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "account": MessageLookupByLibrary.simpleMessage("Account"),
+        "accountDesc":
+            MessageLookupByLibrary.simpleMessage("Manage your account details"),
         "appVersion": m0,
         "blank": MessageLookupByLibrary.simpleMessage("Blank"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
@@ -59,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fund TetraConnect"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "gameLog": MessageLookupByLibrary.simpleMessage("Game Log"),
+        "gameLogDesc":
+            MessageLookupByLibrary.simpleMessage("View all of your games"),
         "guide": MessageLookupByLibrary.simpleMessage("Guide"),
         "hidePassword": MessageLookupByLibrary.simpleMessage("Hide password"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -84,16 +91,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "reAuth": MessageLookupByLibrary.simpleMessage("Re-authentication"),
         "reAuthDesc": MessageLookupByLibrary.simpleMessage(
             "You must re-authenticate before modifying your profile to ensure your account is secure"),
+        "reAuthVerb": MessageLookupByLibrary.simpleMessage("Re-authenticate"),
         "reAuthentication":
             MessageLookupByLibrary.simpleMessage("Re-Authentication"),
+        "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showPassword": MessageLookupByLibrary.simpleMessage("Show password"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "statistics": MessageLookupByLibrary.simpleMessage("Statistics"),
+        "statisticsDesc":
+            MessageLookupByLibrary.simpleMessage("View your game statistics"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "timeControl": MessageLookupByLibrary.simpleMessage("Time Control"),
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
         "uiMode": MessageLookupByLibrary.simpleMessage("UI Mode"),
-        "verificationEmail": m1
+        "verificationEmail": m1,
+        "yourID": m2
       };
 }
