@@ -320,10 +320,10 @@ class S {
     );
   }
 
-  /// `A verification email has been sent to {verificationEmail}`
+  /// `A verification email has been sent to {verificationEmail}. If you have not received the email, then check your spam or junk folders for the email`
   String verificationEmail(Object verificationEmail) {
     return Intl.message(
-      'A verification email has been sent to $verificationEmail',
+      'A verification email has been sent to $verificationEmail. If you have not received the email, then check your spam or junk folders for the email',
       name: 'verificationEmail',
       desc: '',
       args: [verificationEmail],

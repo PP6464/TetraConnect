@@ -27,7 +27,7 @@
   "passwordEmpty": "Password empty",
   "passwordsNotMatching": "Passwords don't match",
   "passwordLength": "Password must be at least 10 characters long",
-  "verificationEmail": "A verification email has been sent to {verificationEmail}",
+  "verificationEmail": "A verification email has been sent to {verificationEmail}. If you have not received the email, then check your spam or junk folders for the email",
   "@verificationEmail": {
     "placeholders": {
       "verificationEmail": {}

@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(version) => "App version: ${version}";
 
   static String m1(verificationEmail) =>
-      "A verification email has been sent to ${verificationEmail}";
+      "A verification email has been sent to ${verificationEmail}. If you have not received the email, then check your spam or junk folders for the email";
 
   static String m2(id) => "Your ID: ${id}";
 
