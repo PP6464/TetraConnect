@@ -16,9 +16,18 @@ class User {
   });
 
   update(Map<String, dynamic> changes) async {
-    if (changes.containsKey("email")) email = changes["email"];
-    if (changes.containsKey("displayName")) displayName = changes["displayName"];
-    if (changes.containsKey("photoUrl")) photoUrl = changes["photoUrl"];
+    if (changes.containsKey("email")) {
+      email = changes["email"];
+      await auth.currentUser!.updateEmail(email);
+    }
+    if (changes.containsKey("displayName")) {
+      displayName = changes["displayName"];
+      await auth.currentUser!.updateDisplayName(displayName);
+    }
+    if (changes.containsKey("photoUrl")) {
+      photoUrl = changes["photoUrl"];
+      await auth.currentUser!.updatePhotoURL(photoUrl);
+    }
     await firestore.doc("users/$uid").update(changes);
   }
 
