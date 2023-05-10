@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -375,23 +377,39 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                   onPressed: () async {
                                     if (!profileFormKey.currentState!.validate()) return;
-                                    if (picSrc.type() == 'url') {
-                                      await provider(context).user!.update({
-                                        "displayName": profileDisplayName.text,
-                                        "email": profileEmail.text,
-                                        "photoUrl": picLocation,
-                                      });
-                                    } else {
-                                      ListResult currentPic = await storage.ref("users/${auth.currentUser!.uid}").listAll();
-                                      if (currentPic.items.isNotEmpty) {
-                                        await currentPic.items.single.delete();
-                                      }
-                                      if (!kIsWeb) {
-                                        await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").putFile(File(picLocation));
+                                    try {
+                                      if (picSrc.type() == 'url') {
+                                        await provider(context).user!.update({
+                                          "displayName": profileDisplayName.text,
+                                          "email": profileEmail.text,
+                                          "photoUrl": picLocation,
+                                        });
                                       } else {
-                                        await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").putData(imgBytes!);
+                                        String photoUrl = "";
+                                        ListResult currentPic = await storage.ref("users/${auth.currentUser!.uid}").listAll();
+                                        if (currentPic.items.isNotEmpty) {
+                                          await currentPic.items.single.delete();
+                                        }
+                                        if (!kIsWeb) {
+                                          await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").putFile(File(picLocation));
+                                        } else {
+                                          await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").putData(imgBytes!);
+                                        }
+                                        photoUrl = getCloudStorageURL("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}");
+                                        await provider(context).user!.update({
+                                          "displayName": profileDisplayName.text,
+                                          "email": profileEmail.text,
+                                          "photoUrl": photoUrl,
+                                        });
                                       }
+                                    } on FirebaseException catch (e) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(e.message!),
+                                        ),
+                                      );
                                     }
+                                    Navigator.of(context).pop();
                                   },
                                   child: Text(
                                     AppLocalizations.of(context)!.saveChanges,
