@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -282,7 +283,7 @@ class _AccountPageState extends State<AccountPage> {
                                   ],
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)!.profile,
+                                  AppLocalizations.of(context)!.account,
                                   textScaleFactor: provider(context).tsf,
                                   style: const TextStyle(
                                     fontSize: 20.0,
@@ -372,7 +373,26 @@ class _AccountPageState extends State<AccountPage> {
                                     ),
                                     backgroundColor: Colors.white,
                                   ),
-                                  onPressed: () async {},
+                                  onPressed: () async {
+                                    if (!profileFormKey.currentState!.validate()) return;
+                                    if (picSrc.type() == 'url') {
+                                      await provider(context).user!.update({
+                                        "displayName": profileDisplayName.text,
+                                        "email": profileEmail.text,
+                                        "photoUrl": picLocation,
+                                      });
+                                    } else {
+                                      ListResult currentPic = await storage.ref("users/${auth.currentUser!.uid}").listAll();
+                                      if (currentPic.items.isNotEmpty) {
+                                        await currentPic.items.single.delete();
+                                      }
+                                      if (!kIsWeb) {
+                                        await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").putFile(File(picLocation));
+                                      } else {
+                                        await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").putData(imgBytes!);
+                                      }
+                                    }
+                                  },
                                   child: Text(
                                     AppLocalizations.of(context)!.saveChanges,
                                     textScaleFactor: provider(context).tsf,
@@ -495,6 +515,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ),
                       onPressed: () async {
+                        if (!reAuthFormKey.currentState!.validate()) return;
                         try {
                           await auth.currentUser!.reauthenticateWithCredential(
                             EmailAuthProvider.credential(
