@@ -4,15 +4,19 @@ import './api.dart';
 
 class User {
   final String uid;
+  final DocumentReference ref;
   String email;
   String displayName;
   String photoUrl;
+  int rating;
 
   User({
     required this.uid,
     required this.email,
     required this.displayName,
     required this.photoUrl,
+    required this.rating,
+    required this.ref,
   });
 
   update(Map<String, dynamic> changes) async {
@@ -28,15 +32,20 @@ class User {
       photoUrl = changes["photoUrl"];
       await auth.currentUser!.updatePhotoURL(photoUrl);
     }
+    if (changes.containsKey("rating")) {
+      rating = changes["rating"];
+    }
     await firestore.doc("users/$uid").update(changes);
   }
 
   static Future<User> fromUID(String uid) async {
-    final DocumentSnapshot userRef = await firestore.doc("users/$uid").get();
+    final DocumentSnapshot userData = await firestore.doc("users/$uid").get();
     return User(
-      displayName: userRef["displayName"],
-      email: userRef["email"],
-      photoUrl: userRef["photoUrl"],
+      displayName: userData["displayName"],
+      email: userData["email"],
+      photoUrl: userData["photoUrl"],
+      rating: userData["rating"],
+      ref: userData.reference,
       uid: uid,
     );
   }
