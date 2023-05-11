@@ -9,6 +9,8 @@ import '../util/api.dart';
 import 'theme.dart';
 import '../util/route.dart';
 
+Widget blank = const SizedBox(height: 0.0, width: 0.0);
+
 Widget logo({double radius = 20.0, double padding = 0.0}) => Padding(
       padding: EdgeInsets.all(padding),
       child: CircleAvatar(
