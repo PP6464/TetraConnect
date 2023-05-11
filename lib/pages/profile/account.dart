@@ -75,6 +75,7 @@ class _AccountPageState extends State<AccountPage> {
   bool isReAuth = false;
   bool reAuthObscurePassword = true;
   bool profileObscurePassword = true;
+  bool loading = false;
   PicSrc picSrc = PicSrc.noChange;
   GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> profileFormKey = GlobalKey<FormState>();
@@ -377,6 +378,9 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                   onPressed: () async {
                                     if (!profileFormKey.currentState!.validate()) return;
+                                    setState(() {
+                                      loading = true;
+                                    });
                                     try {
                                       if (picSrc.type() == 'url') {
                                         await provider(context).user!.update({
@@ -392,10 +396,11 @@ class _AccountPageState extends State<AccountPage> {
                                         }
                                         if (!kIsWeb) {
                                           await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").putFile(File(picLocation));
+                                          photoUrl = await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").getDownloadURL();
                                         } else {
                                           await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").putData(imgBytes!);
+                                          photoUrl = await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").getDownloadURL();
                                         }
-                                        photoUrl = getCloudStorageURL("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}");
                                         await provider(context).user!.update({
                                           "displayName": profileDisplayName.text,
                                           "email": profileEmail.text,
@@ -409,6 +414,9 @@ class _AccountPageState extends State<AccountPage> {
                                         ),
                                       );
                                     }
+                                    setState(() {
+                                      loading = false;
+                                    });
                                     Navigator.of(context).pop();
                                   },
                                   child: Text(
@@ -421,6 +429,10 @@ class _AccountPageState extends State<AccountPage> {
                                     ),
                                   ),
                                 ),
+                                const SizedBox(height: 8.0),
+                                loading ? CircularProgressIndicator(
+                                  color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
+                                ) : blank,
                               ],
                             ),
                           ),
