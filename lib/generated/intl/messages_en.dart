@@ -22,10 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(version) => "App version: ${version}";
 
-  static String m1(verificationEmail) =>
+  static String m1(day, month, year) => "${day}/${month}/${year}";
+
+  static String m2(place) => "Number of times you have finished ${place}";
+
+  static String m3(rating) => "Rating: ${rating}";
+
+  static String m4(verificationEmail) =>
       "A verification email has been sent to ${verificationEmail}. If you have not received the email, then check your spam or junk folders for the email";
 
-  static String m2(id) => "Your ID: ${id}";
+  static String m5(id) => "Your ID: ${id}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -42,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "continueToHome":
             MessageLookupByLibrary.simpleMessage("Continue to home"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "date": m1,
         "displayNameEmpty":
             MessageLookupByLibrary.simpleMessage("Display name is empty"),
         "displayNameNoProfanity": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterPassword": MessageLookupByLibrary.simpleMessage("Enter password"),
         "error": MessageLookupByLibrary.simpleMessage(
             "Oh snap! There\'s been an error 😢."),
+        "first": MessageLookupByLibrary.simpleMessage("1st"),
+        "fourth": MessageLookupByLibrary.simpleMessage("4th"),
         "friends": MessageLookupByLibrary.simpleMessage("Friends"),
         "fundTetraConnect":
             MessageLookupByLibrary.simpleMessage("Fund TetraConnect"),
@@ -86,15 +95,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password must have no profanity"),
         "passwordsNotMatching":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "placeTooltip": m2,
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "randomise": MessageLookupByLibrary.simpleMessage("Randomise"),
+        "rating": m3,
         "reAuth": MessageLookupByLibrary.simpleMessage("Re-authentication"),
         "reAuthDesc": MessageLookupByLibrary.simpleMessage(
             "You must re-authenticate before modifying your profile to ensure your account is secure"),
         "reAuthVerb": MessageLookupByLibrary.simpleMessage("Re-authenticate"),
         "reAuthentication":
             MessageLookupByLibrary.simpleMessage("Re-Authentication"),
+        "results": MessageLookupByLibrary.simpleMessage("Results:"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
+        "second": MessageLookupByLibrary.simpleMessage("2nd"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showPassword": MessageLookupByLibrary.simpleMessage("Show password"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
@@ -102,10 +115,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "statisticsDesc":
             MessageLookupByLibrary.simpleMessage("View your game statistics"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
+        "third": MessageLookupByLibrary.simpleMessage("3rd"),
         "timeControl": MessageLookupByLibrary.simpleMessage("Time Control"),
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
         "uiMode": MessageLookupByLibrary.simpleMessage("UI Mode"),
-        "verificationEmail": m1,
-        "yourID": m2
+        "verificationEmail": m4,
+        "yourID": m5
       };
 }

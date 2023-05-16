@@ -66,5 +66,30 @@
       "id": {}
     }
   },
-  "saveChanges": "Save changes"
+  "rating": "Rating: {rating}",
+  "@rating": {
+    "placeholders": {
+      "rating": {}
+    }
+  },
+  "results": "Results:",
+  "saveChanges": "Save changes",
+  "first": "1st",
+  "second": "2nd",
+  "third": "3rd",
+  "fourth": "4th",
+  "placeTooltip": "Number of times you have finished {place}",
+  "@placeTooltip": {
+    "placeholders": {
+      "place": {}
+    }
+  },
+  "date": "{day}/{month}/{year}",
+  "@date": {
+    "placeholders": {
+      "day": {},
+      "month": {},
+      "year": {}
+    }
+  }
 }

@@ -610,6 +610,26 @@ class S {
     );
   }
 
+  /// `Rating: {rating}`
+  String rating(Object rating) {
+    return Intl.message(
+      'Rating: $rating',
+      name: 'rating',
+      desc: '',
+      args: [rating],
+    );
+  }
+
+  /// `Results:`
+  String get results {
+    return Intl.message(
+      'Results:',
+      name: 'results',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Save changes`
   String get saveChanges {
     return Intl.message(
@@ -617,6 +637,66 @@ class S {
       name: 'saveChanges',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `1st`
+  String get first {
+    return Intl.message(
+      '1st',
+      name: 'first',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2nd`
+  String get second {
+    return Intl.message(
+      '2nd',
+      name: 'second',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3rd`
+  String get third {
+    return Intl.message(
+      '3rd',
+      name: 'third',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4th`
+  String get fourth {
+    return Intl.message(
+      '4th',
+      name: 'fourth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number of times you have finished {place}`
+  String placeTooltip(Object place) {
+    return Intl.message(
+      'Number of times you have finished $place',
+      name: 'placeTooltip',
+      desc: '',
+      args: [place],
+    );
+  }
+
+  /// `{day}/{month}/{year}`
+  String date(Object day, Object month, Object year) {
+    return Intl.message(
+      '$day/$month/$year',
+      name: 'date',
+      desc: '',
+      args: [day, month, year],
     );
   }
 }
