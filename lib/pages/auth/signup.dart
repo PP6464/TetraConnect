@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -65,8 +67,8 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: 500.0,
+            constraints: BoxConstraints(
+              maxWidth: min(500.0, MediaQuery.of(context).size.width),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -229,6 +231,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             "displayName": displayNameController.text,
                             "email": emailController.text,
                             "photoUrl": blankPicUrl,
+                            "rating": 0,
                           });
                           (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
                           (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);

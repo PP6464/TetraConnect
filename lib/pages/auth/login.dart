@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -61,8 +63,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              constraints: const BoxConstraints(
-                maxWidth: 500.0,
+              constraints: BoxConstraints(
+                maxWidth: min(500.0, MediaQuery.of(context).size.width),
               ),
               child: Form(
                 key: key,

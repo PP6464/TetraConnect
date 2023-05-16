@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tetraconnect/pages/profile/game.log.dart';
+import 'package:tetraconnect/pages/profile/statistics.dart';
 
 import 'account.dart';
 import '../../provider/app.settings.dart';
@@ -24,8 +28,8 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              constraints: const BoxConstraints(
-                maxWidth: 500.0,
+              constraints: BoxConstraints(
+                maxWidth: min(500.0, MediaQuery.of(context).size.width),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -80,37 +84,55 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Card(
-                    elevation: 2.0,
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.history,
-                        size: 40.0,
-                      ),
-                      title: Text(
-                        AppLocalizations.of(context)!.gameLog,
-                        textScaleFactor: provider(context).tsf,
-                      ),
-                      subtitle: Text(
-                        AppLocalizations.of(context)!.gameLogDesc,
-                        textScaleFactor: provider(context).tsf,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const GameLogPage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 2.0,
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.history,
+                          size: 40.0,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context)!.gameLog,
+                          textScaleFactor: provider(context).tsf,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context)!.gameLogDesc,
+                          textScaleFactor: provider(context).tsf,
+                        ),
                       ),
                     ),
                   ),
-                  Card(
-                    elevation: 2.0,
-                    child: ListTile(
-                      leading: const Icon(
-                        Icons.stacked_bar_chart,
-                        size: 40.0,
-                      ),
-                      title: Text(
-                        AppLocalizations.of(context)!.statistics,
-                        textScaleFactor: provider(context).tsf,
-                      ),
-                      subtitle: Text(
-                        AppLocalizations.of(context)!.statisticsDesc,
-                        textScaleFactor: provider(context).tsf,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const StatisticsPage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 2.0,
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.stacked_bar_chart,
+                          size: 40.0,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context)!.statistics,
+                          textScaleFactor: provider(context).tsf,
+                        ),
+                        subtitle: Text(
+                          AppLocalizations.of(context)!.statisticsDesc,
+                          textScaleFactor: provider(context).tsf,
+                        ),
                       ),
                     ),
                   ),

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -107,8 +108,8 @@ class _AccountPageState extends State<AccountPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Container(
-                        constraints: const BoxConstraints(
-                          maxWidth: 500.0,
+                        constraints: BoxConstraints(
+                          maxWidth: min(500.0, MediaQuery.of(context).size.width),
                         ),
                         child: Center(
                           child: Form(
@@ -289,7 +290,7 @@ class _AccountPageState extends State<AccountPage> {
                                   AppLocalizations.of(context)!.account,
                                   textScaleFactor: provider(context).tsf,
                                   style: const TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -429,7 +430,7 @@ class _AccountPageState extends State<AccountPage> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 8.0),
+                                const SizedBox(height: 24.0),
                                 loading ? CircularProgressIndicator(
                                   color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
                                 ) : blank,
@@ -458,7 +459,7 @@ class _AccountPageState extends State<AccountPage> {
                       AppLocalizations.of(context)!.reAuth,
                       textScaleFactor: provider(context).tsf,
                       style: const TextStyle(
-                        fontSize: 30.0,
+                        fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -480,8 +481,8 @@ class _AccountPageState extends State<AccountPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Container(
-                        constraints: const BoxConstraints(
-                          maxWidth: 500.0,
+                        constraints: BoxConstraints(
+                          maxWidth: min(500.0, MediaQuery.of(context).size.width),
                         ),
                         child: Form(
                           key: reAuthFormKey,
