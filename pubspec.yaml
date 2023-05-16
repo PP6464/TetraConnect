@@ -42,6 +42,9 @@ dependencies:
   # Color picking
   flutter_colorpicker: ^1.0.3
   random_color: ^1.0.6-nullsafety
+  # Statistics
+  pie_chart: ^5.3.2
+  fine_bar_chart: ^0.0.3
 
 
 icons_launcher:
@@ -67,6 +70,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
+    - assets/circle.png
+    - assets/square.png
+    - assets/triangle.png
+    - assets/cross.png
   fonts:
     - family: Montserrat
       fonts:

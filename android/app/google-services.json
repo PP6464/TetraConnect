@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "821629462628-l3ia6264b3d5ia0ago1srgr1d3v281e3.apps.googleusercontent.com",
+              "client_id": "821629462628-5ecucu409vocirkl1hb5j1jdq0n3habd.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "app.web.tetraconnect.tetraconnect"
+                "bundle_id": "app.web.tetraconnect"
               }
             }
           ]
