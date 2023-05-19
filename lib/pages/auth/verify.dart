@@ -71,6 +71,7 @@ class _VerifyPageState extends State<VerifyPage> {
                 if (value == "logout") {
                   await auth.signOut();
                   (await SharedPreferences.getInstance()).remove("uid");
+                  provider(context).updateUser(null);
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => route.logout.widget,
