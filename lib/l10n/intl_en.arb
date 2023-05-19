@@ -91,5 +91,7 @@
       "month": {},
       "year": {}
     }
-  }
+  },
+  "forward": "Go forward",
+  "backward": "Go backward"
 }

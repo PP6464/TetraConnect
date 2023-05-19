@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accountDesc":
             MessageLookupByLibrary.simpleMessage("Manage your account details"),
         "appVersion": m0,
+        "backward": MessageLookupByLibrary.simpleMessage("Go backward"),
         "blank": MessageLookupByLibrary.simpleMessage("Blank"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "chooseInitialsColour":
@@ -67,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage(
             "Oh snap! There\'s been an error 😢."),
         "first": MessageLookupByLibrary.simpleMessage("1st"),
+        "forward": MessageLookupByLibrary.simpleMessage("Go forward"),
         "fourth": MessageLookupByLibrary.simpleMessage("4th"),
         "friends": MessageLookupByLibrary.simpleMessage("Friends"),
         "fundTetraConnect":

@@ -699,6 +699,26 @@ class S {
       args: [day, month, year],
     );
   }
+
+  /// `Go forward`
+  String get forward {
+    return Intl.message(
+      'Go forward',
+      name: 'forward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go backward`
+  String get backward {
+    return Intl.message(
+      'Go backward',
+      name: 'backward',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
