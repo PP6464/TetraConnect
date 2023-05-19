@@ -33,6 +33,7 @@ AppBar normalAppBar(BuildContext context, route? removedRoute) => AppBar(
             onSelected: (value) async {
               if (value == route.logout.value) {
                 await auth.signOut();
+                provider(context).updateUser(null);
                 (await SharedPreferences.getInstance()).remove("uid");
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
