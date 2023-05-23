@@ -719,6 +719,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Send friend request`
+  String get sendFriendRequest {
+    return Intl.message(
+      'Send friend request',
+      name: 'sendFriendRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending friend requests`
+  String get pendingFriendRequests {
+    return Intl.message(
+      'Pending friend requests',
+      name: 'pendingFriendRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incoming friend requests`
+  String get incomingFriendRequests {
+    return Intl.message(
+      'Incoming friend requests',
+      name: 'incomingFriendRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat with friends`
+  String get chatWithFriends {
+    return Intl.message(
+      'Chat with friends',
+      name: 'chatWithFriends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove friends`
+  String get removeFriends {
+    return Intl.message(
+      'Remove friends',
+      name: 'removeFriends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Display name`
+  String get displayName {
+    return Intl.message(
+      'Display name',
+      name: 'displayName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User ID`
+  String get uid {
+    return Intl.message(
+      'User ID',
+      name: 'uid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for user`
+  String get searchForUser {
+    return Intl.message(
+      'Search for user',
+      name: 'searchForUser',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove friend`
+  String get removeFriend {
+    return Intl.message(
+      'Remove friend',
+      name: 'removeFriend',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

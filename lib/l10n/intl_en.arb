@@ -93,5 +93,14 @@
     }
   },
   "forward": "Go forward",
-  "backward": "Go backward"
+  "backward": "Go backward",
+  "sendFriendRequest": "Send friend request",
+  "pendingFriendRequests": "Pending friend requests",
+  "incomingFriendRequests": "Incoming friend requests",
+  "chatWithFriends": "Chat with friends",
+  "removeFriends": "Remove friends",
+  "displayName": "Display name",
+  "uid": "User ID",
+  "searchForUser": "Search for user",
+  "removeFriend": "Remove friend"
 }

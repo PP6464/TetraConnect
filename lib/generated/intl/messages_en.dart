@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "backward": MessageLookupByLibrary.simpleMessage("Go backward"),
         "blank": MessageLookupByLibrary.simpleMessage("Blank"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+        "chatWithFriends":
+            MessageLookupByLibrary.simpleMessage("Chat with friends"),
         "chooseInitialsColour":
             MessageLookupByLibrary.simpleMessage("Choose initials colour"),
         "confirmPassword":
@@ -50,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Continue to home"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "date": m1,
+        "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "displayNameEmpty":
             MessageLookupByLibrary.simpleMessage("Display name is empty"),
         "displayNameNoProfanity": MessageLookupByLibrary.simpleMessage(
@@ -80,6 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "guide": MessageLookupByLibrary.simpleMessage("Guide"),
         "hidePassword": MessageLookupByLibrary.simpleMessage("Hide password"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "incomingFriendRequests":
+            MessageLookupByLibrary.simpleMessage("Incoming friend requests"),
         "initials": MessageLookupByLibrary.simpleMessage("Initials"),
         "keepLoggedIn":
             MessageLookupByLibrary.simpleMessage("Keep me logged in"),
@@ -97,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Password must have no profanity"),
         "passwordsNotMatching":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "pendingFriendRequests":
+            MessageLookupByLibrary.simpleMessage("Pending friend requests"),
         "placeTooltip": m2,
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "randomise": MessageLookupByLibrary.simpleMessage("Randomise"),
@@ -107,9 +114,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "reAuthVerb": MessageLookupByLibrary.simpleMessage("Re-authenticate"),
         "reAuthentication":
             MessageLookupByLibrary.simpleMessage("Re-Authentication"),
+        "removeFriend": MessageLookupByLibrary.simpleMessage("Remove friend"),
+        "removeFriends": MessageLookupByLibrary.simpleMessage("Remove friends"),
         "results": MessageLookupByLibrary.simpleMessage("Results:"),
         "saveChanges": MessageLookupByLibrary.simpleMessage("Save changes"),
+        "searchForUser":
+            MessageLookupByLibrary.simpleMessage("Search for user"),
         "second": MessageLookupByLibrary.simpleMessage("2nd"),
+        "sendFriendRequest":
+            MessageLookupByLibrary.simpleMessage("Send friend request"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showPassword": MessageLookupByLibrary.simpleMessage("Show password"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
@@ -121,6 +134,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "timeControl": MessageLookupByLibrary.simpleMessage("Time Control"),
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
         "uiMode": MessageLookupByLibrary.simpleMessage("UI Mode"),
+        "uid": MessageLookupByLibrary.simpleMessage("User ID"),
         "verificationEmail": m4,
         "yourID": m5
       };
