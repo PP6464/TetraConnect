@@ -142,8 +142,8 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                   (data) {
                                     return data.docs.where((element) => element["users"].contains(users[index].reference)).isEmpty
                                         ? SizedBox(
-                                      height: 75.0,
-                                          child: Card(
+                                            height: 75.0,
+                                            child: Card(
                                               elevation: 2.0,
                                               child: ListTile(
                                                 leading: CircleAvatar(
@@ -161,18 +161,21 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),
                                                   onPressed: () async {
-                                                    firestore.collection("friends").add({
-                                                      "users": [
-                                                        provider(context).user!.ref,
-                                                        users[index].reference,
-                                                      ],
-                                                      "state": "pending",
-                                                    });
+                                                    firestore.collection("friends").add(
+                                                      {
+                                                        "users": [
+                                                          provider(context).user!.ref,
+                                                          users[index].reference,
+                                                        ],
+                                                        "state": "pending",
+                                                        "from": provider(context).user!.ref,
+                                                      },
+                                                    );
                                                   },
                                                 ),
                                               ),
                                             ),
-                                        )
+                                          )
                                         : blank;
                                   },
                                 ),
