@@ -61,7 +61,7 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                   ),
                   Text(
                     AppLocalizations.of(context)!.sendFriendRequest,
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: const TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                       const SizedBox(width: 8.0),
                       Text(
                         AppLocalizations.of(context)!.displayName,
-                        textScaleFactor: provider(context).tsf,
+                        textScaler: TextScaler.linear(provider(context).tsf),
                         style: const TextStyle(
                           fontSize: 15.0,
                         ),
@@ -114,7 +114,7 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                       const SizedBox(width: 8.0),
                       Text(
                         AppLocalizations.of(context)!.uid,
-                        textScaleFactor: provider(context).tsf,
+                        textScaler: TextScaler.linear(provider(context).tsf),
                         style: const TextStyle(
                           fontSize: 15.0,
                         ),
@@ -152,11 +152,11 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                 ),
                                                 title: Text(
                                                   users[index]["displayName"],
-                                                  textScaleFactor: provider(context).tsf,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
                                                 ),
                                                 subtitle: Text(
                                                   users[index].id,
-                                                  textScaleFactor: provider(context).tsf,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
                                                 ),
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),

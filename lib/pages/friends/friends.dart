@@ -45,7 +45,7 @@ class _FriendsPageState extends State<FriendsPage> {
                   ),
                   Text(
                     AppLocalizations.of(context)!.friends,
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: const TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         leading: const Icon(Icons.message),
                         title: Text(
                           AppLocalizations.of(context)!.chatWithFriends,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -86,7 +86,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         leading: const Icon(Icons.delete),
                         title: Text(
                           AppLocalizations.of(context)!.removeFriend,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -106,7 +106,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         leading: const Icon(Icons.send),
                         title: Text(
                           AppLocalizations.of(context)!.sendFriendRequest,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -126,7 +126,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         leading: const Icon(Icons.call_received),
                         title: Text(
                           AppLocalizations.of(context)!.incomingFriendRequests,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -146,7 +146,7 @@ class _FriendsPageState extends State<FriendsPage> {
                         leading: const Icon(Icons.pending_actions),
                         title: Text(
                           AppLocalizations.of(context)!.pendingFriendRequests,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),

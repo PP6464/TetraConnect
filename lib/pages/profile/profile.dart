@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text(
                     AppLocalizations.of(context)!.profile,
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: const TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Text(
                     AppLocalizations.of(context)!.yourID(provider(context).user!.uid),
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: TextStyle(
                       fontSize: 12.5,
                       color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
@@ -75,11 +75,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         title: Text(
                           AppLocalizations.of(context)!.account,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context)!.accountDesc,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -101,11 +101,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         title: Text(
                           AppLocalizations.of(context)!.gameLog,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context)!.gameLogDesc,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -127,11 +127,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         title: Text(
                           AppLocalizations.of(context)!.statistics,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                         subtitle: Text(
                           AppLocalizations.of(context)!.statisticsDesc,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),

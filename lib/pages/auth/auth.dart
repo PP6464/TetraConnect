@@ -43,7 +43,7 @@ class _AuthPageState extends State<AuthPage> {
           children: [
             Text(
               "TetraConnect",
-              textScaleFactor: provider(context).tsf,
+              textScaler: TextScaler.linear(provider(context).tsf),
             ),
             const Spacer(),
             logo(),
@@ -62,7 +62,7 @@ class _AuthPageState extends State<AuthPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "TetraConnect",
-                  textScaleFactor: provider(context).tsf,
+                  textScaler: TextScaler.linear(provider(context).tsf),
                   style: const TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class _AuthPageState extends State<AuthPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     AppLocalizations.of(context)!.login,
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17.5,
@@ -115,7 +115,7 @@ class _AuthPageState extends State<AuthPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     AppLocalizations.of(context)!.signup,
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17.5,

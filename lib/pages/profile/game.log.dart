@@ -43,7 +43,7 @@ class _GameLogPageState extends State<GameLogPage> {
                   ),
                   Text(
                     AppLocalizations.of(context)!.gameLog,
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                     style: const TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
@@ -89,11 +89,11 @@ class _GameLogPageState extends State<GameLogPage> {
                                                   : result == "3rd"
                                                       ? AppLocalizations.of(context)!.third
                                                       : AppLocalizations.of(context)!.fourth,
-                                          textScaleFactor: provider(context).tsf,
+                                          textScaler: TextScaler.linear(provider(context).tsf),
                                         ),
                                         title: Text(
                                           timeStampString,
-                                          textScaleFactor: provider(context).tsf,
+                                          textScaler: TextScaler.linear(provider(context).tsf),
                                         ),
                                       ),
                                     ),

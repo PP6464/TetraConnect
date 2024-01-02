@@ -25,7 +25,7 @@ AppBar normalAppBar(BuildContext context, route? removedRoute) => AppBar(
         children: [
           Text(
             "TetraConnect",
-            textScaleFactor: provider(context, true).tsf,
+            textScaler: TextScaler.linear(provider(context, true).tsf),
           ),
           const Spacer(),
           logo(),
@@ -65,7 +65,7 @@ AppBar normalAppBar(BuildContext context, route? removedRoute) => AppBar(
                               fontWeight: FontWeight.bold,
                             )
                           : null,
-                  textScaleFactor: provider(context).tsf,
+                  textScaler: TextScaler.linear(provider(context).tsf),
                 ),
               ),
             ),
@@ -85,7 +85,7 @@ Widget asyncBuilder<T>(BuildContext context, AsyncSnapshot<T> snapshot, Widget F
 }
 
 Text errorText(BuildContext context) => Text(AppLocalizations.of(context)!.error,
-    textScaleFactor: provider(context).tsf,
+    textScaler: TextScaler.linear(provider(context).tsf),
     style: const TextStyle(
       fontSize: 17.5,
     ));

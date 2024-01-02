@@ -43,7 +43,7 @@ class _GuidePageState extends State<GuidePage> {
             const SizedBox(width: 8.0),
             Text(
               AppLocalizations.of(context)!.continueToHome,
-              textScaleFactor: provider(context).tsf,
+              textScaler: TextScaler.linear(provider(context).tsf),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15.0,

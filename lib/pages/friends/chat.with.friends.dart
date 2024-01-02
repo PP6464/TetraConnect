@@ -32,7 +32,7 @@ class _ChatWithFriendsPageState extends State<ChatWithFriendsPage> {
               ),
               Text(
                 AppLocalizations.of(context)!.chatWithFriends,
-                textScaleFactor: provider(context).tsf,
+                textScaler: TextScaler.linear(provider(context).tsf),
                 style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,

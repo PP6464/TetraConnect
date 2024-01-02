@@ -132,7 +132,7 @@ class _GameViewPageState extends State<GameViewPage> {
                                           ),
                                           Text(
                                             userData["displayName"],
-                                            textScaleFactor: provider(context).tsf,
+                                            textScaler: TextScaler.linear(provider(context).tsf),
                                             style: TextStyle(
                                               fontWeight: index == userIndex ? FontWeight.bold : FontWeight.normal,
                                               fontSize: index == userIndex ? 20.0 : 17.5,

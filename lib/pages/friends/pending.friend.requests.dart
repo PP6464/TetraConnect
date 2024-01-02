@@ -32,7 +32,7 @@ class _PendingFriendRequestsState extends State<PendingFriendRequestsPage> {
               ),
               Text(
                 AppLocalizations.of(context)!.pendingFriendRequests,
-                textScaleFactor: provider(context).tsf,
+                textScaler: TextScaler.linear(provider(context).tsf),
                 style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,

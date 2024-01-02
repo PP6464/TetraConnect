@@ -37,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 Text(
                   AppLocalizations.of(context)!.settings,
-                  textScaleFactor: provider(context, true).tsf,
+                  textScaler: TextScaler.linear(provider(context, true).tsf),
                   style: const TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4.0),
@@ -48,7 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     snapshot,
                         (packageInfo) => Text(
                       AppLocalizations.of(context)!.appVersion("${packageInfo.version}+${packageInfo.buildNumber}"),
-                      textScaleFactor: provider(context).tsf,
+                      textScaler: TextScaler.linear(provider(context).tsf),
                       style: TextStyle(
                         fontSize: 12.5,
                         color: Colors.grey[500],
@@ -61,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.tsf,
-                      textScaleFactor: provider(context, true).tsf,
+                      textScaler: TextScaler.linear(provider(context, true).tsf),
                       style: const TextStyle(
                         fontSize: 15.0,
                       ),
@@ -85,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.uiMode,
-                      textScaleFactor: provider(context, true).tsf,
+                      textScaler: TextScaler.linear(provider(context, true).tsf),
                       style: const TextStyle(
                         fontSize: 15.0,
                       ),
@@ -106,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   title: Text(
                     AppLocalizations.of(context)!.light,
-                    textScaleFactor: provider(context, true).tsf,
+                    textScaler: TextScaler.linear(provider(context, true).tsf),
                     style: const TextStyle(
                       fontSize: 15.0,
                     ),
@@ -125,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   title: Text(
                     AppLocalizations.of(context)!.dark,
-                    textScaleFactor: provider(context, true).tsf,
+                    textScaler: TextScaler.linear(provider(context, true).tsf),
                     style: const TextStyle(
                       fontSize: 15.0,
                     ),
@@ -144,7 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   title: Text(
                     AppLocalizations.of(context)!.system,
-                    textScaleFactor: provider(context, true).tsf,
+                    textScaler: TextScaler.linear(provider(context, true).tsf),
                     style: const TextStyle(
                       fontSize: 15.0,
                     ),

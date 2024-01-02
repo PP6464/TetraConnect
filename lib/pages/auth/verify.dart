@@ -62,7 +62,7 @@ class _VerifyPageState extends State<VerifyPage> {
           children: <Widget>[
             Text(
               "TetraConnect",
-              textScaleFactor: provider(context).tsf,
+              textScaler: TextScaler.linear(provider(context).tsf),
             ),
             const Spacer(),
             logo(),
@@ -88,7 +88,7 @@ class _VerifyPageState extends State<VerifyPage> {
                     style: TextStyle(
                       color: theme.error.colour,
                     ),
-                    textScaleFactor: provider(context).tsf,
+                    textScaler: TextScaler.linear(provider(context).tsf),
                   ),
                 ),
               ],
@@ -101,7 +101,7 @@ class _VerifyPageState extends State<VerifyPage> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             AppLocalizations.of(context)!.verificationEmail(auth.currentUser!.email!),
-            textScaleFactor: provider(context).tsf,
+            textScaler: TextScaler.linear(provider(context).tsf),
             textAlign: TextAlign.center,
           ),
         ),

@@ -57,7 +57,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                           ),
                           Text(
                             AppLocalizations.of(context)!.statistics,
-                            textScaleFactor: provider(context).tsf,
+                            textScaler: TextScaler.linear(provider(context).tsf),
                             style: const TextStyle(
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                           const SizedBox(height: 8.0),
                           Text(
                             AppLocalizations.of(context)!.rating(provider(context).user!.rating),
-                            textScaleFactor: provider(context).tsf,
+                            textScaler: TextScaler.linear(provider(context).tsf),
                             style: TextStyle(
                               fontSize: 13.5,
                               color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
@@ -75,7 +75,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                           const SizedBox(height: 8.0),
                           Text(
                             AppLocalizations.of(context)!.results,
-                            textScaleFactor: provider(context).tsf,
+                            textScaler: TextScaler.linear(provider(context).tsf),
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

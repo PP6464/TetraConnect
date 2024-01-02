@@ -57,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Text(
               "TetraConnect",
-              textScaleFactor: provider(context).tsf,
+              textScaler: TextScaler.linear(provider(context).tsf),
             ),
             const Spacer(),
             logo(),
@@ -84,7 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         AppLocalizations.of(context)!.signup,
-                        textScaleFactor: provider(context).tsf,
+                        textScaler: TextScaler.linear(provider(context).tsf),
                         style: const TextStyle(
                           fontSize: 25.0,
                           fontWeight: FontWeight.bold,
@@ -105,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         prefixIcon: const Icon(Icons.person),
                         label: Text(
                           AppLocalizations.of(context)!.enterDisplayName,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -125,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         prefixIcon: const Icon(Icons.email),
                         label: Text(
                           AppLocalizations.of(context)!.enterEmail,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -153,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         label: Text(
                           AppLocalizations.of(context)!.enterPassword,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -179,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         label: Text(
                           AppLocalizations.of(context)!.confirmPassword,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                         ),
                       ),
                     ),
@@ -203,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           const SizedBox(width: 8.0),
                           Text(
                             AppLocalizations.of(context)!.keepLoggedIn,
-                            textScaleFactor: provider(context).tsf,
+                            textScaler: TextScaler.linear(provider(context).tsf),
                             style: const TextStyle(
                               fontSize: 17.5,
                             ),
@@ -253,7 +253,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           AppLocalizations.of(context)!.signup,
-                          textScaleFactor: provider(context).tsf,
+                          textScaler: TextScaler.linear(provider(context).tsf),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

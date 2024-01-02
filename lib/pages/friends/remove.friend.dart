@@ -32,7 +32,7 @@ class _RemoveFriendPageState extends State<RemoveFriendPage> {
               ),
               Text(
                 AppLocalizations.of(context)!.removeFriends,
-                textScaleFactor: provider(context).tsf,
+                textScaler: TextScaler.linear(provider(context).tsf),
                 style: const TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,
