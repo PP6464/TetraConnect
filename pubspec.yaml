@@ -15,29 +15,29 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   # Launcher
-  icons_launcher: ^2.0.0
-  flutter_app_name: ^0.1.1
+  icons_launcher: ^2.1.6
+  # flutter_app_name: ^0.1.1
   # Firebase
-  firebase_core: ^2.10.0
-  cloud_firestore: ^4.5.2
-  firebase_storage: ^11.1.1
-  firebase_auth: ^4.4.2
-  firebase_messaging: ^14.4.1
-  firebase_analytics: ^10.3.0
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.13.6
+  firebase_storage: ^11.5.6
+  firebase_auth: ^4.15.3
+  firebase_messaging: ^14.7.9
+  firebase_analytics: ^10.7.4
   # App state
-  shared_preferences: ^2.1.0
-  provider: ^6.0.5
+  shared_preferences: ^2.2.2
+  provider: ^6.1.1
   # Notifications
   overlay_support: ^2.1.0
   # Localisation
-  intl: ^0.17.0
+  intl: ^0.18.1
   # Profanity
   profanity_filter: ^2.0.0
   # Version info
-  package_info_plus: ^3.1.2
+  package_info_plus: ^5.0.1
   # File picking
   images_picker: ^1.2.11
-  file_picker: ^5.2.9
+  file_picker: ^6.1.1
   image_picker: ^0.8.7+4
   # Color picking
   flutter_colorpicker: ^1.0.3
@@ -57,8 +57,8 @@ icons_launcher:
     web:
       enable: true
 
-flutter_app_name:
-  name: "TetraConnect"
+# flutter_app_name:
+  # name: "TetraConnect"
 
 dev_dependencies:
   flutter_test:
