@@ -151,7 +151,7 @@ class _AccountPageState extends State<AccountPage> {
                                           builder: (context) => AlertDialog(
                                             title: Text(
                                               AppLocalizations.of(context)!.chooseInitialsColour,
-                                              textScaleFactor: provider(context).tsf,
+                                              textScaler: TextScaler.linear(provider(context).tsf),
                                             ),
                                             content: BlockPicker(
                                               pickerColor: initialsColour,
@@ -171,7 +171,7 @@ class _AccountPageState extends State<AccountPage> {
                                                 },
                                                 child: Text(
                                                   AppLocalizations.of(context)!.randomise,
-                                                  textScaleFactor: provider(context).tsf,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
                                                 ),
                                               ),
                                               TextButton(
@@ -180,7 +180,7 @@ class _AccountPageState extends State<AccountPage> {
                                                 },
                                                 child: Text(
                                                   AppLocalizations.of(context)!.ok,
-                                                  textScaleFactor: provider(context).tsf,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
                                                   style: const TextStyle(
                                                     color: Colors.green,
                                                   ),
@@ -253,42 +253,42 @@ class _AccountPageState extends State<AccountPage> {
                                       value: PicSrc.blank,
                                       child: Text(
                                         AppLocalizations.of(context)!.blank,
-                                        textScaleFactor: provider(context).tsf,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
                                       ),
                                     ),
                                     DropdownMenuItem<PicSrc>(
                                       value: PicSrc.initials,
                                       child: Text(
                                         AppLocalizations.of(context)!.initials,
-                                        textScaleFactor: provider(context).tsf,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
                                       ),
                                     ),
                                     DropdownMenuItem<PicSrc>(
                                       value: PicSrc.gallery,
                                       child: Text(
                                         AppLocalizations.of(context)!.gallery,
-                                        textScaleFactor: provider(context).tsf,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
                                       ),
                                     ),
                                     DropdownMenuItem<PicSrc>(
                                       value: PicSrc.camera,
                                       child: Text(
                                         AppLocalizations.of(context)!.camera,
-                                        textScaleFactor: provider(context).tsf,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
                                       ),
                                     ),
                                     DropdownMenuItem<PicSrc>(
                                       value: PicSrc.noChange,
                                       child: Text(
                                         AppLocalizations.of(context)!.noChange,
-                                        textScaleFactor: provider(context).tsf,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.account,
-                                  textScaleFactor: provider(context).tsf,
+                                  textScaler: TextScaler.linear(provider(context).tsf),
                                   style: const TextStyle(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
@@ -308,7 +308,7 @@ class _AccountPageState extends State<AccountPage> {
                                     decoration: InputDecoration(
                                       label: Text(
                                         AppLocalizations.of(context)!.enterDisplayName,
-                                        textScaleFactor: provider(context).tsf,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
                                       ),
                                       prefixIcon: const Icon(Icons.person),
                                       border: const OutlineInputBorder(),
@@ -327,7 +327,7 @@ class _AccountPageState extends State<AccountPage> {
                                   decoration: InputDecoration(
                                     label: Text(
                                       AppLocalizations.of(context)!.enterEmail,
-                                      textScaleFactor: provider(context).tsf,
+                                      textScaler: TextScaler.linear(provider(context).tsf),
                                     ),
                                     prefixIcon: const Icon(Icons.email),
                                     border: const OutlineInputBorder(),
@@ -341,7 +341,7 @@ class _AccountPageState extends State<AccountPage> {
                                     return null;
                                   },
                                 ),
-                                const SizedBox(height: 8.0),
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: profilePassword,
                                   obscureText: profileObscurePassword,
@@ -365,7 +365,7 @@ class _AccountPageState extends State<AccountPage> {
                                     ),
                                     label: Text(
                                       AppLocalizations.of(context)!.enterPassword,
-                                      textScaleFactor: provider(context).tsf,
+                                      textScaler: TextScaler.linear(provider(context).tsf),
                                     ),
                                   ),
                                 ),
@@ -422,7 +422,7 @@ class _AccountPageState extends State<AccountPage> {
                                   },
                                   child: Text(
                                     AppLocalizations.of(context)!.saveChanges,
-                                    textScaleFactor: provider(context).tsf,
+                                    textScaler: TextScaler.linear(provider(context).tsf),
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 17.5,
@@ -431,12 +431,66 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 24.0),
-                                loading ? CircularProgressIndicator(
-                                  color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
-                                ) : blank,
+                                loading
+                                    ? CircularProgressIndicator(
+                                        color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
+                                      )
+                                    : blank,
                               ],
                             ),
                           ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                AppLocalizations.of(context)!.deleteAccount,
+                                textScaler: TextScaler.linear(provider(context).tsf),
+                                style: const TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              content: Text(
+                                AppLocalizations.of(context)!.deleteAccountWarning,
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!.cancel,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () async {},
+                                  child: Text(
+                                    AppLocalizations.of(context)!.ok,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.red.colour,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.deleteAccount,
+                        textScaler: TextScaler.linear(provider(context).tsf),
+                        style: const TextStyle(
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -457,7 +511,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     Text(
                       AppLocalizations.of(context)!.reAuth,
-                      textScaleFactor: provider(context).tsf,
+                      textScaler: TextScaler.linear(provider(context).tsf),
                       style: const TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -470,7 +524,7 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       child: Text(
                         AppLocalizations.of(context)!.reAuthDesc,
-                        textScaleFactor: provider(context).tsf,
+                        textScaler: TextScaler.linear(provider(context).tsf),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12.0,
@@ -570,7 +624,7 @@ class _AccountPageState extends State<AccountPage> {
                       },
                       child: Text(
                         AppLocalizations.of(context)!.reAuthVerb,
-                        textScaleFactor: provider(context).tsf,
+                        textScaler: TextScaler.linear(provider(context).tsf),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
