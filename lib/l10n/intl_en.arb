@@ -102,5 +102,8 @@
   "displayName": "Display name",
   "uid": "User ID",
   "searchForUser": "Search for user",
-  "removeFriend": "Remove friend"
+  "removeFriend": "Remove friend",
+  "deleteAccount": "Delete account",
+  "deleteAccountWarning": "Delete account warning",
+  "cancel": "Cancel"
 }
