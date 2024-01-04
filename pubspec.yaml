@@ -45,6 +45,8 @@ dependencies:
   # Statistics
   pie_chart: ^5.3.2
   fine_bar_chart: ^0.0.3
+  # Permissions
+  permission_handler: ^11.1.0
 
 
 icons_launcher:
