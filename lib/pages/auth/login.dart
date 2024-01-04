@@ -1,10 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -176,16 +178,27 @@ class _LoginPageState extends State<LoginPage> {
                             password: passwordController.text,
                           );
                           (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
-                          (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
                           await provider(context).updateUser(await models.User.fromUID(credential.user!.uid));
-                          if (credential.user!.emailVerified) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ));
-                          } else {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const VerifyPage(),
-                            ));
+                          (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
+                          await Permission.notification.request();
+                          String? token;
+                          try {
+                            token = await messaging.getToken(vapidKey: kIsWeb ? vapidKey : null);
+                          } finally {
+                            if (token != null) {
+                              await (await models.User.fromUID(credential.user!.uid)).ref.update({
+                                "${getPlatformName()}_tokens": FieldValue.arrayUnion([token]),
+                              });
+                            }
+                            if (credential.user!.emailVerified) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const VerifyPage(),
+                              ));
+                            }
                           }
                         } on FirebaseException catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(

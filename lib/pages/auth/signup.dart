@@ -227,15 +227,28 @@ class _SignUpPageState extends State<SignUpPage> {
                           );
                           credential.user!.updateDisplayName(displayNameController.text);
                           credential.user!.updatePhotoURL(blankPicUrl);
-                          firestore.doc("users/${credential.user!.uid}").set({
-                            "displayName": displayNameController.text,
-                            "email": emailController.text,
-                            "photoUrl": blankPicUrl,
-                            "rating": 0,
-                          });
-                          (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
-                          (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
-                          await provider(context).updateUser(await models.User.fromUID(credential.user!.uid));
+                          String? token;
+                          try {
+                            token = await messaging.getToken();
+                          } finally {
+                            firestore.doc("users/${credential.user!.uid}").set(token == null
+                                ? {
+                                    "displayName": displayNameController.text,
+                                    "email": emailController.text,
+                                    "photoUrl": blankPicUrl,
+                                    "rating": 0,
+                                  }
+                                : {
+                                    "displayName": displayNameController.text,
+                                    "email": emailController.text,
+                                    "photoUrl": blankPicUrl,
+                                    "rating": 0,
+                                    "${getPlatformName()}_tokens": [token],
+                                  });
+                            (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
+                            (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
+                            await provider(context).updateUser(await models.User.fromUID(credential.user!.uid));
+                          }
                         } on FirebaseException catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
