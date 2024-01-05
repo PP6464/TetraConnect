@@ -47,7 +47,8 @@ dependencies:
   fine_bar_chart: ^0.0.3
   # Permissions
   permission_handler: ^11.1.0
-
+  # Http calls & downloads
+  dio: ^5.3.3
 
 icons_launcher:
   image_path: "assets/logo.png"
