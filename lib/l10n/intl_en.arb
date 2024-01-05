@@ -105,5 +105,7 @@
   "removeFriend": "Remove friend",
   "deleteAccount": "Delete account",
   "deleteAccountWarning": "Delete account warning",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "sending": "Sending ...",
+  "sent": "Sent"
 }
