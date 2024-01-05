@@ -38,14 +38,14 @@ class _GuidePageState extends State<GuidePage> {
           children: [
             const Icon(
               Icons.home,
-              color: Colors.white,
+              color: Colors.black,
             ),
             const SizedBox(width: 8.0),
             Text(
               AppLocalizations.of(context)!.continueToHome,
               textScaler: TextScaler.linear(provider(context).tsf),
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 15.0,
               ),
             )
