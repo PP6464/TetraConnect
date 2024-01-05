@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dio/dio.dart';
 
 import '../../ui/elements.dart';
 import '../../util/route.dart';
@@ -135,12 +138,12 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                             itemCount: users.length,
                             itemBuilder: (BuildContext context, int index) {
                               return StreamBuilder(
-                                stream: firestore.collection("friends").where("users", arrayContains: provider(context).user!.ref).snapshots(),
+                                stream: firestore.collection("friends").where("from", isEqualTo: provider(context).user!.ref).where("users", arrayContains: users[index].reference).snapshots(),
                                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) => asyncBuilder(
                                   context,
                                   snapshot,
                                   (data) {
-                                    return data.docs.where((element) => element["users"].contains(users[index].reference)).isEmpty
+                                    return data.docs.isEmpty
                                         ? SizedBox(
                                             height: 75.0,
                                             child: Card(
@@ -161,15 +164,36 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),
                                                   onPressed: () async {
-                                                    firestore.collection("friends").add(
-                                                      {
-                                                        "users": [
-                                                          provider(context).user!.ref,
-                                                          users[index].reference,
-                                                        ],
-                                                        "state": "pending",
-                                                        "from": provider(context).user!.ref,
-                                                      },
+                                                    // firestore.collection("friends").add(
+                                                    //   {
+                                                    //     "users": [
+                                                    //       provider(context).user!.ref,
+                                                    //       users[index].reference,
+                                                    //     ],
+                                                    //     "state": "pending",
+                                                    //     "from": provider(context).user!.ref,
+                                                    //   },
+                                                    // );
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          AppLocalizations.of(context)!.sending,
+                                                          textScaler: TextScaler.linear(provider(context).tsf),
+                                                        ),
+                                                      ),
+                                                    );
+                                                    await Dio().get("$apiUrl/friend-request/send", queryParameters: {
+                                                      "from": provider(context).user!.uid,
+                                                      "to": users[index].id,
+                                                    });
+                                                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          AppLocalizations.of(context)!.sent,
+                                                          textScaler: TextScaler.linear(provider(context).tsf),
+                                                        ),
+                                                      ),
                                                     );
                                                   },
                                                 ),
