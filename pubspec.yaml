@@ -49,6 +49,8 @@ dependencies:
   permission_handler: ^11.1.0
   # Http calls & downloads
   dio: ^5.3.3
+  # Notifications
+  flutter_local_notifications: ^10.0.0-dev.1
 
 icons_launcher:
   image_path: "assets/logo.png"
