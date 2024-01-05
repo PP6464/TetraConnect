@@ -107,5 +107,11 @@
   "deleteAccountWarning": "Delete account warning",
   "cancel": "Cancel",
   "sending": "Sending ...",
-  "sent": "Sent"
+  "sent": "Sent",
+  "notificationSentFriendRequestTitle": "{name} has sent a friend request",
+  "@notificationSentFriendRequestTitle": {
+    "placeholders": {
+      "name": {}
+    }
+  }
 }
