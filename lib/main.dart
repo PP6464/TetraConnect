@@ -1,7 +1,9 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +14,8 @@ import './firebase_options.dart';
 import './provider/app.settings.dart';
 import './ui/theme.dart';
 import 'pages/auth/auth.dart';
+
+Future<void> onBackgroundMessage(RemoteMessage _) async {}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +61,57 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage msg) async {
+      if (msg.data["type"] == "call") {
+        if (!kIsWeb) {
+          FlutterLocalNotificationsPlugin plugin = FlutterLocalNotificationsPlugin();
+          const AndroidNotificationChannel notificationChannel = AndroidNotificationChannel(
+            'max_importance_channel', // id
+            'Max Importance Notifications', // title
+            description: 'This channel is used for maximum important notifications.', // description
+            importance: Importance.max,
+          );
+          await plugin.initialize(
+            const InitializationSettings(
+              android: AndroidInitializationSettings(
+                "@drawable/ic_notification",
+              ),
+            ),
+          );
+          await plugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(notificationChannel);
+          plugin.show(
+            msg.notification!.hashCode,
+            msg.notification!.title,
+            msg.notification!.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                notificationChannel.id,
+                notificationChannel.name,
+                channelDescription: notificationChannel.description,
+                icon: "@drawable/ic_notification",
+              ),
+            ),
+          );
+        }
+        return;
+      }
+      if (msg.data["type"] == "friendRequest") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context)!.notificationSentFriendRequestTitle(msg.data["fromDisplayName"]),
+              textScaler: TextScaler.linear(provider(context).tsf),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+            backgroundColor: Theme.of(context).colorScheme.background,
+          ),
+        );
+      }
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {});
+    FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
     return Consumer<AppSettings>(
       builder: (context, appState, child) {
         return MaterialApp(
