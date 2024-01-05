@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tetraconnect/pages/auth/verify.dart';
 import 'package:tetraconnect/pages/home/home.dart';
 
@@ -20,17 +25,32 @@ class _AuthPageState extends State<AuthPage> {
   @override
   void initState() {
     super.initState();
+    initPlatformState();
+  }
+
+  void initPlatformState() async {
     if (provider(context).user != null) {
-      Future.delayed(
-        Duration.zero,
-        () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => auth.currentUser!.emailVerified ? const HomePage() : const VerifyPage(),
-            ),
-          );
-        },
-      );
+      String? token;
+      await Permission.notification.request();
+      try {
+        token = await messaging.getToken(vapidKey: kIsWeb ? vapidKey : null);
+        if (token != null) {
+          await provider(context).user!.ref.update({
+            "${getPlatformName()}_tokens": FieldValue.arrayUnion([token]),
+          });
+        }
+      } finally {
+        Future.delayed(
+          Duration.zero,
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => auth.currentUser!.emailVerified ? const HomePage() : const VerifyPage(),
+              ),
+            );
+          },
+        );
+      }
     }
   }
 
