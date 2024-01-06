@@ -12,26 +12,16 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
-messaging.setBackgroundMessageHandler(function (payload) {
-    const promiseChain = clients
-        .matchAll({
-            type: "window",
-            includeUncontrolled: true
-        })
-        .then(windowClients => {
-            for (let i = 0; i < windowClients.length; i++) {
-                const windowClient = windowClients[i];
-                windowClient.postMessage(payload);
-            }
-        })
-        .then(() => {
-            const title = payload.notification.title;
-            const options = {
-                body: payload.notification.score
-              };
-            return registration.showNotification(title, options);
-        });
-    return promiseChain;
+messaging.onBackgroundMessage(function (payload) {
+  console.log("Received background message ", payload);
+  // Customize notification here
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: "https://firebasestorage.googleapis.com/v0/b/tetraconnect.appspot.com/o/app%2Flogo.png?alt=media&token=b4855885-c37b-4cee-a773-a847bc30dd73",
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
 });
 self.addEventListener('notificationclick', function (event) {
     console.log('notification received: ', event)
