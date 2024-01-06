@@ -175,7 +175,7 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                         ),
                                                       ),
                                                     );
-                                                    await Dio().get("$apiUrl/friend-request/send", queryParameters: {
+                                                    await Dio().put("$apiUrl/friend-request/send", queryParameters: {
                                                       "from": provider(context).user!.uid,
                                                       "to": users[index].id,
                                                     });
