@@ -157,9 +157,12 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                   users[index]["displayName"],
                                                   textScaler: TextScaler.linear(provider(context).tsf),
                                                 ),
-                                                subtitle: Text(
-                                                  users[index].id,
-                                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                                subtitle: SingleChildScrollView(
+                                                  scrollDirection: Axis.horizontal,
+                                                  child: Text(
+                                                    users[index].id,
+                                                    textScaler: TextScaler.linear(provider(context).tsf),
+                                                  ),
                                                 ),
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),
