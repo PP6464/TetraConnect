@@ -21,6 +21,16 @@ messaging.onBackgroundMessage(function (payload) {
     icon: "https://firebasestorage.googleapis.com/v0/b/tetraconnect.appspot.com/o/app%2Flogo.png?alt=media&token=b4855885-c37b-4cee-a773-a847bc30dd73",
   };
 
+  if (Notification.permission === "granted") {
+    new Notification(
+        notificationTitle,
+        {
+            body: payload.notification.body,
+            icon: "https://firebasestorage.googleapis.com/v0/b/tetraconnect.appspot.com/o/app%2Flogo.png?alt=media&token=b4855885-c37b-4cee-a773-a847bc30dd73",
+        }
+    );
+  }
+
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 self.addEventListener('notificationclick', function (event) {
