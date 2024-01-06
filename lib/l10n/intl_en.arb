@@ -118,5 +118,7 @@
   "noPendingRequests": "No pending friend requests",
   "noIncomingRequests": "No incoming friend requests",
   "noChatFriends": "No friends to chat with",
-  "noRemoveFriends": "No friends to remove"
+  "noRemoveFriends": "No friends to remove",
+  "accept": "Accept",
+  "reject": "Reject"
 }
