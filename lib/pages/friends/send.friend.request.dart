@@ -167,26 +167,21 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),
                                                   onPressed: () async {
-                                                    ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(
-                                                        content: Text(
-                                                          AppLocalizations.of(context)!.sending,
-                                                          textScaler: TextScaler.linear(provider(context).tsf),
-                                                        ),
-                                                      ),
-                                                    );
-                                                    await Dio().put("$apiUrl/friend-request/send", queryParameters: {
-                                                      "from": provider(context).user!.uid,
-                                                      "to": users[index].id,
+                                                    await firestore.collection("friends").add({
+                                                      "users": [
+                                                        provider(context).user!.ref,
+                                                        users[index].reference,
+                                                      ],
+                                                      "from": provider(context).user!.ref,
+                                                      "to": users[index].reference,
+                                                      "state": "pending",
                                                     });
-                                                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                                                    ScaffoldMessenger.of(context).showSnackBar(
-                                                      SnackBar(
-                                                        content: Text(
-                                                          AppLocalizations.of(context)!.sent,
-                                                          textScaler: TextScaler.linear(provider(context).tsf),
-                                                        ),
-                                                      ),
+                                                    Dio().put(
+                                                      "$apiUrl/friend-request/send",
+                                                      queryParameters: {
+                                                        "from": provider(context).user!.uid,
+                                                        "to": users[index].id,
+                                                      },
                                                     );
                                                   },
                                                 ),

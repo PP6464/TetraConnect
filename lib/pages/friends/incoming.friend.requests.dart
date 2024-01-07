@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +90,10 @@ class _IncomingFriendRequestPageState extends State<IncomingFriendRequestPage> {
                                           IconButton(
                                             tooltip: AppLocalizations.of(context)!.accept,
                                             onPressed: () async {
-                                              await Dio().patch(
+                                              await data.docs[index].reference.update({
+                                                "state": "accepted",
+                                              });
+                                              Dio().patch(
                                                 "$apiUrl/friend-request/accept/${data.docs[index].id}",
                                                 queryParameters: {
                                                   "acceptedBy": provider(context).user!.uid,
@@ -101,7 +106,8 @@ class _IncomingFriendRequestPageState extends State<IncomingFriendRequestPage> {
                                           IconButton(
                                             tooltip: AppLocalizations.of(context)!.reject,
                                             onPressed: () async {
-                                              await Dio().patch(
+                                              await data.docs[index].reference.delete();
+                                              Dio().patch(
                                                 "$apiUrl/friend-request/reject/${data.docs[index].id}",
                                                 queryParameters: {
                                                   "rejectedBy": provider(context).user!.uid,
