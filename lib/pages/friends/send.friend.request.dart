@@ -167,15 +167,6 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),
                                                   onPressed: () async {
-                                                    await firestore.collection("friends").add({
-                                                      "users": [
-                                                        provider(context).user!.ref,
-                                                        users[index].reference,
-                                                      ],
-                                                      "from": provider(context).user!.ref,
-                                                      "to": users[index].reference,
-                                                      "state": "pending",
-                                                    });
                                                     Dio().put(
                                                       "$apiUrl/friend-request/send",
                                                       queryParameters: {
