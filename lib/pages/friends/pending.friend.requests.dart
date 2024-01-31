@@ -49,7 +49,7 @@ class _PendingFriendRequestsState extends State<PendingFriendRequestsPage> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: StreamBuilder<QuerySnapshot>(
-                    stream: firestore.collection("friends").where("from", isEqualTo: provider(context).user!.ref).snapshots(),
+                    stream: firestore.collection("friends").where("from", isEqualTo: provider(context).user!.ref).where("state", isEqualTo: "pending").snapshots(),
                     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       return asyncBuilder(
                         context,
