@@ -167,7 +167,7 @@ class _SendFriendRequestState extends State<SendFriendRequest> {
                                                 trailing: IconButton(
                                                   icon: const Icon(Icons.send),
                                                   onPressed: () async {
-                                                    Dio().put(
+                                                    Dio().post(
                                                       "$apiUrl/friend-request/send",
                                                       queryParameters: {
                                                         "from": provider(context).user!.uid,
