@@ -1,4 +1,6 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:profanity_filter/profanity_filter.dart';
@@ -116,6 +118,15 @@ class _FriendChatPageState extends State<FriendChatPage> {
                       tooltip: AppLocalizations.of(context)!.sendMessage,
                       onPressed: () async {
                         if (!formKey.currentState!.validate()) return;
+                        await Dio().post(
+                          "$apiUrl/friend/message",
+                          queryParameters: {
+                            "user": provider(context).user!.uid,
+                            "friend": widget.friendId,
+                            "text": message.text,
+                          },
+                        );
+                        await (AudioPlayer()..audioCache = AudioCache(prefix: "")).play(AssetSource("assets/sent_comment.wav"));
                         setState(() {
                           message.clear();
                         });
