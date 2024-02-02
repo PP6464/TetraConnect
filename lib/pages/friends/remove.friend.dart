@@ -91,7 +91,7 @@ class _RemoveFriendPageState extends State<RemoveFriendPage> {
                                       tooltip: AppLocalizations.of(context)!.removeFriend,
                                       onPressed: () async {
                                         await Dio().post(
-                                          "$apiUrl/friend-request/remove",
+                                          "$apiUrl/friend/remove",
                                           queryParameters: {
                                             "user": provider(context).user!.uid,
                                             "removed": friend.id,
