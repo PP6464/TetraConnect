@@ -100,6 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "light": MessageLookupByLibrary.simpleMessage("Light"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "messageNoProfanity": MessageLookupByLibrary.simpleMessage(
+            "Message must not contain profanity"),
+        "messageRequired":
+            MessageLookupByLibrary.simpleMessage("Message required"),
         "noChange": MessageLookupByLibrary.simpleMessage("No change"),
         "noChatFriends":
             MessageLookupByLibrary.simpleMessage("No friends to chat with"),
@@ -142,13 +146,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "second": MessageLookupByLibrary.simpleMessage("2nd"),
         "sendFriendRequest":
             MessageLookupByLibrary.simpleMessage("Send friend request"),
+        "sendMessage": MessageLookupByLibrary.simpleMessage("Send message"),
         "sending": MessageLookupByLibrary.simpleMessage("Sending ..."),
         "sent": MessageLookupByLibrary.simpleMessage("Sent"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showPassword": MessageLookupByLibrary.simpleMessage("Show password"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "startConversation":
-            MessageLookupByLibrary.simpleMessage("Start the conversation"),
+            MessageLookupByLibrary.simpleMessage("Start the conversation!"),
         "statistics": MessageLookupByLibrary.simpleMessage("Statistics"),
         "statisticsDesc":
             MessageLookupByLibrary.simpleMessage("View your game statistics"),

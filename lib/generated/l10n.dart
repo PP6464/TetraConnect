@@ -940,11 +940,41 @@ class S {
     );
   }
 
-  /// `Start the conversation`
+  /// `Start the conversation!`
   String get startConversation {
     return Intl.message(
-      'Start the conversation',
+      'Start the conversation!',
       name: 'startConversation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send message`
+  String get sendMessage {
+    return Intl.message(
+      'Send message',
+      name: 'sendMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message required`
+  String get messageRequired {
+    return Intl.message(
+      'Message required',
+      name: 'messageRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message must not contain profanity`
+  String get messageNoProfanity {
+    return Intl.message(
+      'Message must not contain profanity',
+      name: 'messageNoProfanity',
       desc: '',
       args: [],
     );

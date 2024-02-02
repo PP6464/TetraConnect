@@ -121,5 +121,8 @@
   "noRemoveFriends": "No friends to remove",
   "accept": "Accept",
   "reject": "Reject",
-  "startConversation": "Start the conversation"
+  "startConversation": "Start the conversation!",
+  "sendMessage": "Send message",
+  "messageRequired": "Message required",
+  "messageNoProfanity": "Message must not contain profanity"
 }
