@@ -66,7 +66,7 @@ class _RemoveFriendPageState extends State<RemoveFriendPage> {
                           itemCount: friends.docs.length,
                           itemBuilder: (BuildContext context, int index) => Card(
                             child: StreamBuilder(
-                              stream: (friends.docs[index]["users"] as List<DocumentReference>)
+                              stream: (friends.docs[index]["users"])
                                   .singleWhere((element) => element.id != provider(context).user!.uid)
                                   .snapshots(),
                               builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
@@ -91,7 +91,7 @@ class _RemoveFriendPageState extends State<RemoveFriendPage> {
                                       tooltip: AppLocalizations.of(context)!.removeFriend,
                                       onPressed: () async {
                                         await Dio().post(
-                                          "$apiUrl/friend/remove",
+                                          "$apiUrl/friend-request/remove",
                                           queryParameters: {
                                             "user": provider(context).user!.uid,
                                             "removed": friend.id,
