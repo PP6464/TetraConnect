@@ -24,17 +24,20 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(day, month, year) => "${day}/${month}/${year}";
 
-  static String m2(place) => "Number of times you have finished ${place}";
+  static String m2(name) => "${name} has sent a friend request";
 
-  static String m3(rating) => "Rating: ${rating}";
+  static String m3(place) => "Number of times you have finished ${place}";
 
-  static String m4(verificationEmail) =>
+  static String m4(rating) => "Rating: ${rating}";
+
+  static String m5(verificationEmail) =>
       "A verification email has been sent to ${verificationEmail}. If you have not received the email, then check your spam or junk folders for the email";
 
-  static String m5(id) => "Your ID: ${id}";
+  static String m6(id) => "Your ID: ${id}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "account": MessageLookupByLibrary.simpleMessage("Account"),
         "accountDesc":
             MessageLookupByLibrary.simpleMessage("Manage your account details"),
@@ -42,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "backward": MessageLookupByLibrary.simpleMessage("Go backward"),
         "blank": MessageLookupByLibrary.simpleMessage("Blank"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chatWithFriends":
             MessageLookupByLibrary.simpleMessage("Chat with friends"),
         "chooseInitialsColour":
@@ -52,6 +56,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Continue to home"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "date": m1,
+        "deleteAccount": MessageLookupByLibrary.simpleMessage("Delete account"),
+        "deleteAccountWarning":
+            MessageLookupByLibrary.simpleMessage("Delete account warning"),
+        "deleteFriendRequest":
+            MessageLookupByLibrary.simpleMessage("Delete friend request"),
         "displayName": MessageLookupByLibrary.simpleMessage("Display name"),
         "displayNameEmpty":
             MessageLookupByLibrary.simpleMessage("Display name is empty"),
@@ -92,6 +101,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "noChange": MessageLookupByLibrary.simpleMessage("No change"),
+        "noChatFriends":
+            MessageLookupByLibrary.simpleMessage("No friends to chat with"),
+        "noIncomingRequests":
+            MessageLookupByLibrary.simpleMessage("No incoming friend requests"),
+        "noPendingRequests":
+            MessageLookupByLibrary.simpleMessage("No pending friend requests"),
+        "noRemoveFriends":
+            MessageLookupByLibrary.simpleMessage("No friends to remove"),
+        "notificationSentFriendRequestTitle": m2,
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "passwordCharacters": MessageLookupByLibrary.simpleMessage(
             "Password must have:\n- A special character\n- A capital letter\n- A number\n- A lower case letter"),
@@ -104,16 +122,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
         "pendingFriendRequests":
             MessageLookupByLibrary.simpleMessage("Pending friend requests"),
-        "placeTooltip": m2,
+        "placeTooltip": m3,
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "randomise": MessageLookupByLibrary.simpleMessage("Randomise"),
-        "rating": m3,
+        "rating": m4,
         "reAuth": MessageLookupByLibrary.simpleMessage("Re-authentication"),
         "reAuthDesc": MessageLookupByLibrary.simpleMessage(
             "You must re-authenticate before modifying your profile to ensure your account is secure"),
         "reAuthVerb": MessageLookupByLibrary.simpleMessage("Re-authenticate"),
         "reAuthentication":
             MessageLookupByLibrary.simpleMessage("Re-Authentication"),
+        "reject": MessageLookupByLibrary.simpleMessage("Reject"),
         "removeFriend": MessageLookupByLibrary.simpleMessage("Remove friend"),
         "removeFriends": MessageLookupByLibrary.simpleMessage("Remove friends"),
         "results": MessageLookupByLibrary.simpleMessage("Results:"),
@@ -123,9 +142,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "second": MessageLookupByLibrary.simpleMessage("2nd"),
         "sendFriendRequest":
             MessageLookupByLibrary.simpleMessage("Send friend request"),
+        "sending": MessageLookupByLibrary.simpleMessage("Sending ..."),
+        "sent": MessageLookupByLibrary.simpleMessage("Sent"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "showPassword": MessageLookupByLibrary.simpleMessage("Show password"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "startConversation":
+            MessageLookupByLibrary.simpleMessage("Start the conversation"),
         "statistics": MessageLookupByLibrary.simpleMessage("Statistics"),
         "statisticsDesc":
             MessageLookupByLibrary.simpleMessage("View your game statistics"),
@@ -135,7 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
         "uiMode": MessageLookupByLibrary.simpleMessage("UI Mode"),
         "uid": MessageLookupByLibrary.simpleMessage("User ID"),
-        "verificationEmail": m4,
-        "yourID": m5
+        "verificationEmail": m5,
+        "yourID": m6
       };
 }

@@ -809,6 +809,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete account`
+  String get deleteAccount {
+    return Intl.message(
+      'Delete account',
+      name: 'deleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete account warning`
+  String get deleteAccountWarning {
+    return Intl.message(
+      'Delete account warning',
+      name: 'deleteAccountWarning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sending ...`
+  String get sending {
+    return Intl.message(
+      'Sending ...',
+      name: 'sending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sent`
+  String get sent {
+    return Intl.message(
+      'Sent',
+      name: 'sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name} has sent a friend request`
+  String notificationSentFriendRequestTitle(Object name) {
+    return Intl.message(
+      '$name has sent a friend request',
+      name: 'notificationSentFriendRequestTitle',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `Delete friend request`
+  String get deleteFriendRequest {
+    return Intl.message(
+      'Delete friend request',
+      name: 'deleteFriendRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No pending friend requests`
+  String get noPendingRequests {
+    return Intl.message(
+      'No pending friend requests',
+      name: 'noPendingRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No incoming friend requests`
+  String get noIncomingRequests {
+    return Intl.message(
+      'No incoming friend requests',
+      name: 'noIncomingRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No friends to chat with`
+  String get noChatFriends {
+    return Intl.message(
+      'No friends to chat with',
+      name: 'noChatFriends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No friends to remove`
+  String get noRemoveFriends {
+    return Intl.message(
+      'No friends to remove',
+      name: 'noRemoveFriends',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reject`
+  String get reject {
+    return Intl.message(
+      'Reject',
+      name: 'reject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start the conversation`
+  String get startConversation {
+    return Intl.message(
+      'Start the conversation',
+      name: 'startConversation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

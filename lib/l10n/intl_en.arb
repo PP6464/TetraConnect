@@ -120,5 +120,6 @@
   "noChatFriends": "No friends to chat with",
   "noRemoveFriends": "No friends to remove",
   "accept": "Accept",
-  "reject": "Reject"
+  "reject": "Reject",
+  "startConversation": "Start the conversation"
 }

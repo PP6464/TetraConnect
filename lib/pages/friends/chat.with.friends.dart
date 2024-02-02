@@ -57,44 +57,49 @@ class _ChatWithFriendsPageState extends State<ChatWithFriendsPage> {
                       maxWidth: 500.0,
                       maxHeight: 500.0,
                     ),
-                    child: friends.docs.isEmpty ? Text(
-                      AppLocalizations.of(context)!.noChatFriends,
-                      textScaler: TextScaler.linear(provider(context).tsf),
-                    ) : ListView.builder(
-                      itemCount: friends.docs.length,
-                      itemBuilder: (BuildContext context, int index) => StreamBuilder(
-                        stream: friends.docs[index]["users"].singleWhere((elem) => elem.id != provider(context).user!.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
-                          context,
-                          snapshot,
-                          (user) => GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => FriendChatPage(friendId: friends.docs[index].id),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  radius: 25.0,
-                                  backgroundImage: NetworkImage(user["photoUrl"]),
-                                ),
-                                title: Text(
-                                  user["displayName"],
-                                  textScaler: TextScaler.linear(provider(context).tsf),
-                                ),
-                                subtitle: Text(
-                                  user.id,
-                                  textScaler: TextScaler.linear(provider(context).tsf),
+                    child: friends.docs.isEmpty
+                        ? Text(
+                            AppLocalizations.of(context)!.noChatFriends,
+                            textScaler: TextScaler.linear(provider(context).tsf),
+                          )
+                        : ListView.builder(
+                            itemCount: friends.docs.length,
+                            itemBuilder: (BuildContext context, int index) => StreamBuilder(
+                              stream: friends.docs[index]["users"].singleWhere((elem) => elem.id != provider(context).user!.uid).snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
+                                context,
+                                snapshot,
+                                (user) => GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => FriendChatPage(
+                                          friendId: friends.docs[index].id,
+                                          otherUser: user.id,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    child: ListTile(
+                                      leading: CircleAvatar(
+                                        radius: 25.0,
+                                        backgroundImage: NetworkImage(user["photoUrl"]),
+                                      ),
+                                      title: Text(
+                                        user["displayName"],
+                                        textScaler: TextScaler.linear(provider(context).tsf),
+                                      ),
+                                      subtitle: Text(
+                                        user.id,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
                   ),
                 ),
               ),
