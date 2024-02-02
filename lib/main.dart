@@ -15,7 +15,10 @@ import './provider/app.settings.dart';
 import './ui/theme.dart';
 import 'pages/auth/auth.dart';
 
-Future<void> onBackgroundMessage(RemoteMessage _) async {}
+@pragma('vm:entry-point')
+Future<void> onBackgroundMessage(RemoteMessage message) async {
+
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +51,15 @@ void main() async {
       user: await User.fromUID(uid),
     );
   }
+  await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
   runApp(
     ChangeNotifierProvider(
       create: (_) => AppSettings(values),
