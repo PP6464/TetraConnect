@@ -66,37 +66,77 @@ class _FriendChatPageState extends State<FriendChatPage> {
               ),
             ),
             StreamBuilder(
-              stream: firestore.collection("users/${widget.friendId}/messages").snapshots(),
+              stream: firestore
+                  .collection("friends/${widget.friendId}/messages")
+                  .orderBy("time")
+                  .snapshots(),
               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) => asyncBuilder(
                 context,
                 snapshot,
                 (messages) => messages.docs.isEmpty
                     ? Expanded(
-                      child: Text(
+                        child: Text(
                           AppLocalizations.of(context)!.startConversation,
                           textScaler: TextScaler.linear(provider(context).tsf),
                         ),
-                    )
+                      )
                     : Expanded(
-                      child: ListView.builder(
-                        itemCount: messages.docs.length,
-                        itemBuilder: (BuildContext context, int index) => Card(
-                          child: Text(
-                            messages.docs[index]["text"],
-                            textScaler: TextScaler.linear(provider(context).tsf),
-                          ),
+                        child: ListView.builder(
+                          itemCount: messages.docs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            QueryDocumentSnapshot message = messages.docs[index];
+                            DateTime time = message["time"].toDate();
+                            return Align(
+                              alignment: message["user"].id == provider(context).user!.uid ? Alignment.centerRight : Alignment.centerLeft,
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: 0.8 * MediaQuery.of(context).size.width,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: Card(
+                                    color: message["user"].id == provider(context).user!.uid ? Colors.white : Colors.black,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!.timestamp(
+                                              time.hour.toString().padLeft(2, '0'),
+                                              time.minute.toString().padLeft(2, '0'),
+                                              time.day.toString().padLeft(2, '0'),
+                                              time.month.toString().padLeft(2, '0'),
+                                              time.year.toString().padLeft(2, '0'),
+                                            ),
+                                            textScaler: TextScaler.linear(provider(context).tsf),
+                                            style: TextStyle(
+                                              color: Colors.grey[500],
+                                            ),
+                                          ),
+                                          Text(
+                                            messages.docs[index]["text"],
+                                            textScaler: TextScaler.linear(provider(context).tsf),
+                                            style: TextStyle(
+                                              color: message["user"].id == provider(context).user!.uid ? Colors.black : Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ),
               ),
             ),
             Form(
               key: formKey,
-              child: Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 500.0,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
                   controller: message,
                   validator: (String? value) {
@@ -112,7 +152,10 @@ class _FriendChatPageState extends State<FriendChatPage> {
                       AppLocalizations.of(context)!.sendMessage,
                       textScaler: TextScaler.linear(provider(context).tsf),
                     ),
-                    prefixIcon: const Icon(Icons.message),
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 8.0),
+                      child: Icon(Icons.message),
+                    ),
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.send),
                       tooltip: AppLocalizations.of(context)!.sendMessage,

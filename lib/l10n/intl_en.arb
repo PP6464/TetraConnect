@@ -124,5 +124,15 @@
   "startConversation": "Start the conversation!",
   "sendMessage": "Send message",
   "messageRequired": "Message required",
-  "messageNoProfanity": "Message must not contain profanity"
+  "messageNoProfanity": "Message must not contain profanity",
+  "timestamp": "{hours}:{minutes} {day}/{month}/{year}",
+  "@timestamp": {
+    "placeholders": {
+      "hours": {},
+      "minutes": {},
+      "day": {},
+      "month": {},
+      "year": {}
+    }
+  }
 }

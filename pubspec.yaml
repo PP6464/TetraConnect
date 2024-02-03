@@ -81,6 +81,7 @@ flutter:
     - assets/square.png
     - assets/triangle.png
     - assets/cross.png
+    - assets/sent_comment.wav
   fonts:
     - family: Montserrat
       fonts:
