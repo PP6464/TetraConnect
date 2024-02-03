@@ -134,5 +134,8 @@
       "month": {},
       "year": {}
     }
-  }
+  },
+  "searchingForPlayers": "Searching for players ...",
+  "numberOfPlayers": "{n}/4 players found",
+  "startGame": "Start a game!"
 }
