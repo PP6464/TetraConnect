@@ -29,129 +29,141 @@ class _GameViewPageState extends State<GameViewPage> {
     return Scaffold(
       appBar: normalAppBar(context, route.profile),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: FutureBuilder<QuerySnapshot>(
-            future: widget.gameRef.collection("moves").get(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) => asyncBuilder(
-              context,
-              data,
-              (gameData) {
-                List<QueryDocumentSnapshot> turns = gameData.docs;
-                return Column(
-                  children: [
-                    CustomPaint(
-                      size: Size(
-                        min(400.0, MediaQuery.of(context).size.width),
-                        min(400.0, MediaQuery.of(context).size.width),
-                      ),
-                      painter: BoardPainter(
-                        turns: turns,
-                        moveIndex: moveIndex,
-                        turnIndex: turnIndex,
-                        context: context,
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        moveIndex == 0 && turnIndex == 0
-                            ? blank
-                            : IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (turnIndex == 0) {
-                                      turnIndex = 3;
-                                      moveIndex--;
-                                    } else {
-                                      turnIndex--;
-                                    }
-                                    if (userIndex == 0) {
-                                      userIndex = 3;
-                                    } else {
-                                      userIndex--;
-                                    }
-                                  });
-                                },
-                                tooltip: AppLocalizations.of(context)!.backward,
-                                icon: const Icon(Icons.arrow_back),
-                              ),
-                        const SizedBox(width: 8.0),
-                        moveIndex == turns.length - 1 && turnIndex == (turns.last.data() as Map).length
-                            ? blank
-                            : IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (turnIndex == 3) {
-                                      turnIndex = 0;
-                                      moveIndex++;
-                                    } else {
-                                      turnIndex++;
-                                    }
-                                    if (userIndex == 3) {
-                                      userIndex = 0;
-                                    } else {
-                                      userIndex++;
-                                    }
-                                  });
-                                },
-                                tooltip: AppLocalizations.of(context)!.forward,
-                                icon: const Icon(Icons.arrow_forward),
-                              ),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Center(
-                      child: FutureBuilder(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: FutureBuilder<QuerySnapshot>(
+              future: widget.gameRef.collection("moves").get(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> data) => asyncBuilder(
+                context,
+                data,
+                (gameData) {
+                  List<QueryDocumentSnapshot> turns = gameData.docs;
+                  return Column(
+                    children: [
+                      FutureBuilder(
                         future: widget.gameRef.get(),
                         builder: (context, snapshot) => asyncBuilder(
                           context,
                           snapshot,
-                          (data) {
-                            return SizedBox(
-                              height: 200.0,
-                              child: ListView.builder(
-                                itemExtent: 50.0,
-                                itemCount: 4,
-                                itemBuilder: (context, index) => StreamBuilder(
-                                  stream: (data["players"][turnOrder[index]] as DocumentReference).snapshots(),
-                                  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
-                                    context,
-                                    snapshot,
-                                    (userData) {
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CircleAvatar(
-                                              foregroundImage: NetworkImage(userData["photoUrl"]),
-                                              radius: 34.0,
-                                            ),
-                                          ),
-                                          Text(
-                                            userData["displayName"],
-                                            textScaler: TextScaler.linear(provider(context).tsf),
-                                            style: TextStyle(
-                                              fontWeight: index == userIndex ? FontWeight.bold : FontWeight.normal,
-                                              fontSize: index == userIndex ? 20.0 : 17.5,
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
+                          (game) {
+                            return CustomPaint(
+                              size: Size(
+                                min(400.0, MediaQuery.of(context).size.width),
+                                min(400.0, MediaQuery.of(context).size.width),
+                              ),
+                              painter: BoardPainter(
+                                turns: turns,
+                                moveIndex: moveIndex,
+                                turnIndex: turnIndex,
+                                lines: game["lines"],
+                                context: context,
                               ),
                             );
                           },
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          moveIndex == 0 && turnIndex == 0
+                              ? blank
+                              : IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (turnIndex == 0) {
+                                        turnIndex = 3;
+                                        moveIndex--;
+                                      } else {
+                                        turnIndex--;
+                                      }
+                                      if (userIndex == 0) {
+                                        userIndex = 3;
+                                      } else {
+                                        userIndex--;
+                                      }
+                                    });
+                                  },
+                                  tooltip: AppLocalizations.of(context)!.backward,
+                                  icon: const Icon(Icons.arrow_back),
+                                ),
+                          const SizedBox(width: 8.0),
+                          moveIndex == turns.length - 1 && turnIndex == (turns.last.data() as Map).length
+                              ? blank
+                              : IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (turnIndex == 3) {
+                                        turnIndex = 0;
+                                        moveIndex++;
+                                      } else {
+                                        turnIndex++;
+                                      }
+                                      if (userIndex == 3) {
+                                        userIndex = 0;
+                                      } else {
+                                        userIndex++;
+                                      }
+                                    });
+                                  },
+                                  tooltip: AppLocalizations.of(context)!.forward,
+                                  icon: const Icon(Icons.arrow_forward),
+                                ),
+                        ],
+                      ),
+                      const SizedBox(height: 8.0),
+                      Center(
+                        child: FutureBuilder(
+                          future: widget.gameRef.get(),
+                          builder: (context, snapshot) => asyncBuilder(
+                            context,
+                            snapshot,
+                            (data) {
+                              return SizedBox(
+                                height: 200.0,
+                                child: ListView.builder(
+                                  itemExtent: 50.0,
+                                  itemCount: 4,
+                                  itemBuilder: (context, index) => StreamBuilder(
+                                    stream: (data["players"][turnOrder[index]] as DocumentReference).snapshots(),
+                                    builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
+                                      context,
+                                      snapshot,
+                                      (userData) {
+                                        return Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: CircleAvatar(
+                                                foregroundImage: NetworkImage(userData["photoUrl"]),
+                                                radius: 34.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              userData["displayName"],
+                                              textScaler: TextScaler.linear(provider(context).tsf),
+                                              style: TextStyle(
+                                                fontWeight: index == userIndex ? FontWeight.bold : FontWeight.normal,
+                                                fontSize: index == userIndex ? 20.0 : 17.5,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -160,14 +172,41 @@ class _GameViewPageState extends State<GameViewPage> {
   }
 }
 
+class Line {
+  final List<List<int>> points;
+  final int moveIndex;
+  final int turnIndex;
+
+  Line({required this.points, required this.moveIndex, required this.turnIndex});
+
+  static Line fromString(String l) {
+    List<int> values = l.split(",").map((e) => int.parse(e)).toList();
+    return Line(
+      points: [
+        [
+          values[0],
+          values[1],
+        ],
+        [
+          values[2],
+          values[3],
+        ],
+      ],
+      moveIndex: values[4],
+      turnIndex: values[5],
+    );
+  }
+}
+
 class BoardPainter extends CustomPainter {
   List<String> turnOrder = ["circle", "square", "triangle", "cross"];
   BuildContext context;
   final List<QueryDocumentSnapshot> turns;
+  final List lines; // Show line when 4 in a row made
   int moveIndex;
   int turnIndex;
 
-  BoardPainter({required this.context, required this.turns, required this.moveIndex, required this.turnIndex});
+  BoardPainter({required this.context, required this.turns, required this.moveIndex, required this.turnIndex, required this.lines});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -305,6 +344,22 @@ class BoardPainter extends CustomPainter {
             break;
         }
       }
+    }
+    // Render lines
+    List<Line> linesToRender = lines.map((e) => Line.fromString(e)).toList();
+    linesToRender = linesToRender.where((element) => element.moveIndex < moveIndex || (element.moveIndex == moveIndex && element.turnIndex < turnIndex)).toList(); // Only render lines once the 4 in a row is formed
+    for (Line line in linesToRender) {
+      Path linePath = Path();
+      linePath.moveTo(line.points[0][0] * size.width / (points.length) + size.width / (2 * (points.length)), size.height - (line.points[0][1] * size.height / (points.length) + size.height / (2 * (points.length))));
+      linePath.lineTo(line.points[1][0] * size.width / (points.length) + size.width / (2 * (points.length)), size.height - (line.points[1][1] * size.height / (points.length) + size.height / (2 * (points.length))));
+      canvas.drawPath(
+        linePath,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..color = isDarkMode(context) ? Colors.white : Colors.black
+          ..strokeWidth = 6
+          ..strokeCap = StrokeCap.round,
+      );
     }
   }
 
