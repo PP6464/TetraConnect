@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tetraconnect/provider/app.settings.dart';
 
 import '../../ui/elements.dart';
 import '../../ui/theme.dart';
+import '../../util/api.dart';
 import '../../util/route.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool matchmaking = false;
   int players = 0;
+  String lobbyId = "";
+  List<String> turnOrder = ["circle", "square", "triangle", "cross"];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +45,35 @@ class _HomePageState extends State<HomePage> {
                         matchmaking = true;
                         players = 1;
                       });
+                      QuerySnapshot lobbies = await firestore.collection("lobbies").where("playerCount", isLessThan: 4).get();
+                      if (lobbies.docs.isEmpty) {
+                        // Create a new lobby
+                        firestore.collection("lobbies").add({
+                          "players": {
+                            "circle": provider(context).user!.ref,
+                          },
+                          "playerCount": 1,
+                          "avgRating": provider(context).user!.rating,
+                        });
+                      } else {
+                        // Join existing lobby with closest average rating
+                        QueryDocumentSnapshot lobby = (lobbies.docs
+                              ..sort((a, b) {
+                                return (a["avgRating"] - provider(context).user!.rating).abs() - (b["avgRating"] - provider(context).user!.rating);
+                              }))
+                            .first;
+                        lobbyId = lobby.id;
+                        await lobby.reference.update({
+                          "players": {
+                            turnOrder[lobby["playerCount"]]: provider(context).user!.ref,
+                          },
+                          "playerCount": FieldValue.increment(1),
+                          "avgRating": (lobby["avgRating"] * lobby["playerCount"] + provider(context).user!.rating) / (lobby["playerCount"] + 1),
+                        });
+                        setState(() {
+                          players = lobby["playerCount"] + 1;
+                        });
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
