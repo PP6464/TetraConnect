@@ -979,6 +979,47 @@ class S {
       args: [],
     );
   }
+
+  /// `{hours}:{minutes} {day}/{month}/{year}`
+  String timestamp(
+      Object hours, Object minutes, Object day, Object month, Object year) {
+    return Intl.message(
+      '$hours:$minutes $day/$month/$year',
+      name: 'timestamp',
+      desc: '',
+      args: [hours, minutes, day, month, year],
+    );
+  }
+
+  /// `Searching for players ...`
+  String get searchingForPlayers {
+    return Intl.message(
+      'Searching for players ...',
+      name: 'searchingForPlayers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{n}/4 players found`
+  String numberOfPlayers(Object n) {
+    return Intl.message(
+      '$n/4 players found',
+      name: 'numberOfPlayers',
+      desc: '',
+      args: [n],
+    );
+  }
+
+  /// `Start a game!`
+  String get startGame {
+    return Intl.message(
+      'Start a game!',
+      name: 'startGame',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

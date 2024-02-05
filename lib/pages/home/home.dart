@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                         await lobby.reference.update({
                           "players": {
                             turnOrder[lobby["playerCount"]]: provider(context).user!.ref,
+                            ...lobby["players"],
                           },
                           "playerCount": FieldValue.increment(1),
                           "avgRating": (lobby["avgRating"] * lobby["playerCount"] + provider(context).user!.rating) / (lobby["playerCount"] + 1),
@@ -111,6 +113,23 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onPressed: () async {
+                      DocumentSnapshot lobby = await firestore.doc("lobbies/$lobbyId").get();
+                      if (lobby["playerCount"] == 1) {
+                        await lobby.reference.delete();
+                      } else {
+                        String shape = lobby["players"].entries.where((e) => e.value = provider(context).user!.ref).single.key;
+                        int shapeIndex = turnOrder.indexOf(shape);
+                        Map<String, DocumentReference> newPlayers = lobby["players"];
+                        for (int i = shapeIndex + 1; i < 4; i++) {
+                          if (lobby["players"][turnOrder[i]] == null) break;
+                          newPlayers[turnOrder[i - 1]] = lobby["players"][turnOrder[i]];
+                        }
+                        await lobby.reference.update({
+                          "avgRating": (lobby["avgRating"] * lobby["playerCount"] - provider(context).user!.rating) / (lobby["playerCount"] - 1),
+                          "playerCount": FieldValue.increment(-1),
+                          "players": newPlayers,
+                        });
+                      }
                       setState(() {
                         matchmaking = false;
                         players = 0;
