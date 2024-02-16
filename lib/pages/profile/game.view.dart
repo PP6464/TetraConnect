@@ -20,9 +20,37 @@ class GameViewPage extends StatefulWidget {
 
 class _GameViewPageState extends State<GameViewPage> {
   int moveIndex = 0;
-  int turnIndex = 0;
+  int turnIndex = -1;
   int userIndex = -1;
   List<String> turnOrder = ["circle", "square", "triangle", "cross"];
+
+  void nextTurn() {
+    if (turnIndex == 3) {
+      turnIndex = 0;
+      moveIndex++;
+    } else {
+      turnIndex++;
+    }
+    if (userIndex == 3) {
+      userIndex = 0;
+    } else {
+      userIndex++;
+    }
+  }
+
+  void prevTurn() {
+    if (turnIndex == 0) {
+      turnIndex = 3;
+      moveIndex--;
+    } else {
+      turnIndex--;
+    }
+    if (userIndex == 0) {
+      userIndex = 3;
+    } else {
+      userIndex--;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +87,19 @@ class _GameViewPageState extends State<GameViewPage> {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              moveIndex == 0 && turnIndex == 0
+                              moveIndex <= 0 && turnIndex < 0
                                   ? blank
                                   : IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    if (turnIndex == 0) {
-                                      turnIndex = 3;
-                                      moveIndex--;
-                                    } else {
-                                      turnIndex--;
-                                    }
-                                    if (userIndex == 0) {
-                                      userIndex = 3;
-                                    } else {
-                                      userIndex--;
+                                    prevTurn();
+                                    try {
+                                      while (turns[moveIndex][turnOrder[turnIndex]] == null) {
+                                        prevTurn();
+                                      }
+                                    } catch (e) {
+                                      moveIndex = 0;
+                                      turnIndex = -1;
                                     }
                                   });
                                 },
@@ -86,16 +112,9 @@ class _GameViewPageState extends State<GameViewPage> {
                                   : IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    if (turnIndex == 3) {
-                                      turnIndex = 0;
-                                      moveIndex++;
-                                    } else {
-                                      turnIndex++;
-                                    }
-                                    if (userIndex == 3) {
-                                      userIndex = 0;
-                                    } else {
-                                      userIndex++;
+                                    nextTurn();
+                                    while (turns[moveIndex][turnOrder[turnIndex]] == null && moveIndex < turns.length && turnIndex < (moveIndex == turns.length - 1 ? turns.last.length : 4)) {
+                                      nextTurn();
                                     }
                                   });
                                 },
@@ -132,8 +151,8 @@ class _GameViewPageState extends State<GameViewPage> {
                                             userData["displayName"],
                                             textScaler: TextScaler.linear(provider(context).tsf),
                                             style: TextStyle(
-                                              fontWeight: index == userIndex ? FontWeight.bold : FontWeight.normal,
-                                              fontSize: index == userIndex ? 20.0 : 17.5,
+                                              fontWeight: index == (turnIndex) % 4 ? FontWeight.bold : FontWeight.normal,
+                                              fontSize: index == (turnIndex) % 4 ? 20.0 : 17.5,
                                             ),
                                           ),
                                         ],
@@ -214,8 +233,8 @@ class BoardPainter extends CustomPainter {
     List<List<String>> points = List.generate(10, (index) => []);
     for (int i = 0; i <= moveIndex; i++) {
       Map<String, dynamic> turn = turns[i];
-      for (int j = 0; j < (i == moveIndex ? turnIndex : 4); j++) {
-        if (turn[turnOrder[j]] != null) points[turn[turnOrder[j]]! - 1].add(turnOrder[j]);
+      for (int j = 0; j < (i == moveIndex ? turnIndex + 1 : 4); j++) {
+        if (turn[turnOrder[j]] != null) points[turn[turnOrder[j]]].add(turnOrder[j]);
       }
     }
     // Render pieces
@@ -333,7 +352,7 @@ class BoardPainter extends CustomPainter {
     }
     // Render lines
     List<Line> linesToRender = lines.map((e) => Line.fromString(e)).toList();
-    linesToRender = linesToRender.where((element) => element.moveIndex < moveIndex || (element.moveIndex == moveIndex && element.turnIndex < turnIndex)).toList(); // Only render lines once the 4 in a row is formed
+    linesToRender = linesToRender.where((element) => element.moveIndex < moveIndex || (element.moveIndex == moveIndex && element.turnIndex <= turnIndex)).toList(); // Only render lines once the 4 in a row is formed
     for (Line line in linesToRender) {
       Path linePath = Path();
       linePath.moveTo(line.points[0][0] * size.width / (points.length) + size.width / (2 * (points.length)), size.height - (line.points[0][1] * size.height / (points.length) + size.height / (2 * (points.length))));
