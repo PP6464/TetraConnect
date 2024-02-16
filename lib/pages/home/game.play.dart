@@ -16,24 +16,28 @@ class GamePlayPage extends StatefulWidget {
 
 class _GamePlayPageState extends State<GamePlayPage> {
   int currentPlayerIndex = 0;
+  bool canPop = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: normalAppBar(context, route.home),
-      body: StreamBuilder(
-        stream: firestore.doc("games/${widget.gameId}").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
-          context,
-          snapshot,
-          (game) {
-            if (!game["isPlaying"]) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pop();
-              });
-            }
-            return blank;
-          },
+    return PopScope(
+      canPop: canPop,
+      child: Scaffold(
+        appBar: normalAppBar(context, route.home),
+        body: StreamBuilder(
+          stream: firestore.doc("games/${widget.gameId}").snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
+            context,
+            snapshot,
+            (game) {
+              if (!game["isPlaying"]) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.of(context).pop();
+                });
+              }
+              return blank;
+            },
+          ),
         ),
       ),
     );
