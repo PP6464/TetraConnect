@@ -51,7 +51,7 @@ class _GameLogPageState extends State<GameLogPage> {
                   ),
                   const SizedBox(height: 8.0),
                   FutureBuilder(
-                    future: firestore.collection("games").get(),
+                    future: firestore.collection("games").where("isPlaying", isEqualTo: false).get(),
                     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) => asyncBuilder(
                       context,
                       snapshot,
