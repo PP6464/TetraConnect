@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../provider/app.settings.dart';
 import '../../ui/theme.dart';
 import '../../ui/elements.dart';
+import '../../util/constants.dart';
 import '../../util/route.dart';
 
 class GameViewPage extends StatefulWidget {
@@ -22,7 +23,6 @@ class _GameViewPageState extends State<GameViewPage> {
   int moveIndex = 0;
   int turnIndex = -1;
   int userIndex = -1;
-  List<String> turnOrder = ["circle", "square", "triangle", "cross"];
 
   void nextTurn() {
     if (turnIndex == 3) {
@@ -204,7 +204,6 @@ class Line {
 }
 
 class BoardPainter extends CustomPainter {
-  List<String> turnOrder = ["circle", "square", "triangle", "cross"];
   BuildContext context;
   final List<dynamic> turns;
   final List lines; // Show line when 4 in a row made
