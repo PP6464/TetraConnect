@@ -32,10 +32,10 @@ class _StatisticsPageState extends State<StatisticsPage> {
             games,
             (data) {
               List<QueryDocumentSnapshot> userGames = data.docs.where((element) => (element["players"] as Map).values.contains(provider(context).user!.ref)).toList();
-              int n1 = userGames.where((element) => (element["results"] as Map)["1st"] == provider(context).user!.ref).length;
-              int n2 = userGames.where((element) => (element["results"] as Map)["2nd"] == provider(context).user!.ref).length;
-              int n3 = userGames.where((element) => (element["results"] as Map)["3rd"] == provider(context).user!.ref).length;
-              int n4 = userGames.where((element) => (element["results"] as Map)["4th"] == provider(context).user!.ref).length;
+              int n1 = userGames.where((element) => (element["results"] as List)[0] == provider(context).user!.ref).length;
+              int n2 = userGames.where((element) => (element["results"] as List)[1] == provider(context).user!.ref).length;
+              int n3 = userGames.where((element) => (element["results"] as List)[2] == provider(context).user!.ref).length;
+              int n4 = userGames.where((element) => (element["results"] as List)[3] == provider(context).user!.ref).length;
               return SingleChildScrollView(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,

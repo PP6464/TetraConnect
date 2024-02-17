@@ -2,12 +2,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tetraconnect/pages/home/game.play.dart';
-import 'package:tetraconnect/provider/app.settings.dart';
 
+import '../../pages/home/game.play.dart';
+import '../../provider/app.settings.dart';
 import '../../ui/elements.dart';
 import '../../ui/theme.dart';
 import '../../util/api.dart';
+import '../../util/constants.dart';
 import '../../util/route.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   bool matchmaking = false;
   int prevLobbyCount = 0;
   String lobbyId = "";
-  List<String> turnOrder = ["circle", "square", "triangle", "cross"];
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,7 @@ class _HomePageState extends State<HomePage> {
               });
             }
             matchmaking = false;
-            setState(() {
-            });
+            setState(() {});
           } finally {}
         }
       },
@@ -98,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                 ...lobby["players"],
                               },
                               "lines": [],
-                              "results": {},
+                              "results": [],
                               "isPlaying": true,
                               "time": FieldValue.serverTimestamp(),
                             });

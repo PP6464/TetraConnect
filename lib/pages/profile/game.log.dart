@@ -64,7 +64,7 @@ class _GameLogPageState extends State<GameLogPage> {
                               DateTime timeStamp = (userGames[index]["time"] as Timestamp).toDate();
                               String timeStampString = "${AppLocalizations.of(context)!.date(timeStamp.day, timeStamp.second, timeStamp.year)} ${timeStamp.hour.toString().padRight(2, "0")}:${(timeStamp.minute % 60).toString().padRight(2, "0")}:${(timeStamp.second % 60).toString().padRight(2, "0")}";
                               String shape = (userGames[index]["players"] as Map).keys.where((element) => (userGames[index]["players"] as Map)[element] == provider(context).user!.ref).single;
-                              String result = (userGames[index]["results"] as Map).keys.where((element) => (userGames[index]["results"] as Map)[element] == provider(context).user!.ref).single;
+                              int result = (userGames[index]["results"] as List<dynamic>).indexOf(provider(context).user!.ref);
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(
@@ -82,11 +82,11 @@ class _GameLogPageState extends State<GameLogPage> {
                                         contentPadding: EdgeInsets.zero,
                                         leading: Image.asset("assets/$shape.png"),
                                         subtitle: Text(
-                                          result == "1st"
+                                          result == 0
                                               ? AppLocalizations.of(context)!.first
-                                              : result == "2nd"
+                                              : result == 1
                                                   ? AppLocalizations.of(context)!.second
-                                                  : result == "3rd"
+                                                  : result == 2
                                                       ? AppLocalizations.of(context)!.third
                                                       : AppLocalizations.of(context)!.fourth,
                                           textScaler: TextScaler.linear(provider(context).tsf),
