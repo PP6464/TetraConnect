@@ -136,6 +136,10 @@ class MyApp extends StatelessWidget {
           supportedLocales: const [
             Locale("en"),
           ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            if (supportedLocales.contains(locale)) return locale;
+            return const Locale("en");
+          },
           theme: ThemeData(
             fontFamily: "Montserrat",
             scaffoldBackgroundColor: theme.lightSurface.colour,
