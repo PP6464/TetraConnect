@@ -68,7 +68,7 @@ class _GameViewPageState extends State<GameViewPage> {
                     context,
                     snapshot,
                         (game) {
-                      List<dynamic> turns = game['moves'];
+                      List<dynamic> turns = game["moves"];
                       return Column(
                         children: [
                           CustomPaint(
@@ -207,8 +207,8 @@ class BoardPainter extends CustomPainter {
   BuildContext context;
   final List<dynamic> turns;
   final List lines; // Show line when 4 in a row made
-  int moveIndex;
-  int turnIndex;
+  final int moveIndex;
+  final int turnIndex;
 
   BoardPainter({required this.context, required this.turns, required this.moveIndex, required this.turnIndex, required this.lines});
 

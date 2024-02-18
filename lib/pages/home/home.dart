@@ -47,9 +47,11 @@ class _HomePageState extends State<HomePage> {
                 "players": newPlayersMap,
               });
             }
-            matchmaking = false;
-            setState(() {});
-          } finally {}
+          } finally {
+            setState(() {
+              matchmaking = false;
+            });
+          }
         }
       },
       child: Scaffold(
@@ -96,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                                 turnOrder[lobby["playerCount"]]: provider(context).user!.ref,
                                 ...lobby["players"],
                               },
+                              "moves": [],
                               "lines": [],
                               "results": [],
                               "isPlaying": true,
@@ -184,25 +187,28 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onPressed: () async {
-                        DocumentSnapshot lobby = await firestore.doc("lobbies/$lobbyId").get();
-                        if (lobby["playerCount"] == 1) {
-                          await lobby.reference.delete();
-                        } else {
-                          List newPlayers = lobby["players"].values.where((e) => e.id != provider(context).user!.uid).toList();
-                          List<String> newPlayersKeys = turnOrder.sublist(0, newPlayers.length);
-                          Map<String, dynamic> newPlayersMap = {};
-                          for (int i = 0; i < newPlayers.length; i++) {
-                            newPlayersMap[newPlayersKeys[i]] = newPlayers[i];
+                        try {
+                          DocumentSnapshot lobby = await firestore.doc("lobbies/$lobbyId").get();
+                          if (lobby["playerCount"] == 1) {
+                            await lobby.reference.delete();
+                          } else {
+                            List newPlayers = lobby["players"].values.where((e) => e.id != provider(context).user!.uid).toList();
+                            List<String> newPlayersKeys = turnOrder.sublist(0, newPlayers.length);
+                            Map<String, dynamic> newPlayersMap = {};
+                            for (int i = 0; i < newPlayers.length; i++) {
+                              newPlayersMap[newPlayersKeys[i]] = newPlayers[i];
+                            }
+                            await lobby.reference.update({
+                              "avgRating": (lobby["avgRating"] * lobby["playerCount"] - provider(context).user!.rating) / (lobby["playerCount"] - 1),
+                              "playerCount": FieldValue.increment(-1),
+                              "players": newPlayersMap,
+                            });
                           }
-                          await lobby.reference.update({
-                            "avgRating": (lobby["avgRating"] * lobby["playerCount"] - provider(context).user!.rating) / (lobby["playerCount"] - 1),
-                            "playerCount": FieldValue.increment(-1),
-                            "players": newPlayersMap,
+                        } finally {
+                          setState(() {
+                            matchmaking = false;
                           });
                         }
-                        setState(() {
-                          matchmaking = false;
-                        });
                       },
                     ),
                     const SizedBox(height: 32.0),
