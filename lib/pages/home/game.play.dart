@@ -51,114 +51,117 @@ class _GamePlayPageState extends State<GamePlayPage> {
                   game["players"].entries.where((e) => e.value.id == provider(context).user!.uid).toList()[0].key,
                 );
                 currentPlayerIndex = game["moves"].isEmpty ? 0 : game["moves"].last.length % 4;
-                return Column(
-                  children: [
-                    CustomPaint(
-                      size: Size(
-                        min(400.0, MediaQuery.of(context).size.width),
-                        min(400.0, MediaQuery.of(context).size.width),
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      CustomPaint(
+                        size: Size(
+                          min(400.0, MediaQuery.of(context).size.width),
+                          min(400.0, MediaQuery.of(context).size.width),
+                        ),
+                        painter: BoardPainter(
+                          turns: game["moves"],
+                          lines: game["lines"],
+                          context: context,
+                        ),
                       ),
-                      painter: BoardPainter(
-                        turns: game["moves"],
-                        lines: game["lines"],
-                        context: context,
-                      ),
-                    ),
-                    currentPlayerIndex == playerIndex
-                        ? Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: List.generate(
-                              10,
-                              (index) => SizedBox(
-                                height: min(400.0, MediaQuery.of(context).size.width) / 10,
-                                width: min(400.0, MediaQuery.of(context).size.width) / 10,
-                                child: IconButton(
-                                  icon: const Icon(Icons.arrow_downward),
-                                  tooltip: AppLocalizations.of(context)!.placePiece,
-                                  onPressed: () async {
-                                    List moves = game["moves"];
-                                    if (moves.isEmpty) {
-                                      moves.add({
-                                        turnOrder[playerIndex]: index,
+                      currentPlayerIndex == playerIndex
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(
+                                10,
+                                (index) => SizedBox(
+                                  height: min(400.0, MediaQuery.of(context).size.width) / 10,
+                                  width: min(400.0, MediaQuery.of(context).size.width) / 10,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.arrow_downward),
+                                    tooltip: AppLocalizations.of(context)!.placePiece,
+                                    onPressed: () async {
+                                      List moves = game["moves"];
+                                      if (moves.isEmpty) {
+                                        moves.add({
+                                          turnOrder[playerIndex]: index,
+                                        });
+                                      }
+                                      if (moves.last.length == 4) {
+                                        moves.add({
+                                          turnOrder[playerIndex]: index,
+                                        });
+                                      } else {
+                                        moves.last[turnOrder[playerIndex]] = index;
+                                      }
+                                      await game.reference.update({
+                                        "moves": moves,
                                       });
-                                    }
-                                    if (moves.last.length == 4) {
-                                      moves.add({
-                                        turnOrder[playerIndex]: index,
-                                      });
-                                    } else {
-                                      moves.last[turnOrder[playerIndex]] = index;
-                                    }
-                                    await game.reference.update({
-                                      "moves": moves,
-                                    });
-                                  },
+                                    },
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : blank,
-                    Text(
-                      AppLocalizations.of(context)!.results,
-                      textScaler: TextScaler.linear(provider(context).tsf),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        decoration: TextDecoration.underline,
+                            )
+                          : blank,
+                      Text(
+                        AppLocalizations.of(context)!.results,
+                        textScaler: TextScaler.linear(provider(context).tsf),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 200.0,
-                      child: ListView.builder(
-                        itemCount: game["results"].length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String position = index == 0
-                              ? AppLocalizations.of(context)!.first
-                              : index == 1
-                                  ? AppLocalizations.of(context)!.second
-                                  : index == 2
-                                      ? AppLocalizations.of(context)!.third
-                                      : AppLocalizations.of(context)!.fourth;
-                          return StreamBuilder(
-                            stream: game["results"][index].snapshots(),
-                            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
-                              context,
-                              snapshot,
-                              (user) {
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const SizedBox(width: 16.0),
-                                    Text(
-                                      position,
-                                      textScaler: TextScaler.linear(provider(context).tsf),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
+                      SizedBox(
+                        height: 200.0,
+                        child: ListView.builder(
+                          itemCount: game["results"].length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String position = index == 0
+                                ? AppLocalizations.of(context)!.first
+                                : index == 1
+                                    ? AppLocalizations.of(context)!.second
+                                    : index == 2
+                                        ? AppLocalizations.of(context)!.third
+                                        : AppLocalizations.of(context)!.fourth;
+                            return StreamBuilder(
+                              stream: game["results"][index].snapshots(),
+                              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
+                                context,
+                                snapshot,
+                                (user) {
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const SizedBox(width: 16.0),
+                                      Text(
+                                        position,
+                                        textScaler: TextScaler.linear(provider(context).tsf),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 8.0),
-                                    CircleAvatar(
-                                      backgroundImage: NetworkImage(user["photoUrl"]),
-                                      radius: 25.0,
-                                    ),
-                                    const SizedBox(width: 8.0),
-                                    Text(
-                                      user["displayName"],
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
+                                      const SizedBox(width: 8.0),
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(user["photoUrl"]),
+                                        radius: 25.0,
                                       ),
-                                    ),
-                                    const SizedBox(width: 16.0),
-                                  ],
-                                );
-                              },
-                            ),
-                          );
-                        },
+                                      const SizedBox(width: 8.0),
+                                      Text(
+                                        user["displayName"],
+                                        style: const TextStyle(
+                                          fontSize: 20.0,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16.0),
+                                    ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 32.0),
-                  ],
+                      const SizedBox(height: 32.0),
+                    ],
+                  ),
                 );
               },
             ),
