@@ -1020,6 +1020,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Place piece in this column`
+  String get placePiece {
+    return Intl.message(
+      'Place piece in this column',
+      name: 'placePiece',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

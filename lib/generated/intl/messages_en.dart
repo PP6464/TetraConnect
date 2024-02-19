@@ -132,6 +132,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
         "pendingFriendRequests":
             MessageLookupByLibrary.simpleMessage("Pending friend requests"),
+        "placePiece":
+            MessageLookupByLibrary.simpleMessage("Place piece in this column"),
         "placeTooltip": m4,
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "randomise": MessageLookupByLibrary.simpleMessage("Randomise"),
