@@ -72,8 +72,8 @@ class _GamePlayPageState extends State<GamePlayPage> {
                               children: List.generate(
                                 10,
                                 (index) => SizedBox(
-                                  height: min(400.0, MediaQuery.of(context).size.width) / 10,
-                                  width: min(400.0, MediaQuery.of(context).size.width) / 10,
+                                  height: (min(400.0, MediaQuery.of(context).size.width) - 32) / 10,
+                                  width: (min(400.0, MediaQuery.of(context).size.width) - 32) / 10,
                                   child: IconButton(
                                     icon: const Icon(Icons.arrow_downward),
                                     tooltip: AppLocalizations.of(context)!.placePiece,
