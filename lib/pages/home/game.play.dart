@@ -85,7 +85,20 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                             columns[move.value].add(move.key);
                                           }
                                         }
-                                        return columns[index].length < 10;
+                                        if (made4inRow) {
+                                          List moves = game["moves"];
+                                          if (moves.last.length == 4) {
+                                            moves.add({
+                                              turnOrder[playerIndex]: null,
+                                            });
+                                          } else {
+                                            moves.last[turnOrder[playerIndex]] = null;
+                                          }
+                                          game.reference.update({
+                                            "moves": moves,
+                                          });
+                                        }
+                                        return columns[index].length < 10 && !made4inRow;
                                       }).call()
                                           ? IconButton(
                                               icon: const Icon(Icons.arrow_downward),
@@ -189,6 +202,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     });
                                                   } else {
                                                     // There is a 4 in a row
+                                                    made4inRow = true;
                                                     List results = game["results"];
                                                     results.add(provider(context).user!.ref);
                                                     if (results.length == 3) {
