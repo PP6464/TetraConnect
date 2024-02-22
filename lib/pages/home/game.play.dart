@@ -79,7 +79,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                       height: (min(400.0, MediaQuery.of(context).size.width) - 16) / 10,
                                       width: (min(400.0, MediaQuery.of(context).size.width) - 16) / 10,
                                       child: (() {
-                                        List<List<String>> columns = [[]];
+                                        List<List<String>> columns = List.generate(10, (index) => []);
                                         for (var turn in game["moves"]) {
                                           for (var move in turn.entries) {
                                             columns[move.value].add(move.key);
@@ -114,7 +114,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                   });
                                                 } else {
                                                   // Check for 4 in a row
-                                                  List<List<String>> columns = [[]];
+                                                  List<List<String>> columns = List.generate(10, (index) => []);
                                                   String shape = turnOrder[playerIndex];
                                                   // First map the grid into a list of columns
                                                   for (var turn in moves) {
@@ -163,6 +163,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                   }
                                                   // Diagonally (top left to bottom right)
                                                   else if (index < 7 &&
+                                                      columns[index].length > 3 &&
                                                       columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape &&
                                                       columns[index + 2].elementAtOrNull(columns[index].length - 3) == shape &&
                                                       columns[index + 3].elementAtOrNull(columns[index].length - 4) == shape) {
@@ -172,6 +173,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                   }
                                                   // Diagonally (top right to bottom left)
                                                   else if (index > 2 &&
+                                                      columns[index].length > 3 &&
                                                       columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
                                                       columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
                                                       columns[index - 3].elementAtOrNull(columns[index].length - 4) == shape) {
