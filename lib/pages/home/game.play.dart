@@ -82,7 +82,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                         List<List<String>> columns = List.generate(10, (index) => []);
                                         for (var turn in game["moves"]) {
                                           for (var move in turn.entries) {
-                                            columns[move.value].add(move.key);
+                                            if (move.value != null) columns[move.value].add(move.key);
                                           }
                                         }
                                         if (made4inRow) {
@@ -119,7 +119,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                   // First map the grid into a list of columns
                                                   for (var turn in moves) {
                                                     for (var move in turn.entries) {
-                                                      columns[move.value].add(move.key);
+                                                      if (move.value != null) columns[move.value].add(move.key);
                                                     }
                                                   }
                                                   columns[index].add(shape);
@@ -264,31 +264,36 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                   context,
                                   snapshot,
                                   (user) {
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const SizedBox(width: 16.0),
-                                        Text(
-                                          position,
-                                          textScaler: TextScaler.linear(provider(context).tsf),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    return Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              position,
+                                              textScaler: TextScaler.linear(provider(context).tsf),
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8.0),
+                                            CircleAvatar(
+                                              backgroundImage: NetworkImage(user["photoUrl"]),
+                                              radius: 25.0,
+                                            ),
+                                            const SizedBox(width: 8.0),
+                                            Text(
+                                              user["displayName"],
+                                              style: const TextStyle(
+                                                fontSize: 20.0,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(width: 8.0),
-                                        CircleAvatar(
-                                          backgroundImage: NetworkImage(user["photoUrl"]),
-                                          radius: 25.0,
-                                        ),
-                                        const SizedBox(width: 8.0),
-                                        Text(
-                                          user["displayName"],
-                                          style: const TextStyle(
-                                            fontSize: 20.0,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 16.0),
-                                      ],
+                                      ),
                                     );
                                   },
                                 ),
