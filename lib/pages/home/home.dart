@@ -103,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                               "results": [],
                               "isPlaying": true,
                               "time": FieldValue.serverTimestamp(),
+                              "avgRating": lobby["avgRating"],
                             });
                             await lobby.reference.delete();
                             Navigator.of(context).push(

@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dart_numerics/dart_numerics.dart';
 
 import './api.dart';
 
@@ -48,5 +51,14 @@ class User {
       ref: userData.reference,
       uid: uid,
     );
+  }
+
+  Future<void> updateRating({required int result, required double ratingDiff, required double avgRating}) async {
+    List<int> ratingChanges = [10, 10, 5, -5, -10];
+    int changeRating = (sqrt(avgRating) * tanh(0.2 * (ratingChanges[result + 1] + ratingDiff)) + ratingChanges[result]).round();
+    rating += changeRating;
+    await ref.update({
+      "rating": FieldValue.increment(changeRating),
+    });
   }
 }

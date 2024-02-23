@@ -21,7 +21,7 @@ class GamePlayPage extends StatefulWidget {
 }
 
 class _GamePlayPageState extends State<GamePlayPage> {
-  bool made4inRow = false;
+  int? result;
   int currentPlayerIndex = 0;
   int playerIndex = 0;
   bool canPop = false;
@@ -41,13 +41,14 @@ class _GamePlayPageState extends State<GamePlayPage> {
                 snapshot,
                 (game) {
                   if (!game["isPlaying"]) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      setState(() {
-                        canPop = true;
-                      });
-                      Navigator.of(context).pop();
-                    });
-                    return blank;
+                    provider(context)
+                        .user!
+                        .updateRating(
+                          result: result ?? 4,
+                          ratingDiff: game["avgRating"] - provider(context).user!.rating,
+                          avgRating: game["avgRating"],
+                        )
+                        .then((value) => Navigator.of(context).pop());
                   }
                   playerIndex = turnOrder.indexOf(
                     game["players"].entries.where((e) => e.value.id == provider(context).user!.uid).toList()[0].key,
@@ -85,7 +86,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                             if (move.value != null) columns[move.value].add(move.key);
                                           }
                                         }
-                                        if (made4inRow) {
+                                        if (result != null) {
                                           List moves = game["moves"];
                                           if (moves.last.length == 4) {
                                             moves.add({
@@ -98,7 +99,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                             "moves": moves,
                                           });
                                         }
-                                        return columns[index].length < 10 && !made4inRow;
+                                        return columns[index].length < 10 && result == null;
                                       }).call()
                                           ? IconButton(
                                               icon: const Icon(Icons.arrow_downward),
@@ -204,8 +205,8 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     });
                                                   } else {
                                                     // There is a 4 in a row
-                                                    made4inRow = true;
                                                     List results = game["results"];
+                                                    result = results.length;
                                                     results.add(provider(context).user!.ref);
                                                     if (results.length == 3) {
                                                       // End game now

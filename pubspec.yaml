@@ -53,6 +53,8 @@ dependencies:
   flutter_local_notifications: ^10.0.0-dev.1
   # Play sound
   audioplayers: ^5.2.0
+  # User rating maths
+  dart_numerics: ^0.0.6
 
 icons_launcher:
   image_path: "assets/logo.png"
