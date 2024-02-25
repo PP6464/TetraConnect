@@ -44,7 +44,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                     provider(context)
                         .user!
                         .updateRating(
-                          result: result ?? 4,
+                          result: result ?? (4 - game["ties"]) as int,
                           ratingDiff: game["avgRating"] - provider(context).user!.rating,
                           avgRating: game["avgRating"],
                         )
@@ -85,6 +85,14 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                           for (var move in turn.entries) {
                                             if (move.value != null) columns[move.value].add(move.key);
                                           }
+                                        }
+                                        if (!columns.any((element) => element.length < 10) && game["results"].length < 3 && result == null) {
+                                          // Grid is full so game must be complete, but results must be a tie
+                                          game.reference.update({
+                                            "results": FieldValue.arrayUnion([provider(context).user!.ref]),
+                                            "ties": 3 - game["results"].length,
+                                            "isPlaying": false,
+                                          });
                                         }
                                         if (result != null) {
                                           List moves = game["moves"];
@@ -153,6 +161,26 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     line =
                                                         "$index,${columns[index].length - 1},${index + 3},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                                   }
+                                                  // Horizontally (second from left)
+                                                  else if (index > 0 &&
+                                                      index < 8 &&
+                                                      !columns
+                                                          .sublist(index - 1, index + 3)
+                                                          .map((e) => e.elementAtOrNull(columns[index].length - 1))
+                                                          .any((e) => e != shape)) {
+                                                    line =
+                                                        "${index - 1},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                  }
+                                                  // Horizontally (second from right)
+                                                  else if (index > 1 &&
+                                                      index < 9 &&
+                                                      !columns
+                                                          .sublist(index - 2, index + 2)
+                                                          .map((e) => e.elementAtOrNull(columns[index].length - 1))
+                                                          .any((e) => e != shape)) {
+                                                    line =
+                                                        "${index - 2},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                  }
                                                   // Diagonally (bottom left to top right)
                                                   else if (index < 7 &&
                                                       columns[index + 1].elementAtOrNull(columns[index].length) == shape &&
@@ -161,6 +189,26 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     // There is a 4 in a row diagonally bottom left to top right
                                                     line =
                                                         "$index,${columns[index].length - 1},${index + 3},${columns[index].length + 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                  }
+                                                  // Diagonally (same dir but second from left)
+                                                  else if (index > 0 &&
+                                                      index < 8 &&
+                                                      columns[index].length > 1 &&
+                                                      columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                      columns[index + 1].elementAtOrNull(columns[index].length) == shape &&
+                                                      columns[index + 2].elementAtOrNull(columns[index].length + 1) == shape) {
+                                                    line =
+                                                        "${index - 1},${columns[index].length - 2},${index + 2},${columns[index].length + 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                  }
+                                                  // Diagonally (same dir but second from right)
+                                                  else if (index > 1 &&
+                                                      index < 9 &&
+                                                      columns[index].length > 2 &&
+                                                      columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
+                                                      columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                      columns[index + 1].elementAtOrNull(columns[index].length) == shape) {
+                                                    line =
+                                                        "${index - 2},${columns[index].length - 3},${index + 1},${columns[index].length},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                                   }
                                                   // Diagonally (top left to bottom right)
                                                   else if (index < 7 &&
@@ -171,6 +219,26 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     // There is a 4 in a row diagonally top left to bottom right
                                                     line =
                                                         "$index,${columns[index].length - 1},${index + 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                  }
+                                                  // Diagonally (same dir but second from left)
+                                                  else if (index > 0 &&
+                                                      index < 8 &&
+                                                      columns[index].length > 2 &&
+                                                      columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
+                                                      columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                      columns[index + 2].elementAtOrNull(columns[index].length - 3) == shape) {
+                                                    line =
+                                                      "${index - 1},${columns[index].length},${index + 2},${columns[index].length - 3},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                  }
+                                                  // Diagonally (same dir but second from right)
+                                                  else if (index > 1 &&
+                                                      index < 9 &&
+                                                      columns[index].length > 1 &&
+                                                      columns[index - 2].elementAtOrNull(columns[index].length + 1) == shape &&
+                                                      columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
+                                                      columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape) {
+                                                    line =
+                                                      "${index - 2},${columns[index].length + 1},${index + 1},${columns[index].length - 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                                   }
                                                   // Diagonally (top right to bottom left)
                                                   else if (index > 2 &&

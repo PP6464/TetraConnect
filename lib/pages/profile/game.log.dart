@@ -65,6 +65,9 @@ class _GameLogPageState extends State<GameLogPage> {
                               String timeStampString = "${AppLocalizations.of(context)!.date(timeStamp.day, timeStamp.second, timeStamp.year)} ${timeStamp.hour.toString().padRight(2, "0")}:${(timeStamp.minute % 60).toString().padRight(2, "0")}:${(timeStamp.second % 60).toString().padRight(2, "0")}";
                               String shape = (userGames[index]["players"] as Map).keys.where((element) => (userGames[index]["players"] as Map)[element] == provider(context).user!.ref).single;
                               int result = (userGames[index]["results"] as List<dynamic>).indexOf(provider(context).user!.ref);
+                              if (result > 2 - (userGames[index]["ties"] ?? 0)) {
+                                result = 3 - (userGames[index]["ties"] ?? 0) as int;
+                              }
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(

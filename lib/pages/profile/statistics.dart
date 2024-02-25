@@ -32,10 +32,14 @@ class _StatisticsPageState extends State<StatisticsPage> {
             games,
             (data) {
               List<QueryDocumentSnapshot> userGames = data.docs.where((element) => (element["players"] as Map).values.contains(provider(context).user!.ref)).toList();
-              int n1 = userGames.where((element) => (element["results"] as List)[0] == provider(context).user!.ref).length;
-              int n2 = userGames.where((element) => (element["results"] as List)[1] == provider(context).user!.ref).length;
-              int n3 = userGames.where((element) => (element["results"] as List)[2] == provider(context).user!.ref).length;
-              int n4 = userGames.where((element) => (element["results"] as List)[3] == provider(context).user!.ref).length;
+              List<int> userGameResults = userGames.map((e) {
+                if (e["ties"] == null || e["results"].indexOf(provider(context).user!.ref) <= 2 - e["ties"]) return e["results"].indexOf(provider(context).user!.ref) as int;
+                return e["results"].indexOf(provider(context).user!.ref) as int;
+              }).toList();
+              int n1 = userGameResults.where((element) => element == 0).length;
+              int n2 = userGameResults.where((element) => element == 1).length;
+              int n3 = userGameResults.where((element) => element == 2).length;
+              int n4 = userGameResults.where((element) => element == 3).length;
               return SingleChildScrollView(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,

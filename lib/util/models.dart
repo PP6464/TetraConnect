@@ -60,8 +60,9 @@ class User {
     List<int> ratingChanges = [10, 10, 5, -5, -10];
     int changeRating = (sqrt(avgRating) * tanh(0.2 * (ratingChanges[result + 1] + ratingDiff)) + ratingChanges[result]).round();
     rating += changeRating;
+    if (rating < 0) rating = 0;
     await ref.update({
-      "rating": FieldValue.increment(changeRating),
+      "rating": rating,
     });
   }
 }
