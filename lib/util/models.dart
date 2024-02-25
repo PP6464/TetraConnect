@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dart_numerics/dart_numerics.dart';
 
 import './api.dart';
 
@@ -51,6 +50,10 @@ class User {
       ref: userData.reference,
       uid: uid,
     );
+  }
+
+  double tanh(double x) {
+    return (exp(x) - exp(-x))/(exp(x) + exp(-x));
   }
 
   Future<void> updateRating({required int result, required double ratingDiff, required double avgRating}) async {
