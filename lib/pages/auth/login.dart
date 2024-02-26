@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
   bool obscurePassword = true;
   bool keepLoggedIn = false;
+  bool loading = false;
 
   @override
   void dispose() {
@@ -43,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     ]) {
       e.dispose();
     }
+    loading = false;
   }
 
   @override
@@ -173,6 +175,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       onPressed: () async {
                         if (!key.currentState!.validate()) return;
+                        setState(() {
+                          loading = true;
+                        });
                         try {
                           UserCredential credential = await auth.signInWithEmailAndPassword(
                             email: emailController.text,
@@ -191,6 +196,9 @@ class _LoginPageState extends State<LoginPage> {
                                 "${getPlatformName()}_tokens": FieldValue.arrayUnion([token]),
                               });
                             }
+                            setState(() {
+                              loading = false;
+                            });
                             if (credential.user!.emailVerified) {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const HomePage(),
@@ -202,6 +210,9 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }
                         } on FirebaseException catch (e) {
+                          setState(() {
+                            loading = false;
+                          });
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(e.message!),
@@ -222,6 +233,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 32.0),
+                    loading ? defaultLoadingIndicator : blank,
                   ],
                 ),
               ),

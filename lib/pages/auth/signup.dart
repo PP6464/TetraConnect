@@ -33,6 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
   bool keepLoggedIn = false;
+  bool loading = false;
 
   @override
   void dispose() {
@@ -47,6 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     obscurePassword = true;
     obscureConfirmPassword = true;
+    loading = false;
   }
 
   @override
@@ -221,6 +223,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       onPressed: () async {
                         if (!key.currentState!.validate()) return;
+                        setState(() {
+                          loading = true;
+                        });
                         try {
                           UserCredential credential = await auth.createUserWithEmailAndPassword(
                             email: emailController.text,
@@ -249,19 +254,25 @@ class _SignUpPageState extends State<SignUpPage> {
                             (await SharedPreferences.getInstance()).setBool("keepLoggedIn", keepLoggedIn);
                             (await SharedPreferences.getInstance()).setString("uid", credential.user!.uid);
                             await provider(context).updateUser(await models.User.fromUID(credential.user!.uid));
+                            setState(() {
+                              loading = false;
+                            });
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const VerifyPage(),
+                              ),
+                            );
                           }
                         } on FirebaseException catch (e) {
+                          setState(() {
+                            loading = false;
+                          });
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(e.message!),
                             ),
                           );
                         }
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const VerifyPage(),
-                          ),
-                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -276,6 +287,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 32.0),
+                    loading ? defaultLoadingIndicator : blank,
                   ],
                 ),
               ),
