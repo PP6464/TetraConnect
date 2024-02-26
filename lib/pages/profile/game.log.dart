@@ -22,8 +22,8 @@ class _GameLogPageState extends State<GameLogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: normalAppBar(context, route.profile),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Container(
             constraints: BoxConstraints(
               maxWidth: min(500.0, MediaQuery.of(context).size.width),

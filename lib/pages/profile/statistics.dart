@@ -139,6 +139,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                             baseChartColor: Colors.grey,
                             chartType: ChartType.ring,
                           ),
+                          const SizedBox(height: 32.0),
                         ],
                       ),
                     ),

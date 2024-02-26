@@ -67,8 +67,8 @@ class _SignUpPageState extends State<SignUpPage> {
           ],
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Container(
             constraints: BoxConstraints(
               maxWidth: min(500.0, MediaQuery.of(context).size.width),

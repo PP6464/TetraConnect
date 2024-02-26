@@ -443,58 +443,59 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: Text(
-                                AppLocalizations.of(context)!.deleteAccount,
-                                textScaler: TextScaler.linear(provider(context).tsf),
-                                style: const TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              content: Text(
-                                AppLocalizations.of(context)!.deleteAccountWarning,
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(
-                                    AppLocalizations.of(context)!.cancel,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () async {},
-                                  child: Text(
-                                    AppLocalizations.of(context)!.ok,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.red.colour,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.deleteAccount,
-                        textScaler: TextScaler.linear(provider(context).tsf),
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(height: 16.0),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     showDialog(
+                    //       context: context,
+                    //       builder: (context) {
+                    //         return AlertDialog(
+                    //           title: Text(
+                    //             AppLocalizations.of(context)!.deleteAccount,
+                    //             textScaler: TextScaler.linear(provider(context).tsf),
+                    //             style: const TextStyle(
+                    //               fontSize: 25.0,
+                    //               fontWeight: FontWeight.bold,
+                    //             ),
+                    //           ),
+                    //           content: Text(
+                    //             AppLocalizations.of(context)!.deleteAccountWarning,
+                    //           ),
+                    //           actions: [
+                    //             TextButton(
+                    //               onPressed: () {
+                    //                 Navigator.of(context).pop();
+                    //               },
+                    //               child: Text(
+                    //                 AppLocalizations.of(context)!.cancel,
+                    //               ),
+                    //             ),
+                    //             TextButton(
+                    //               onPressed: () async {},
+                    //               child: Text(
+                    //                 AppLocalizations.of(context)!.ok,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         );
+                    //       },
+                    //     );
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: theme.red.colour,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(20.0),
+                    //     ),
+                    //   ),
+                    //   child: Text(
+                    //     AppLocalizations.of(context)!.deleteAccount,
+                    //     textScaler: TextScaler.linear(provider(context).tsf),
+                    //     style: const TextStyle(
+                    //       color: Colors.black,
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 16.0),
                   ],
                 ),
               ),
@@ -602,6 +603,9 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       onPressed: () async {
                         if (!reAuthFormKey.currentState!.validate()) return;
+                        setState(() {
+                          loading = true;
+                        });
                         try {
                           await auth.currentUser!.reauthenticateWithCredential(
                             EmailAuthProvider.credential(
@@ -614,6 +618,7 @@ class _AccountPageState extends State<AccountPage> {
                             profileEmail.text = provider(context).user!.email;
                             profilePassword.text = reAuthPassword.text;
                             isReAuth = true;
+                            loading = false;
                           });
                         } on FirebaseException catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -632,6 +637,9 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 24.0),
+                    loading ? defaultLoadingIndicator : blank,
+                    const SizedBox(height: 24.0),
                   ],
                 ),
               ),

@@ -18,15 +18,15 @@ ThemeData checkBoxTheme(BuildContext context) => ThemeData(
         : provider(context).uiMode == ThemeMode.dark
             ? Brightness.dark
             : MediaQuery.of(context).platformBrightness,
-    onPrimary: theme.blue.colour,
-    onSecondary: theme.blue.colour,
-    error: theme.blue.colour,
+    onPrimary: Colors.white,
+    onSecondary: Colors.white,
+    error: theme.red.colour,
     secondary: theme.blue.colour,
-    onBackground: theme.blue.colour,
+    onBackground: Colors.white,
     background: theme.blue.colour,
-    onSurface: theme.blue.colour,
+    onSurface: Colors.white,
     surface: theme.blue.colour,
-    onError: theme.blue.colour,
+    onError: Colors.white,
   ),
 );
 

@@ -56,8 +56,8 @@ class _GameViewPageState extends State<GameViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: normalAppBar(context, route.profile),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
