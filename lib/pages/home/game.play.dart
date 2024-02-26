@@ -109,196 +109,198 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                         }
                                         return columns[index].length < 10 && result == null;
                                       }).call()
-                                          ? IconButton(
-                                              icon: const Icon(Icons.arrow_downward),
-                                              tooltip: AppLocalizations.of(context)!.placePiece,
-                                              onPressed: () async {
-                                                List moves = game["moves"];
-                                                if (moves.isEmpty) {
-                                                  moves.add({
-                                                    turnOrder[playerIndex]: index,
-                                                  });
-                                                  await game.reference.update({
-                                                    "moves": moves,
-                                                  });
-                                                } else {
-                                                  // Check for 4 in a row
-                                                  List<List<String>> columns = List.generate(10, (index) => []);
-                                                  String shape = turnOrder[playerIndex];
-                                                  // First map the grid into a list of columns
-                                                  for (var turn in moves) {
-                                                    for (var move in turn.entries) {
-                                                      if (move.value != null) columns[move.value].add(move.key);
-                                                    }
-                                                  }
-                                                  columns[index].add(shape);
-                                                  // Only need to check for 4 in a row with the newest entry
-                                                  String? line; // Record a line showing the 4 in a row into the database
-                                                  // Check in each of 7 directions (can't have vertically upwards due to gravity)
-                                                  // Vertically downwards
-                                                  if (columns[index].length > 3 &&
-                                                      !columns[index].sublist(columns[index].length - 4).any((e) => e != shape)) {
-                                                    // There is a 4 in a row vertically downward
-                                                    line =
-                                                        "$index,${columns[index].length - 1},$index,${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Horizontally left
-                                                  else if (index > 2 &&
-                                                      !columns
-                                                          .sublist(index - 3, index + 1)
-                                                          .map((e) => e.elementAtOrNull(columns[index].length - 1))
-                                                          .any((e) => e != shape)) {
-                                                    // There is a 4 in a row horizontally left
-                                                    line =
-                                                        "${index - 3},${columns[index].length - 1},$index,${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Horizontally right
-                                                  else if (index < 7 &&
-                                                      !columns
-                                                          .sublist(index, index + 4)
-                                                          .map((e) => e.elementAtOrNull(columns[index].length - 1))
-                                                          .any((e) => e != shape)) {
-                                                    line =
-                                                        "$index,${columns[index].length - 1},${index + 3},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Horizontally (second from left)
-                                                  else if (index > 0 &&
-                                                      index < 8 &&
-                                                      !columns
-                                                          .sublist(index - 1, index + 3)
-                                                          .map((e) => e.elementAtOrNull(columns[index].length - 1))
-                                                          .any((e) => e != shape)) {
-                                                    line =
-                                                        "${index - 1},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Horizontally (second from right)
-                                                  else if (index > 1 &&
-                                                      index < 9 &&
-                                                      !columns
-                                                          .sublist(index - 2, index + 2)
-                                                          .map((e) => e.elementAtOrNull(columns[index].length - 1))
-                                                          .any((e) => e != shape)) {
-                                                    line =
-                                                        "${index - 2},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (bottom left to top right)
-                                                  else if (index < 7 &&
-                                                      columns[index + 1].elementAtOrNull(columns[index].length) == shape &&
-                                                      columns[index + 2].elementAtOrNull(columns[index].length + 1) == shape &&
-                                                      columns[index + 3].elementAtOrNull(columns[index].length + 2) == shape) {
-                                                    // There is a 4 in a row diagonally bottom left to top right
-                                                    line =
-                                                        "$index,${columns[index].length - 1},${index + 3},${columns[index].length + 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (same dir but second from left)
-                                                  else if (index > 0 &&
-                                                      index < 8 &&
-                                                      columns[index].length > 1 &&
-                                                      columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
-                                                      columns[index + 1].elementAtOrNull(columns[index].length) == shape &&
-                                                      columns[index + 2].elementAtOrNull(columns[index].length + 1) == shape) {
-                                                    line =
-                                                        "${index - 1},${columns[index].length - 2},${index + 2},${columns[index].length + 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (same dir but second from right)
-                                                  else if (index > 1 &&
-                                                      index < 9 &&
-                                                      columns[index].length > 2 &&
-                                                      columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
-                                                      columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
-                                                      columns[index + 1].elementAtOrNull(columns[index].length) == shape) {
-                                                    line =
-                                                        "${index - 2},${columns[index].length - 3},${index + 1},${columns[index].length},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (top left to bottom right)
-                                                  else if (index < 7 &&
-                                                      columns[index].length > 3 &&
-                                                      columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape &&
-                                                      columns[index + 2].elementAtOrNull(columns[index].length - 3) == shape &&
-                                                      columns[index + 3].elementAtOrNull(columns[index].length - 4) == shape) {
-                                                    // There is a 4 in a row diagonally top left to bottom right
-                                                    line =
-                                                        "$index,${columns[index].length - 1},${index + 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (same dir but second from left)
-                                                  else if (index > 0 &&
-                                                      index < 8 &&
-                                                      columns[index].length > 2 &&
-                                                      columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
-                                                      columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape &&
-                                                      columns[index + 2].elementAtOrNull(columns[index].length - 3) == shape) {
-                                                    line =
-                                                      "${index - 1},${columns[index].length},${index + 2},${columns[index].length - 3},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (same dir but second from right)
-                                                  else if (index > 1 &&
-                                                      index < 9 &&
-                                                      columns[index].length > 1 &&
-                                                      columns[index - 2].elementAtOrNull(columns[index].length + 1) == shape &&
-                                                      columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
-                                                      columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape) {
-                                                    line =
-                                                      "${index - 2},${columns[index].length + 1},${index + 1},${columns[index].length - 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (top right to bottom left)
-                                                  else if (index > 2 &&
-                                                      columns[index].length > 3 &&
-                                                      columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
-                                                      columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
-                                                      columns[index - 3].elementAtOrNull(columns[index].length - 4) == shape) {
-                                                    // There is a 4 in a row diagonally top right to bottom left
-                                                    line =
-                                                        "$index,${columns[index].length - 1},${index - 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  // Diagonally (bottom right to top left)
-                                                  else if (index > 2 &&
-                                                      columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
-                                                      columns[index - 2].elementAtOrNull(columns[index].length + 1) == shape &&
-                                                      columns[index - 3].elementAtOrNull(columns[index].length + 2) == shape) {
-                                                    // There is a 4 in a row diagonally top right to bottom left
-                                                    line =
-                                                        "$index,${columns[index].length - 1},${index - 3},${columns[index].length + 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                  }
-                                                  if (moves.last.length == 4) {
+                                          ? Tooltip(
+                                              message: AppLocalizations.of(context)!.placePiece,
+                                              child: GestureDetector(
+                                                child: const Icon(Icons.arrow_downward),
+                                                onTap: () async {
+                                                  List moves = game["moves"];
+                                                  if (moves.isEmpty) {
                                                     moves.add({
                                                       turnOrder[playerIndex]: index,
                                                     });
-                                                  } else {
-                                                    moves.last[turnOrder[playerIndex]] = index;
-                                                  }
-                                                  if (line == null) {
-                                                    // No 4 in a row, just update the moves
                                                     await game.reference.update({
                                                       "moves": moves,
                                                     });
                                                   } else {
-                                                    // There is a 4 in a row
-                                                    List results = game["results"];
-                                                    result = results.length;
-                                                    results.add(provider(context).user!.ref);
-                                                    if (results.length == 3) {
-                                                      // End game now
-                                                      await game.reference.update({
-                                                        "moves": moves,
-                                                        "results": results,
-                                                        "lines": FieldValue.arrayUnion([line]),
-                                                        "isPlaying": false,
-                                                      });
-                                                      canPop = true;
-                                                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                        Navigator.of(context).pop();
+                                                    // Check for 4 in a row
+                                                    List<List<String>> columns = List.generate(10, (index) => []);
+                                                    String shape = turnOrder[playerIndex];
+                                                    // First map the grid into a list of columns
+                                                    for (var turn in moves) {
+                                                      for (var move in turn.entries) {
+                                                        if (move.value != null) columns[move.value].add(move.key);
+                                                      }
+                                                    }
+                                                    columns[index].add(shape);
+                                                    // Only need to check for 4 in a row with the newest entry
+                                                    String? line; // Record a line showing the 4 in a row into the database
+                                                    // Check in each of 7 directions (can't have vertically upwards due to gravity)
+                                                    // Vertically downwards
+                                                    if (columns[index].length > 3 &&
+                                                        !columns[index].sublist(columns[index].length - 4).any((e) => e != shape)) {
+                                                      // There is a 4 in a row vertically downward
+                                                      line =
+                                                          "$index,${columns[index].length - 1},$index,${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Horizontally left
+                                                    else if (index > 2 &&
+                                                        !columns
+                                                            .sublist(index - 3, index + 1)
+                                                            .map((e) => e.elementAtOrNull(columns[index].length - 1))
+                                                            .any((e) => e != shape)) {
+                                                      // There is a 4 in a row horizontally left
+                                                      line =
+                                                          "${index - 3},${columns[index].length - 1},$index,${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Horizontally right
+                                                    else if (index < 7 &&
+                                                        !columns
+                                                            .sublist(index, index + 4)
+                                                            .map((e) => e.elementAtOrNull(columns[index].length - 1))
+                                                            .any((e) => e != shape)) {
+                                                      line =
+                                                          "$index,${columns[index].length - 1},${index + 3},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Horizontally (second from left)
+                                                    else if (index > 0 &&
+                                                        index < 8 &&
+                                                        !columns
+                                                            .sublist(index - 1, index + 3)
+                                                            .map((e) => e.elementAtOrNull(columns[index].length - 1))
+                                                            .any((e) => e != shape)) {
+                                                      line =
+                                                          "${index - 1},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Horizontally (second from right)
+                                                    else if (index > 1 &&
+                                                        index < 9 &&
+                                                        !columns
+                                                            .sublist(index - 2, index + 2)
+                                                            .map((e) => e.elementAtOrNull(columns[index].length - 1))
+                                                            .any((e) => e != shape)) {
+                                                      line =
+                                                          "${index - 2},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (bottom left to top right)
+                                                    else if (index < 7 &&
+                                                        columns[index + 1].elementAtOrNull(columns[index].length) == shape &&
+                                                        columns[index + 2].elementAtOrNull(columns[index].length + 1) == shape &&
+                                                        columns[index + 3].elementAtOrNull(columns[index].length + 2) == shape) {
+                                                      // There is a 4 in a row diagonally bottom left to top right
+                                                      line =
+                                                          "$index,${columns[index].length - 1},${index + 3},${columns[index].length + 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (same dir but second from left)
+                                                    else if (index > 0 &&
+                                                        index < 8 &&
+                                                        columns[index].length > 1 &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                        columns[index + 1].elementAtOrNull(columns[index].length) == shape &&
+                                                        columns[index + 2].elementAtOrNull(columns[index].length + 1) == shape) {
+                                                      line =
+                                                          "${index - 1},${columns[index].length - 2},${index + 2},${columns[index].length + 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (same dir but second from right)
+                                                    else if (index > 1 &&
+                                                        index < 9 &&
+                                                        columns[index].length > 2 &&
+                                                        columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                        columns[index + 1].elementAtOrNull(columns[index].length) == shape) {
+                                                      line =
+                                                          "${index - 2},${columns[index].length - 3},${index + 1},${columns[index].length},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (top left to bottom right)
+                                                    else if (index < 7 &&
+                                                        columns[index].length > 3 &&
+                                                        columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                        columns[index + 2].elementAtOrNull(columns[index].length - 3) == shape &&
+                                                        columns[index + 3].elementAtOrNull(columns[index].length - 4) == shape) {
+                                                      // There is a 4 in a row diagonally top left to bottom right
+                                                      line =
+                                                          "$index,${columns[index].length - 1},${index + 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (same dir but second from left)
+                                                    else if (index > 0 &&
+                                                        index < 8 &&
+                                                        columns[index].length > 2 &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
+                                                        columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                        columns[index + 2].elementAtOrNull(columns[index].length - 3) == shape) {
+                                                      line =
+                                                          "${index - 1},${columns[index].length},${index + 2},${columns[index].length - 3},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (same dir but second from right)
+                                                    else if (index > 1 &&
+                                                        index < 9 &&
+                                                        columns[index].length > 1 &&
+                                                        columns[index - 2].elementAtOrNull(columns[index].length + 1) == shape &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
+                                                        columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape) {
+                                                      line =
+                                                          "${index - 2},${columns[index].length + 1},${index + 1},${columns[index].length - 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (top right to bottom left)
+                                                    else if (index > 2 &&
+                                                        columns[index].length > 3 &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                        columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
+                                                        columns[index - 3].elementAtOrNull(columns[index].length - 4) == shape) {
+                                                      // There is a 4 in a row diagonally top right to bottom left
+                                                      line =
+                                                          "$index,${columns[index].length - 1},${index - 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    // Diagonally (bottom right to top left)
+                                                    else if (index > 2 &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length) == shape &&
+                                                        columns[index - 2].elementAtOrNull(columns[index].length + 1) == shape &&
+                                                        columns[index - 3].elementAtOrNull(columns[index].length + 2) == shape) {
+                                                      // There is a 4 in a row diagonally top right to bottom left
+                                                      line =
+                                                          "$index,${columns[index].length - 1},${index - 3},${columns[index].length + 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
+                                                    if (moves.last.length == 4) {
+                                                      moves.add({
+                                                        turnOrder[playerIndex]: index,
                                                       });
                                                     } else {
-                                                      // Continue game
+                                                      moves.last[turnOrder[playerIndex]] = index;
+                                                    }
+                                                    if (line == null) {
+                                                      // No 4 in a row, just update the moves
                                                       await game.reference.update({
                                                         "moves": moves,
-                                                        "lines": FieldValue.arrayUnion([line]),
-                                                        "results": results,
                                                       });
+                                                    } else {
+                                                      // There is a 4 in a row
+                                                      List results = game["results"];
+                                                      result = results.length;
+                                                      results.add(provider(context).user!.ref);
+                                                      if (results.length == 3) {
+                                                        // End game now
+                                                        await game.reference.update({
+                                                          "moves": moves,
+                                                          "results": results,
+                                                          "lines": FieldValue.arrayUnion([line]),
+                                                          "isPlaying": false,
+                                                        });
+                                                        canPop = true;
+                                                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                                                          Navigator.of(context).pop();
+                                                        });
+                                                      } else {
+                                                        // Continue game
+                                                        await game.reference.update({
+                                                          "moves": moves,
+                                                          "lines": FieldValue.arrayUnion([line]),
+                                                          "results": results,
+                                                        });
+                                                      }
                                                     }
                                                   }
-                                                }
-                                              },
+                                                },
+                                              ),
                                             )
                                           : blank,
                                     ),
