@@ -33,7 +33,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
             (data) {
               List<QueryDocumentSnapshot> userGames = data.docs.where((element) => (element["players"] as Map).values.contains(provider(context).user!.ref)).toList();
               List<int> userGameResults = userGames.map((e) {
-                if (e["ties"] == null || e["results"].indexOf(provider(context).user!.ref) <= 2 - e["ties"]) return e["results"].indexOf(provider(context).user!.ref) as int;
+                if ((e.data() as Map)["ties"] == null || e["results"].indexOf(provider(context).user!.ref) <= 2 - e["ties"]) return e["results"].indexOf(provider(context).user!.ref) as int;
                 return 3 - e["ties"] as int;
               }).toList();
               int n1 = userGameResults.where((element) => element == 0).length;
