@@ -137,8 +137,8 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     String? line; // Record a line showing the 4 in a row into the database
                                                     // Check in each of 7 directions (can't have vertically upwards due to gravity)
                                                     // Vertically downwards
-                                                    if (columns[index].length > 3 &&
-                                                        !columns[index].sublist(columns[index].length - 4).any((e) => e != shape)) {
+                                                    if (columns[index].length > 2 &&
+                                                        !columns[index].sublist(columns[index].length - 3).any((e) => e != shape)) {
                                                       // There is a 4 in a row vertically downward
                                                       line =
                                                           "$index,${columns[index].length - 1},$index,${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
@@ -180,7 +180,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                             .map((e) => e.elementAtOrNull(columns[index].length - 1))
                                                             .any((e) => e != shape)) {
                                                       line =
-                                                          "${index - 2},${columns[index].length - 1},${index + 2},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                          "${index - 2},${columns[index].length - 1},${index + 1},${columns[index].length - 1},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                                     }
                                                     // Diagonally (bottom left to top right)
                                                     else if (index < 7 &&
@@ -211,6 +211,16 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                       line =
                                                           "${index - 2},${columns[index].length - 3},${index + 1},${columns[index].length},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                                     }
+                                                    // Diagonally (top right to bottom left)
+                                                    else if (index > 2 &&
+                                                        columns[index].length > 3 &&
+                                                        columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
+                                                        columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
+                                                        columns[index - 3].elementAtOrNull(columns[index].length - 4) == shape) {
+                                                      // There is a 4 in a row diagonally top right to bottom left
+                                                      line =
+                                                      "$index,${columns[index].length - 1},${index - 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
+                                                    }
                                                     // Diagonally (top left to bottom right)
                                                     else if (index < 7 &&
                                                         columns[index].length > 3 &&
@@ -240,16 +250,6 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                         columns[index + 1].elementAtOrNull(columns[index].length - 2) == shape) {
                                                       line =
                                                           "${index - 2},${columns[index].length + 1},${index + 1},${columns[index].length - 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
-                                                    }
-                                                    // Diagonally (top right to bottom left)
-                                                    else if (index > 2 &&
-                                                        columns[index].length > 3 &&
-                                                        columns[index - 1].elementAtOrNull(columns[index].length - 2) == shape &&
-                                                        columns[index - 2].elementAtOrNull(columns[index].length - 3) == shape &&
-                                                        columns[index - 3].elementAtOrNull(columns[index].length - 4) == shape) {
-                                                      // There is a 4 in a row diagonally top right to bottom left
-                                                      line =
-                                                          "$index,${columns[index].length - 1},${index - 3},${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                                     }
                                                     // Diagonally (bottom right to top left)
                                                     else if (index > 2 &&
