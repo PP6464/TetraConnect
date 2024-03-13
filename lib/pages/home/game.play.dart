@@ -138,7 +138,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     // Check in each of 7 directions (can't have vertically upwards due to gravity)
                                                     // Vertically downwards
                                                     if (columns[index].length > 2 &&
-                                                        !columns[index].sublist(columns[index].length - 3).any((e) => e != shape)) {
+                                                        !columns[index].sublist(columns[index].length - 4).any((e) => e != shape)) {
                                                       // There is a 4 in a row vertically downward
                                                       line =
                                                           "$index,${columns[index].length - 1},$index,${columns[index].length - 4},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
