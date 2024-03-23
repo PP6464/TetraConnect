@@ -62,7 +62,7 @@ class _GameLogPageState extends State<GameLogPage> {
                           child: ListView.builder(
                             itemBuilder: (BuildContext context, int index) {
                               DateTime timeStamp = (userGames[index]["time"] as Timestamp).toDate();
-                              String timeStampString = "${AppLocalizations.of(context)!.date(timeStamp.day, timeStamp.second, timeStamp.year)} ${timeStamp.hour.toString().padRight(2, "0")}:${(timeStamp.minute % 60).toString().padRight(2, "0")}:${(timeStamp.second % 60).toString().padRight(2, "0")}";
+                              String timeStampString = "${AppLocalizations.of(context)!.date(timeStamp.day.toString().padLeft(2, "0"), timeStamp.month.toString().padLeft(2, "0"), timeStamp.year)} ${timeStamp.hour.toString().padLeft(2, "0")}:${(timeStamp.minute % 60).toString().padLeft(2, "0")}:${(timeStamp.second % 60).toString().padRight(2, "0")}";
                               String shape = (userGames[index]["players"] as Map).keys.where((element) => (userGames[index]["players"] as Map)[element] == provider(context).user!.ref).single;
                               int result = (userGames[index]["results"] as List<dynamic>).indexOf(provider(context).user!.ref);
                               if (result > 2 - ((userGames[index].data() as Map)["ties"] ?? 0)) {
