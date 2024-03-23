@@ -82,6 +82,7 @@ class _HomePageState extends State<HomePage> {
                           });
                           setState(() {
                             lobbyId = ref.id;
+                            matchmaking = true;
                           });
                         } else {
                           // Join existing lobby with closest average rating
@@ -106,6 +107,9 @@ class _HomePageState extends State<HomePage> {
                               "avgRating": lobby["avgRating"],
                             });
                             await lobby.reference.delete();
+                            setState(() {
+                              matchmaking = false;
+                            });
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => GamePlayPage(gameId: lobbyId),
@@ -120,11 +124,11 @@ class _HomePageState extends State<HomePage> {
                               "playerCount": FieldValue.increment(1),
                               "avgRating": (lobby["avgRating"] * lobby["playerCount"] + provider(context).user!.rating) / (lobby["playerCount"] + 1),
                             });
+                            setState(() {
+                              matchmaking = true;
+                            });
                           }
                         }
-                        setState(() {
-                          matchmaking = true;
-                        });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
