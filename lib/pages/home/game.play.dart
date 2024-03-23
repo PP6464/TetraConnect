@@ -308,6 +308,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                 ),
                               )
                             : blank,
+                        const SizedBox(height: 16.0),
                         Text(
                           AppLocalizations.of(context)!.results,
                           textScaler: TextScaler.linear(provider(context).tsf),
