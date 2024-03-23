@@ -36,6 +36,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 if ((e.data() as Map)["ties"] == null || e["results"].indexOf(provider(context).user!.ref) <= 2 - e["ties"]) return e["results"].indexOf(provider(context).user!.ref) as int;
                 return 3 - e["ties"] as int;
               }).toList();
+              print(userGames.map((e) => e.reference));
+              print(userGameResults);
               int n1 = userGameResults.where((element) => element == 0).length;
               int n2 = userGameResults.where((element) => element == 1).length;
               int n3 = userGameResults.where((element) => element == 2).length;

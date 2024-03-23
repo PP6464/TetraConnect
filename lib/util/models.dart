@@ -57,8 +57,8 @@ class User {
   }
 
   Future<void> updateRating({required int result, required double ratingDiff, required double avgRating}) async {
-    List<int> ratingChanges = [10, 10, 5, -5, -10];
-    int changeRating = (sqrt(avgRating) * tanh(0.2 * (ratingChanges[result + 1] + ratingDiff)) + ratingChanges[result]).round();
+    List<int> ratingChanges = [10, 5, -5, -10];
+    int changeRating = (sqrt(avgRating) * tanh(0.2 * (ratingChanges[result] + ratingDiff)) + sqrt(avgRating) * (result >= 2 ? -1 : 1)).round();
     rating += changeRating;
     if (rating < 0) rating = 0;
     await ref.update({

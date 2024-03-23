@@ -88,8 +88,14 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                         }
                                         if (!columns.any((element) => element.length < 10) && game["results"].length < 3 && result == null) {
                                           // Grid is full so game must be complete, but results must be a tie
+                                          List<DocumentReference> usersNoRes = [];
+                                          for (DocumentReference user in (game["players"] as Map).values) {
+                                            if (game["results"].indexOf() == -1) {
+                                              usersNoRes.add(user);
+                                            }
+                                          }
                                           game.reference.update({
-                                            "results": FieldValue.arrayUnion([provider(context).user!.ref]),
+                                            "results": FieldValue.arrayUnion([usersNoRes]),
                                             "ties": 3 - game["results"].length,
                                             "isPlaying": false,
                                           });
@@ -279,6 +285,8 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                       results.add(provider(context).user!.ref);
                                                       if (results.length == 3) {
                                                         // End game now
+                                                        DocumentReference lastUser = game["players"].values.where((e) => !game["results"].contains(e)).single;
+                                                        results.add(lastUser);
                                                         await game.reference.update({
                                                           "moves": moves,
                                                           "results": results,
