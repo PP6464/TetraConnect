@@ -137,7 +137,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                                     String? line; // Record a line showing the 4 in a row into the database
                                                     // Check in each of 7 directions (can't have vertically upwards due to gravity)
                                                     // Vertically downwards
-                                                    if (columns[index].length > 2 &&
+                                                    if (columns[index].length > 3 &&
                                                         !columns[index].sublist(columns[index].length - 4).any((e) => e != shape)) {
                                                       // There is a 4 in a row vertically downward
                                                       line =
