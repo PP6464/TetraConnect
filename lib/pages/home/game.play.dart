@@ -90,7 +90,7 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                           // Grid is full so game must be complete, but results must be a tie
                                           List<DocumentReference> usersNoRes = [];
                                           for (DocumentReference user in (game["players"] as Map).values) {
-                                            if (game["results"].indexOf() == -1) {
+                                            if (game["results"].indexOf(user) == -1) {
                                               usersNoRes.add(user);
                                             }
                                           }
