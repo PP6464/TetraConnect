@@ -94,10 +94,8 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                               usersNoRes.add(user);
                                             }
                                           }
-                                          print(usersNoRes);
-                                          print(game["results"].length);
                                           game.reference.update({
-                                            "results": FieldValue.arrayUnion([usersNoRes]),
+                                            "results": FieldValue.arrayUnion(usersNoRes),
                                             "ties": 3 - game["results"].length,
                                             "isPlaying": false,
                                           });
