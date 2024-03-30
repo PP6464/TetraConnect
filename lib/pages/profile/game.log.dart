@@ -60,7 +60,11 @@ class _GameLogPageState extends State<GameLogPage> {
                         userGames.sort((a, b) {
                           DateTime aTime = a["time"].toDate();
                           DateTime bTime = b["time"].toDate();
-                          return aTime.isAfter(bTime) ? -1 : aTime.isAtSameMomentAs(bTime) ? 0 : 1;
+                          return aTime.isAfter(bTime)
+                              ? -1
+                              : aTime.isAtSameMomentAs(bTime)
+                                  ? 0
+                                  : 1;
                         });
                         return SizedBox(
                           height: 500.0,
