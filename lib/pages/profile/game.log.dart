@@ -57,6 +57,11 @@ class _GameLogPageState extends State<GameLogPage> {
                       snapshot,
                       (data) {
                         List<QueryDocumentSnapshot> userGames = data.docs.where((element) => (element["players"] as Map).values.contains(provider(context).user!.ref)).toList();
+                        userGames.sort((a, b) {
+                          DateTime aTime = a["time"].toDate();
+                          DateTime bTime = b["time"].toDate();
+                          return aTime.isAfter(bTime) ? -1 : aTime.isAtSameMomentAs(bTime) ? 0 : 1;
+                        });
                         return SizedBox(
                           height: 500.0,
                           child: ListView.builder(
