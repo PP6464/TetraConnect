@@ -1030,6 +1030,16 @@ class S {
       args: [],
     );
   }
+
+  /// `User with this account is matchmaking on another device`
+  String get onOtherDevice {
+    return Intl.message(
+      'User with this account is matchmaking on another device',
+      name: 'onOtherDevice',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

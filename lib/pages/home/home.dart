@@ -71,6 +71,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onPressed: () async {
                         QuerySnapshot lobbies = await firestore.collection("lobbies").where("playerCount", isLessThan: 4).get();
+                        // Check if user isn't already matchmaking (on another device)
+                        if (lobbies.docs.any((element) => element["players"].values.contains(provider(context).user!.ref))) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                AppLocalizations.of(context)!.onOtherDevice,
+                              ),
+                            ),
+                          );
+                          return;
+                        }
                         if (lobbies.docs.isEmpty) {
                           // Create a new lobby
                           DocumentReference ref = await firestore.collection("lobbies").add({
@@ -177,7 +188,11 @@ class _HomePageState extends State<HomePage> {
                             return blank;
                           } else {
                             // Lobby has been cancelled
-                            matchmaking = false;
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              setState(() {
+                                matchmaking = false;
+                              });
+                            });
                             return blank;
                           }
                         },

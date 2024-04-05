@@ -121,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "notificationSentFriendRequestTitle": m2,
         "numberOfPlayers": m3,
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "onOtherDevice": MessageLookupByLibrary.simpleMessage(
+            "User with this account is matchmaking on another device"),
         "passwordCharacters": MessageLookupByLibrary.simpleMessage(
             "Password must have:\n- A special character\n- A capital letter\n- A number\n- A lower case letter"),
         "passwordEmpty": MessageLookupByLibrary.simpleMessage("Password empty"),

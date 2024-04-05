@@ -138,5 +138,6 @@
   "searchingForPlayers": "Searching for players ...",
   "numberOfPlayers": "{n}/4 players found",
   "startGame": "Start a game!",
-  "placePiece": "Place piece in this column"
+  "placePiece": "Place piece in this column",
+  "onOtherDevice": "User with this account is matchmaking on another device"
 }
