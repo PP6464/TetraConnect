@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../pages/home/game.play.dart';
+import '../play/game.play.dart';
 import '../../provider/app.settings.dart';
 import '../../ui/elements.dart';
 import '../../ui/theme.dart';
