@@ -1040,6 +1040,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Pass and play`
+  String get passPlay {
+    return Intl.message(
+      'Pass and play',
+      name: 'passPlay',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

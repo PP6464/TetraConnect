@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tetraconnect/pages/play/pass.play.dart';
 
 import '../pages/guide/guide.dart';
 import '../pages/home/home.dart';
@@ -17,6 +18,7 @@ enum route {
   guide,
   home,
   profile,
+  passPlay,
   settings,
   logout,
 }
@@ -32,6 +34,8 @@ extension RouteExt on route {
         return AppLocalizations.of(context)!.friends;
       case route.profile:
         return AppLocalizations.of(context)!.profile;
+      case route.passPlay:
+        return AppLocalizations.of(context)!.passPlay;
       case route.settings:
         return AppLocalizations.of(context)!.settings;
       case route.logout:
@@ -51,6 +55,8 @@ extension RouteExt on route {
         return const FriendsPage();
       case route.profile:
         return const ProfilePage();
+      case route.passPlay:
+        return const PassPlayPage();
       case route.settings:
         return const SettingsPage();
       case route.logout:
@@ -70,6 +76,8 @@ extension RouteExt on route {
         return "friends";
       case route.profile:
         return "profile";
+      case route.passPlay:
+        return "passPlay";
       case route.settings:
         return "settings";
       case route.logout:

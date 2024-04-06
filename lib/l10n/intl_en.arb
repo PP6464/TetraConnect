@@ -139,5 +139,6 @@
   "numberOfPlayers": "{n}/4 players found",
   "startGame": "Start a game!",
   "placePiece": "Place piece in this column",
-  "onOtherDevice": "User with this account is matchmaking on another device"
+  "onOtherDevice": "User with this account is matchmaking on another device",
+  "passPlay": "Pass and play"
 }
