@@ -26,19 +26,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(name) => "${name} has sent a friend request";
 
-  static String m3(n) => "${n}/4 players found";
+  static String m3(n) => "Player ${n}";
 
-  static String m4(place) => "Number of times you have finished ${place}";
+  static String m4(n) => "${n}/4 players found";
 
-  static String m5(rating) => "Rating: ${rating}";
+  static String m5(place) => "Number of times you have finished ${place}";
 
-  static String m6(hours, minutes, day, month, year) =>
+  static String m6(rating) => "Rating: ${rating}";
+
+  static String m7(hours, minutes, day, month, year) =>
       "${hours}:${minutes} ${day}/${month}/${year}";
 
-  static String m7(verificationEmail) =>
+  static String m8(verificationEmail) =>
       "A verification email has been sent to ${verificationEmail}. If you have not received the email, then check your spam or junk folders for the email";
 
-  static String m8(id) => "Your ID: ${id}";
+  static String m9(id) => "Your ID: ${id}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -119,7 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noRemoveFriends":
             MessageLookupByLibrary.simpleMessage("No friends to remove"),
         "notificationSentFriendRequestTitle": m2,
-        "numberOfPlayers": m3,
+        "nthPlayer": m3,
+        "numberOfPlayers": m4,
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "onOtherDevice": MessageLookupByLibrary.simpleMessage(
             "User with this account is matchmaking on another device"),
@@ -137,10 +140,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pending friend requests"),
         "placePiece":
             MessageLookupByLibrary.simpleMessage("Place piece in this column"),
-        "placeTooltip": m4,
+        "placeTooltip": m5,
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "randomise": MessageLookupByLibrary.simpleMessage("Randomise"),
-        "rating": m5,
+        "rating": m6,
         "reAuth": MessageLookupByLibrary.simpleMessage("Re-authentication"),
         "reAuthDesc": MessageLookupByLibrary.simpleMessage(
             "You must re-authenticate before modifying your profile to ensure your account is secure"),
@@ -174,11 +177,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "third": MessageLookupByLibrary.simpleMessage("3rd"),
         "timeControl": MessageLookupByLibrary.simpleMessage("Time Control"),
-        "timestamp": m6,
+        "timestamp": m7,
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
         "uiMode": MessageLookupByLibrary.simpleMessage("UI Mode"),
         "uid": MessageLookupByLibrary.simpleMessage("User ID"),
-        "verificationEmail": m7,
-        "yourID": m8
+        "verificationEmail": m8,
+        "yourID": m9
       };
 }

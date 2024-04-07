@@ -21,7 +21,7 @@ class PassPlayPage extends StatefulWidget {
 }
 
 class _PassPlayPageState extends State<PassPlayPage> {
-  List<Map> moves = [];
+  List<Map<String, dynamic>> moves = [];
   List<Line> lines = [];
   List<String> results = [];
   int? ties;
@@ -55,8 +55,8 @@ class _PassPlayPageState extends State<PassPlayPage> {
                     children: List.generate(
                       10,
                       (index) => SizedBox(
-                        height: (min(400.0, MediaQuery.of(context).size.width) - 16) / 10,
-                        width: (min(400.0, MediaQuery.of(context).size.width) - 16) / 10,
+                        height: (min(400.0, MediaQuery.of(context).size.width)) / 10,
+                        width: (min(400.0, MediaQuery.of(context).size.width)) / 10,
                         child: (() {
                           List<List<String>> columns = List.generate(10, (index) => []);
                           for (var turn in moves) {
@@ -101,11 +101,6 @@ class _PassPlayPageState extends State<PassPlayPage> {
                                 child: GestureDetector(
                                   child: const Icon(Icons.arrow_downward),
                                   onTap: () async {
-                                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                                      setState(() {
-                                        playerIndex = (playerIndex + 1) % 4;
-                                      });
-                                    });
                                     if (moves.isEmpty) {
                                       moves.add({
                                         turnOrder[playerIndex]: index,
@@ -248,18 +243,25 @@ class _PassPlayPageState extends State<PassPlayPage> {
                                             "$index,${columns[index].length - 1},${index - 3},${columns[index].length + 2},${moves.last.length == 4 ? moves.length : moves.length - 1},${moves.last.length == 4 ? 0 : moves.last.length}";
                                       }
                                       if (moves.last.length == 4) {
-                                        moves.add({
-                                          turnOrder[playerIndex]: index,
+                                        setState(() {
+                                          moves.add({
+                                            turnOrder[playerIndex]: index,
+                                          });
                                         });
                                       } else {
-                                        moves.last[turnOrder[playerIndex]] = index;
+                                        setState(() {
+                                          moves.last[turnOrder[playerIndex]] = index;
+                                        });
                                       }
                                       if (line != null) {
                                         // There is a 4 in a row
                                         results.add(turnOrder[playerIndex]);
+                                        setState(() {
+                                          lines.add(Line.fromString(line!));
+                                        });
                                         if (results.length == 3) {
                                           // End game now
-                                          String lastShape = turnOrder.where((e) => results.contains(e)).single;
+                                          String lastShape = turnOrder.where((e) => !results.contains(e)).single;
                                           results.add(lastShape);
                                           WidgetsBinding.instance.addPostFrameCallback((_) {
                                             firestore.collection("passPlay").add({
@@ -273,6 +275,9 @@ class _PassPlayPageState extends State<PassPlayPage> {
                                           });
                                         }
                                       }
+                                      setState(() {
+                                        playerIndex = (playerIndex + 1) % 4;
+                                      });
                                     }
                                   },
                                 ),
@@ -282,7 +287,30 @@ class _PassPlayPageState extends State<PassPlayPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16.0),
+                ...turnOrder.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: 40.0,
+                          height: 40.0,
+                          child: Image.asset("assets/$e.png"),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          AppLocalizations.of(context)!.nthPlayer(turnOrder.indexOf(e) + 1),
+                          textScaler: TextScaler.linear(provider(context).tsf),
+                          style: TextStyle(
+                            fontWeight: turnOrder.indexOf(e) == playerIndex ? FontWeight.bold : FontWeight.normal,
+                            fontSize: turnOrder.indexOf(e) == playerIndex ? 20.0 : 17.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 Text(
                   AppLocalizations.of(context)!.results,
                   textScaler: TextScaler.linear(provider(context).tsf),
@@ -292,6 +320,29 @@ class _PassPlayPageState extends State<PassPlayPage> {
                     fontSize: 20.0,
                   ),
                 ),
+                ...results.map((e) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: 40.0,
+                          height: 40.0,
+                          child: Image.asset("assets/$e.png"),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Text(
+                          AppLocalizations.of(context)!.nthPlayer(turnOrder.indexOf(e) + 1),
+                          textScaler: TextScaler.linear(provider(context).tsf),
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
               ],
             ),
           ),

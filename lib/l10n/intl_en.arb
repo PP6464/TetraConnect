@@ -140,5 +140,11 @@
   "startGame": "Start a game!",
   "placePiece": "Place piece in this column",
   "onOtherDevice": "User with this account is matchmaking on another device",
-  "passPlay": "Pass and play"
+  "passPlay": "Pass and play",
+  "nthPlayer": "Player {n}",
+  "@nthPlayer": {
+    "placeholders": {
+      "n": {}
+    }
+  }
 }

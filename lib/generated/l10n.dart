@@ -1050,6 +1050,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Player {n}`
+  String nthPlayer(Object n) {
+    return Intl.message(
+      'Player $n',
+      name: 'nthPlayer',
+      desc: '',
+      args: [n],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

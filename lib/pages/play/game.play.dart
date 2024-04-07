@@ -79,8 +79,8 @@ class _GamePlayPageState extends State<GamePlayPage> {
                                   children: List.generate(
                                     10,
                                     (index) => SizedBox(
-                                      height: (min(400.0, MediaQuery.of(context).size.width) - 16) / 10,
-                                      width: (min(400.0, MediaQuery.of(context).size.width) - 16) / 10,
+                                      height: (min(400.0, MediaQuery.of(context).size.width)) / 10,
+                                      width: (min(400.0, MediaQuery.of(context).size.width)) / 10,
                                       child: (() {
                                         List<List<String>> columns = List.generate(10, (index) => []);
                                         for (var turn in game["moves"]) {
