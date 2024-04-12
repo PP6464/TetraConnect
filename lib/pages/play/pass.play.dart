@@ -270,6 +270,7 @@ class _PassPlayPageState extends State<PassPlayPage> {
                                               "host": provider(context).user!.ref,
                                               "lines": lines.map((e) => e.string()).toList(),
                                               "ties": ties,
+                                              "moves": moves,
                                             });
                                             Navigator.of(context).pop();
                                           });

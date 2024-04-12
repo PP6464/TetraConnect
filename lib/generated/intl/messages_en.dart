@@ -126,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
         "onOtherDevice": MessageLookupByLibrary.simpleMessage(
             "User with this account is matchmaking on another device"),
+        "online": MessageLookupByLibrary.simpleMessage("Online"),
         "passPlay": MessageLookupByLibrary.simpleMessage("Pass and play"),
         "passwordCharacters": MessageLookupByLibrary.simpleMessage(
             "Password must have:\n- A special character\n- A capital letter\n- A number\n- A lower case letter"),

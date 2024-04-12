@@ -10,16 +10,16 @@ import '../../ui/elements.dart';
 import '../../util/constants.dart';
 import '../../util/route.dart';
 
-class GameViewPage extends StatefulWidget {
+class PassPlayViewPage extends StatefulWidget {
   final DocumentReference gameRef;
 
-  const GameViewPage({Key? key, required this.gameRef}) : super(key: key);
+  const PassPlayViewPage({Key? key, required this.gameRef}) : super(key: key);
 
   @override
-  State<GameViewPage> createState() => _GameViewPageState();
+  State<PassPlayViewPage> createState() => _PassPlayViewPageState();
 }
 
-class _GameViewPageState extends State<GameViewPage> {
+class _PassPlayViewPageState extends State<PassPlayViewPage> {
   int moveIndex = 0;
   int turnIndex = -1;
 
@@ -122,39 +122,27 @@ class _GameViewPageState extends State<GameViewPage> {
                               child: ListView.builder(
                                 itemExtent: 50.0,
                                 itemCount: 4,
-                                itemBuilder: (context, index) => StreamBuilder(
-                                  stream: (game["players"][turnOrder[index]] as DocumentReference).snapshots(),
-                                  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) => asyncBuilder(
-                                    context,
-                                    snapshot,
-                                    (userData) {
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CircleAvatar(
-                                              foregroundImage: NetworkImage(userData["photoUrl"]),
-                                              radius: 34.0,
-                                            ),
-                                          ),
-                                          Text(
-                                            userData["displayName"],
-                                            textScaler: TextScaler.linear(provider(context).tsf),
-                                            style: TextStyle(
-                                              fontWeight: index == (turnIndex) % 4 ? FontWeight.bold : FontWeight.normal,
-                                              fontSize: index == (turnIndex) % 4 ? 20.0 : 17.5,
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
+                                itemBuilder: (context, index) => Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset("assets/${turnOrder[index]}.png"),
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!.nthPlayer(index + 1),
+                                      textScaler: TextScaler.linear(provider(context).tsf),
+                                      style: TextStyle(
+                                        fontWeight: index == (turnIndex) % 4 ? FontWeight.bold : FontWeight.normal,
+                                        fontSize: index == (turnIndex) % 4 ? 20.0 : 17.5,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       );
                     },
