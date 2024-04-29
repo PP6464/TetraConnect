@@ -17,7 +17,34 @@ class _GuidePageState extends State<GuidePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: normalAppBar(context, route.home),
-      body: const Text("Guide"),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 400.0),
+              child: Column(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.aimOfGame,
+                    textScaler: TextScaler.linear(provider(context).tsf),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.gameIntro,
+                    textScaler: TextScaler.linear(provider(context).tsf),
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
         style: ElevatedButton.styleFrom(
