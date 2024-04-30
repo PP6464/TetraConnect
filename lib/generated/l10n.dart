@@ -1070,6 +1070,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Aim of the game`
+  String get aimOfGame {
+    return Intl.message(
+      'Aim of the game',
+      name: 'aimOfGame',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)`
+  String get gameIntro {
+    return Intl.message(
+      'The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)',
+      name: 'gameIntro',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

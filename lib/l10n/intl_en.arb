@@ -149,5 +149,6 @@
   },
   "online": "Online",
   "aimOfGame": "Aim of the game",
-  "gameIntro": "The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)"
+  "gameIntroP1": "The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins.\n\n The game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth).\n\nGravity is present in the game, as can be seen in the gif below:",
+  "gameIntroP2": "As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍"
 }

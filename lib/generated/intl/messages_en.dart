@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "account": MessageLookupByLibrary.simpleMessage("Account"),
         "accountDesc":
             MessageLookupByLibrary.simpleMessage("Manage your account details"),
+        "aimOfGame": MessageLookupByLibrary.simpleMessage("Aim of the game"),
         "appVersion": m0,
         "backward": MessageLookupByLibrary.simpleMessage("Go backward"),
         "blank": MessageLookupByLibrary.simpleMessage("Blank"),
@@ -93,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "fundTetraConnect":
             MessageLookupByLibrary.simpleMessage("Fund TetraConnect"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+        "gameIntro": MessageLookupByLibrary.simpleMessage(
+            "The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)"),
         "gameLog": MessageLookupByLibrary.simpleMessage("Game Log"),
         "gameLogDesc":
             MessageLookupByLibrary.simpleMessage("View all of your games"),

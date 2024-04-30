@@ -19,7 +19,7 @@ class _GuidePageState extends State<GuidePage> {
       appBar: normalAppBar(context, route.home),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 400.0),
@@ -35,7 +35,18 @@ class _GuidePageState extends State<GuidePage> {
                     ),
                   ),
                   Text(
-                    AppLocalizations.of(context)!.gameIntro,
+                    AppLocalizations.of(context)!.gameIntroP1,
+                    textScaler: TextScaler.linear(provider(context).tsf),
+                    textAlign: TextAlign.justify,
+                  ),
+                  Container(
+                    height: 300.0,
+                    width: 300.0,
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.asset("assets/gravity.gif"),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.gameIntroP2,
                     textScaler: TextScaler.linear(provider(context).tsf),
                     textAlign: TextAlign.justify,
                   ),
