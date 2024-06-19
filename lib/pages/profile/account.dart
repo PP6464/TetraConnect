@@ -192,7 +192,8 @@ class _AccountPageState extends State<AccountPage> {
                                         );
                                         String colourRep = initialsColour.value.toRadixString(16).substring(2);
                                         setState(() {
-                                          picLocation = Uri.encodeFull("https://eu.ui-avatars.com/api/?background=$colourRep&size=128&name=${profileDisplayName.text}&rounded=true&bold=true");
+                                          picLocation = Uri.encodeFull(
+                                              "https://eu.ui-avatars.com/api/?background=$colourRep&size=128&name=${profileDisplayName.text}&rounded=true&bold=true");
                                           picSrc = src;
                                         });
                                         break;
@@ -357,7 +358,9 @@ class _AccountPageState extends State<AccountPage> {
                                     prefixIcon: const Icon(Icons.lock),
                                     suffixIcon: IconButton(
                                       icon: profileObscurePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
-                                      tooltip: profileObscurePassword ? AppLocalizations.of(context)!.showPassword : AppLocalizations.of(context)!.hidePassword,
+                                      tooltip: profileObscurePassword
+                                          ? AppLocalizations.of(context)!.showPassword
+                                          : AppLocalizations.of(context)!.hidePassword,
                                       onPressed: () {
                                         setState(() {
                                           profileObscurePassword = !profileObscurePassword;
@@ -397,11 +400,19 @@ class _AccountPageState extends State<AccountPage> {
                                           await currentPic.items.single.delete();
                                         }
                                         if (!kIsWeb) {
-                                          await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").putFile(File(picLocation));
-                                          photoUrl = await storage.ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}").getDownloadURL();
+                                          await storage
+                                              .ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}")
+                                              .putFile(File(picLocation));
+                                          photoUrl = await storage
+                                              .ref("users/${auth.currentUser!.uid}/${File(picLocation).path.split("/").last}")
+                                              .getDownloadURL();
                                         } else {
-                                          await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").putData(imgBytes!);
-                                          photoUrl = await storage.ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}").getDownloadURL();
+                                          await storage
+                                              .ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}")
+                                              .putData(imgBytes!);
+                                          photoUrl = await storage
+                                              .ref("users/${auth.currentUser!.uid}/profile_pic.${picMimeType.split("/").last}")
+                                              .getDownloadURL();
                                         }
                                         await provider(context).user!.update({
                                           "displayName": profileDisplayName.text,
@@ -579,7 +590,9 @@ class _AccountPageState extends State<AccountPage> {
                                     prefixIcon: const Icon(Icons.lock),
                                     suffixIcon: IconButton(
                                       icon: reAuthObscurePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
-                                      tooltip: reAuthObscurePassword ? AppLocalizations.of(context)!.showPassword : AppLocalizations.of(context)!.hidePassword,
+                                      tooltip: reAuthObscurePassword
+                                          ? AppLocalizations.of(context)!.showPassword
+                                          : AppLocalizations.of(context)!.hidePassword,
                                       onPressed: () {
                                         setState(() {
                                           reAuthObscurePassword = !reAuthObscurePassword;
@@ -639,6 +652,69 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     const SizedBox(height: 24.0),
                     loading ? defaultLoadingIndicator : blank,
+                    const SizedBox(height: 48.0),
+                    ElevatedButton(
+                      onPressed: () async {
+                        bool res = await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                              AppLocalizations.of(context)!.areYouSure,
+                              textScaler: TextScaler.linear(provider(context).tsf),
+                            ),
+                            content: Column(
+                              children: [
+                                Text(
+                                  AppLocalizations.of(context)!.areYouSureDelete,
+                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.tsAndCs,
+                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                  style: const TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                )
+                              ],
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.cancel,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.ok,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                        if (res) {
+                          await auth.currentUser!.delete();
+                          await provider(context).user!.ref.set({
+                            "displayName": provider(context).user!.displayName,
+                            "photoUrl": provider(context).user!.photoUrl,
+                          });
+                          await provider(context).updateUser(null);
+                        }
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.deleteAccount,
+                        textScaler: TextScaler.linear(provider(context).tsf),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 24.0),
                   ],
                 ),

@@ -150,5 +150,8 @@
   "online": "Online",
   "aimOfGame": "Aim of the game",
   "gameIntroP1": "The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins.\n\n The game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth).\n\nGravity is present in the game, as can be seen in the gif below:",
-  "gameIntroP2": "As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍"
+  "gameIntroP2": "As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍",
+  "areYouSure": "Are you sure?",
+  "areYouSureDelete": "Are you sure you would like to delete your account?",
+  "tsAndCs": "To ensure that other users can see their games, your profile picture and display name will be kept. If you would like to hide this information, just change your display name to a space bar and your profile picture to a blank person one"
 }

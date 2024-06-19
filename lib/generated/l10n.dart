@@ -1081,11 +1081,51 @@ class S {
     );
   }
 
-  /// `The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)`
-  String get gameIntro {
+  /// `The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins.\n\n The game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth).\n\nGravity is present in the game, as can be seen in the gif below:`
+  String get gameIntroP1 {
     return Intl.message(
-      'The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)',
-      name: 'gameIntro',
+      'The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins.\n\n The game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth).\n\nGravity is present in the game, as can be seen in the gif below:',
+      name: 'gameIntroP1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍`
+  String get gameIntroP2 {
+    return Intl.message(
+      'As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍',
+      name: 'gameIntroP2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure?`
+  String get areYouSure {
+    return Intl.message(
+      'Are you sure?',
+      name: 'areYouSure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you would like to delete your account?`
+  String get areYouSureDelete {
+    return Intl.message(
+      'Are you sure you would like to delete your account?',
+      name: 'areYouSureDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To ensure that other users can see their games, your profile picture and display name will be kept. If you would like to hide this information, just change your display name to a space bar and your profile picture to a blank person one`
+  String get tsAndCs {
+    return Intl.message(
+      'To ensure that other users can see their games, your profile picture and display name will be kept. If you would like to hide this information, just change your display name to a space bar and your profile picture to a blank person one',
+      name: 'tsAndCs',
       desc: '',
       args: [],
     );

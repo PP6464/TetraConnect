@@ -50,6 +50,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Manage your account details"),
         "aimOfGame": MessageLookupByLibrary.simpleMessage("Aim of the game"),
         "appVersion": m0,
+        "areYouSure": MessageLookupByLibrary.simpleMessage("Are you sure?"),
+        "areYouSureDelete": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you would like to delete your account?"),
         "backward": MessageLookupByLibrary.simpleMessage("Go backward"),
         "blank": MessageLookupByLibrary.simpleMessage("Blank"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
@@ -94,8 +97,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "fundTetraConnect":
             MessageLookupByLibrary.simpleMessage("Fund TetraConnect"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
-        "gameIntro": MessageLookupByLibrary.simpleMessage(
-            "The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins. But the game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth)"),
+        "gameIntroP1": MessageLookupByLibrary.simpleMessage(
+            "The aim of the game is to form a four in a row. You play against three other players, and whoever makes four in a row first wins.\n\n The game is still played until either the grid is filled or until first, second and third have all been decided (at which point the remaining player is fourth).\n\nGravity is present in the game, as can be seen in the gif below:"),
+        "gameIntroP2": MessageLookupByLibrary.simpleMessage(
+            "As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍"),
         "gameLog": MessageLookupByLibrary.simpleMessage("Game Log"),
         "gameLogDesc":
             MessageLookupByLibrary.simpleMessage("View all of your games"),
@@ -182,6 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "third": MessageLookupByLibrary.simpleMessage("3rd"),
         "timeControl": MessageLookupByLibrary.simpleMessage("Time Control"),
         "timestamp": m7,
+        "tsAndCs": MessageLookupByLibrary.simpleMessage(
+            "To ensure that other users can see their games, your profile picture and display name will be kept. If you would like to hide this information, just change your display name to a space bar and your profile picture to a blank person one"),
         "tsf": MessageLookupByLibrary.simpleMessage("Text Scale Factor"),
         "uiMode": MessageLookupByLibrary.simpleMessage("UI Mode"),
         "uid": MessageLookupByLibrary.simpleMessage("User ID"),
