@@ -60,11 +60,11 @@ AppBar normalAppBar(BuildContext context, route? removedRoute) => AppBar(
                       ? TextStyle(
                           color: theme.error.colour,
                         )
-                      : (route.values.where((element) => element != removedRoute)).toList()[index] == route.fundTetraConnect
-                          ? const TextStyle(
+                      : // (route.values.where((element) => element != removedRoute)).toList()[index] == route.fundTetraConnect ?
+                          const TextStyle(
                               fontWeight: FontWeight.bold,
-                            )
-                          : null,
+                            ),
+                          // : null,
                   textScaler: TextScaler.linear(provider(context).tsf),
                 ),
               ),
