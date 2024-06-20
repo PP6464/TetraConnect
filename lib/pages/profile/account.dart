@@ -505,12 +505,12 @@ class _AccountPageState extends State<AccountPage> {
                                       ),
                                     ) ?? false;
                                     if (res) {
-                                      await auth.currentUser!.delete();
                                       await provider(context).user!.ref.set({
                                         "displayName": provider(context).user!.displayName,
                                         "photoUrl": provider(context).user!.photoUrl,
                                       });
                                       await provider(context).updateUser(null);
+                                      await auth.currentUser!.delete();
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                           builder: (context) => const LoginPage(),
