@@ -153,5 +153,6 @@
   "gameIntroP2": "As can be seen above, the pieces go to the lowest available space in their column. Now that you understand the rules, enjoy playing the game! 😀👍",
   "areYouSure": "Are you sure?",
   "areYouSureDelete": "Are you sure you would like to delete your account?",
-  "tsAndCs": "To ensure that other users can see their games, your profile picture and display name will be kept. If you would like to hide this information, just change your display name to a space bar and your profile picture to a blank person one"
+  "tsAndCs": "To ensure that other users can see their games, your profile picture and display name will be kept. If you would like to hide this information, just change your display name to a space bar and your profile picture to a blank person one",
+  "privacyPolicy": "Privacy policy"
 }

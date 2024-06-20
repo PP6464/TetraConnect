@@ -150,6 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "placePiece":
             MessageLookupByLibrary.simpleMessage("Place piece in this column"),
         "placeTooltip": m5,
+        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy policy"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "randomise": MessageLookupByLibrary.simpleMessage("Randomise"),
         "rating": m6,

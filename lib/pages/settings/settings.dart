@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../provider/app.settings.dart';
 import '../../ui/elements.dart';
@@ -150,6 +151,15 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
+                GestureDetector(
+                  onTap: () {
+                    launchUrl(Uri.parse("https://firebasestorage.googleapis.com/v0/b/tetraconnect.appspot.com/o/app%2Fprivacy-policy.html?alt=media&token=804d0224-cc04-4df1-a7b5-42ab7c62b37d"));
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.privacyPolicy,
+                    textScaler: TextScaler.linear(provider(context).tsf),
+                  ),
+                )
               ],
             ),
           ),
