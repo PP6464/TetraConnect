@@ -8,3 +8,7 @@
 2. Square
 3. Triangle
 4. Cross
+
+# Play the game!
+Web: https://tetraconnect.web.app
+Android: WIP
