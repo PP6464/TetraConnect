@@ -47,8 +47,6 @@ class _GamePlayPageState extends State<GamePlayPage> {
                         .user!
                         .updateRating(
                           result: result ?? (3 - ((game.data() as Map)["ties"] ?? 0)) as int,
-                          ratingDiff: game["avgRating"] - provider(context).user!.rating.toDouble(),
-                          avgRating: game["avgRating"],
                         )
                         .then((value) => Navigator.of(context).pop());
                   }
