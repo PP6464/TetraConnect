@@ -13,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:images_picker/images_picker.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:random_color/random_color.dart';
+import 'package:tetraconnect/pages/auth/login.dart';
 
 import '../../ui/theme.dart';
 import '../../util/api.dart';
@@ -704,6 +705,12 @@ class _AccountPageState extends State<AccountPage> {
                             "photoUrl": provider(context).user!.photoUrl,
                           });
                           await provider(context).updateUser(null);
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                            (route) => false,
+                          );
                         }
                       },
                       child: Text(
