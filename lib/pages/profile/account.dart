@@ -454,67 +454,79 @@ class _AccountPageState extends State<AccountPage> {
                                 ElevatedButton(
                                   onPressed: () async {
                                     bool res = await showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text(
-                                          AppLocalizations.of(context)!.areYouSure,
-                                          textScaler: TextScaler.linear(provider(context).tsf),
-                                        ),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)!.areYouSureDelete,
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: Text(
+                                              AppLocalizations.of(context)!.areYouSure,
                                               textScaler: TextScaler.linear(provider(context).tsf),
                                             ),
-                                            const SizedBox(height: 8.0),
-                                            Text(
-                                              AppLocalizations.of(context)!.tsAndCs,
-                                              textScaler: TextScaler.linear(provider(context).tsf),
-                                              style: const TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop(false);
-                                            },
-                                            child: Text(
-                                              AppLocalizations.of(context)!.cancel,
-                                              textScaler: TextScaler.linear(provider(context).tsf),
-                                              style: TextStyle(
-                                                color: theme.red.colour,
-                                              ),
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  AppLocalizations.of(context)!.areYouSureDelete,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                Text(
+                                                  AppLocalizations.of(context)!.tsAndCs,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                                  style: const TextStyle(
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                )
+                                              ],
                                             ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop(false);
+                                                },
+                                                child: Text(
+                                                  AppLocalizations.of(context)!.cancel,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                                  style: TextStyle(
+                                                    color: theme.red.colour,
+                                                  ),
+                                                ),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop(true);
+                                                },
+                                                child: Text(
+                                                  AppLocalizations.of(context)!.ok,
+                                                  textScaler: TextScaler.linear(provider(context).tsf),
+                                                  style: TextStyle(
+                                                    color: theme.green.colour,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop(true);
-                                            },
-                                            child: Text(
-                                              AppLocalizations.of(context)!.ok,
-                                              textScaler: TextScaler.linear(provider(context).tsf),
-                                              style: TextStyle(
-                                                color: theme.green.colour,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ) ?? false;
+                                        ) ??
+                                        false;
                                     if (res) {
                                       await provider(context).user!.ref.set({
                                         "displayName": provider(context).user!.displayName,
                                         "photoUrl": provider(context).user!.photoUrl,
                                       });
-                                      QuerySnapshot friends = await firestore.collection("friends")
-                                          .where("users", arrayContains: provider(context).user!.ref)
+                                      QuerySnapshot friends = await firestore
+                                          .collection("friends")
+                                          .where(
+                                            "users",
+                                            arrayContains: provider(context).user!.ref,
+                                          )
                                           .get();
                                       for (QueryDocumentSnapshot friend in friends.docs) {
                                         await friend.reference.delete();
+                                      }
+                                      QuerySnapshot passPlays = await firestore
+                                          .collection("passPlay")
+                                          .where("host", isEqualTo: provider(context).user!.ref)
+                                          .get();
+                                      for (QueryDocumentSnapshot passPlay in passPlays.docs) {
+                                        await passPlay.reference.delete();
                                       }
                                       await provider(context).updateUser(null);
                                       await auth.currentUser!.delete();
@@ -522,7 +534,7 @@ class _AccountPageState extends State<AccountPage> {
                                         MaterialPageRoute(
                                           builder: (context) => const LoginPage(),
                                         ),
-                                            (route) => false,
+                                        (route) => false,
                                       );
                                     }
                                   },
