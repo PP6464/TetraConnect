@@ -449,65 +449,97 @@ class _AccountPageState extends State<AccountPage> {
                                         color: isDarkMode(context) ? Colors.grey : Colors.grey[900],
                                       )
                                     : blank,
+                                const SizedBox(height: 36.0),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    bool res = await showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text(
+                                          AppLocalizations.of(context)!.areYouSure,
+                                          textScaler: TextScaler.linear(provider(context).tsf),
+                                        ),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              AppLocalizations.of(context)!.areYouSureDelete,
+                                              textScaler: TextScaler.linear(provider(context).tsf),
+                                            ),
+                                            const SizedBox(height: 8.0),
+                                            Text(
+                                              AppLocalizations.of(context)!.tsAndCs,
+                                              textScaler: TextScaler.linear(provider(context).tsf),
+                                              style: const TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(false);
+                                            },
+                                            child: Text(
+                                              AppLocalizations.of(context)!.cancel,
+                                              textScaler: TextScaler.linear(provider(context).tsf),
+                                              style: TextStyle(
+                                                color: theme.red.colour,
+                                              ),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(true);
+                                            },
+                                            child: Text(
+                                              AppLocalizations.of(context)!.ok,
+                                              textScaler: TextScaler.linear(provider(context).tsf),
+                                              style: TextStyle(
+                                                color: theme.green.colour,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ) ?? false;
+                                    if (res) {
+                                      await auth.currentUser!.delete();
+                                      await provider(context).user!.ref.set({
+                                        "displayName": provider(context).user!.displayName,
+                                        "photoUrl": provider(context).user!.photoUrl,
+                                      });
+                                      await provider(context).updateUser(null);
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(
+                                          builder: (context) => const LoginPage(),
+                                        ),
+                                            (route) => false,
+                                      );
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: theme.red.colour,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    AppLocalizations.of(context)!.deleteAccount,
+                                    textScaler: TextScaler.linear(provider(context).tsf),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
                       ),
                     ),
-                    // const SizedBox(height: 16.0),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     showDialog(
-                    //       context: context,
-                    //       builder: (context) {
-                    //         return AlertDialog(
-                    //           title: Text(
-                    //             AppLocalizations.of(context)!.deleteAccount,
-                    //             textScaler: TextScaler.linear(provider(context).tsf),
-                    //             style: const TextStyle(
-                    //               fontSize: 25.0,
-                    //               fontWeight: FontWeight.bold,
-                    //             ),
-                    //           ),
-                    //           content: Text(
-                    //             AppLocalizations.of(context)!.deleteAccountWarning,
-                    //           ),
-                    //           actions: [
-                    //             TextButton(
-                    //               onPressed: () {
-                    //                 Navigator.of(context).pop();
-                    //               },
-                    //               child: Text(
-                    //                 AppLocalizations.of(context)!.cancel,
-                    //               ),
-                    //             ),
-                    //             TextButton(
-                    //               onPressed: () async {},
-                    //               child: Text(
-                    //                 AppLocalizations.of(context)!.ok,
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         );
-                    //       },
-                    //     );
-                    //   },
-                    //   style: ElevatedButton.styleFrom(
-                    //     backgroundColor: theme.red.colour,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(20.0),
-                    //     ),
-                    //   ),
-                    //   child: Text(
-                    //     AppLocalizations.of(context)!.deleteAccount,
-                    //     textScaler: TextScaler.linear(provider(context).tsf),
-                    //     style: const TextStyle(
-                    //       color: Colors.black,
-                    //     ),
-                    //   ),
-                    // ),
-                    // const SizedBox(height: 16.0),
                   ],
                 ),
               ),
@@ -653,75 +685,6 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     const SizedBox(height: 24.0),
                     loading ? defaultLoadingIndicator : blank,
-                    const SizedBox(height: 48.0),
-                    ElevatedButton(
-                      onPressed: () async {
-                        bool res = await showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text(
-                              AppLocalizations.of(context)!.areYouSure,
-                              textScaler: TextScaler.linear(provider(context).tsf),
-                            ),
-                            content: Column(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.areYouSureDelete,
-                                  textScaler: TextScaler.linear(provider(context).tsf),
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.tsAndCs,
-                                  textScaler: TextScaler.linear(provider(context).tsf),
-                                  style: const TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                )
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(false);
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.cancel,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.ok,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                        if (res) {
-                          await auth.currentUser!.delete();
-                          await provider(context).user!.ref.set({
-                            "displayName": provider(context).user!.displayName,
-                            "photoUrl": provider(context).user!.photoUrl,
-                          });
-                          await provider(context).updateUser(null);
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                            (route) => false,
-                          );
-                        }
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.deleteAccount,
-                        textScaler: TextScaler.linear(provider(context).tsf),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 24.0),
                   ],
                 ),
