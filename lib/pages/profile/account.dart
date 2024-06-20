@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -509,6 +510,12 @@ class _AccountPageState extends State<AccountPage> {
                                         "displayName": provider(context).user!.displayName,
                                         "photoUrl": provider(context).user!.photoUrl,
                                       });
+                                      QuerySnapshot friends = await firestore.collection("friends")
+                                          .where("users", arrayContains: provider(context).user!.ref)
+                                          .get();
+                                      for (QueryDocumentSnapshot friend in friends.docs) {
+                                        await friend.reference.delete();
+                                      }
                                       await provider(context).updateUser(null);
                                       await auth.currentUser!.delete();
                                       Navigator.of(context).pushAndRemoveUntil(
