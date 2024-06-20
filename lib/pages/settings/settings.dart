@@ -151,13 +151,18 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 12.0),
                 GestureDetector(
                   onTap: () {
                     launchUrl(Uri.parse("https://firebasestorage.googleapis.com/v0/b/tetraconnect.appspot.com/o/app%2Fprivacy-policy.html?alt=media&token=804d0224-cc04-4df1-a7b5-42ab7c62b37d"));
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.privacyPolicy,
-                    textScaler: TextScaler.linear(provider(context).tsf),
+                  child: Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.privacyPolicy,
+                        textScaler: TextScaler.linear(provider(context).tsf),
+                      ),
+                    ],
                   ),
                 )
               ],
