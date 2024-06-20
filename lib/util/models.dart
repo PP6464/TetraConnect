@@ -56,13 +56,12 @@ class User {
     return (exp(x) - exp(-x))/(exp(x) + exp(-x));
   }
 
-  Future<void> updateRating({required int result, required double ratingDiff, required double avgRating}) async {
-    List<int> ratingChanges = [10, 5, -5, -10];
-    int changeRating = (sqrt(avgRating) * tanh(0.2 * (ratingChanges[result] + ratingDiff)) + sqrt(avgRating) * (result >= 2 ? -1 : 1)).round();
-    rating += changeRating;
-    if (rating < 0) rating = 0;
+  Future<void> updateRating ({required int result}) async {
+    List<int> rankingDeltas = [10, 5, -5, -10];
+    int newRating = rating + rankingDeltas[result];
+    if (newRating < 0) newRating = 0;
     await ref.update({
-      "rating": rating,
+      "rating": newRating,
     });
   }
 }
