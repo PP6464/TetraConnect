@@ -11,4 +11,4 @@
 
 # Play the game!
 Web: https://tetraconnect.web.app
-Android: WIP
+Android: https://play.google.com/store/apps/details?id=app.web.tetraconnect
