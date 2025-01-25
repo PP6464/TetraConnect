@@ -42,6 +42,9 @@ class User {
 
   static Future<User> fromUID(String uid) async {
     final DocumentSnapshot userData = await firestore.doc("users/$uid").get();
+    if (!userData.exists) {
+      throw Exception("User doesn't exist");
+    }
     return User(
       displayName: userData["displayName"],
       email: userData["email"],

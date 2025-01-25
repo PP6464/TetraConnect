@@ -36,7 +36,7 @@ void main() async {
       }
     }
   }
-  final AppSettingsValues values;
+  AppSettingsValues values;
   String? uid = preferences.getString("uid");
   if (!saveUser || uid == null) {
     await preferences.remove("uid");
@@ -45,11 +45,18 @@ void main() async {
       tsf: preferences.getDouble("tsf") ?? 1.0,
     );
   } else {
-    values = AppSettingsValues(
-      uiMode: uiModeFromString(preferences.getString("uiMode") ?? stringifyUIMode(ThemeMode.system)),
-      tsf: preferences.getDouble("tsf") ?? 1.0,
-      user: await User.fromUID(uid),
-    );
+    try {
+      values = AppSettingsValues(
+        uiMode: uiModeFromString(preferences.getString("uiMode") ?? stringifyUIMode(ThemeMode.system)),
+        tsf: preferences.getDouble("tsf") ?? 1.0,
+        user: await User.fromUID(uid),
+      );
+    } on Exception {
+      values = AppSettingsValues(
+        uiMode: uiModeFromString(preferences.getString("uiMode") ?? stringifyUIMode(ThemeMode.system)),
+        tsf: preferences.getDouble("tsf") ?? 1.0,
+      );
+    }
   }
   await messaging.requestPermission(
     alert: true,
