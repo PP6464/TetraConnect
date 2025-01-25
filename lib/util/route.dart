@@ -13,7 +13,7 @@ import '../pages/profile/profile.dart';
 import '../pages/settings/settings.dart';
 
 enum route {
-  //fundTetraConnect,
+  fundTetraConnect,
   friends,
   guide,
   home,
@@ -26,8 +26,8 @@ enum route {
 extension RouteExt on route {
   String name(BuildContext context) {
     switch (this) {
-      //case route.fundTetraConnect:
-      //  return AppLocalizations.of(context)!.fundTetraConnect;
+      case route.fundTetraConnect:
+       return AppLocalizations.of(context)!.fundTetraConnect;
       case route.home:
         return AppLocalizations.of(context)!.home;
       case route.friends:
@@ -47,8 +47,8 @@ extension RouteExt on route {
 
   Widget get widget {
     switch (this) {
-      //case route.fundTetraConnect:
-      //  return const FundTetraConnectPage();
+      case route.fundTetraConnect:
+       return const FundTetraConnectPage();
       case route.home:
         return const HomePage();
       case route.friends:
@@ -68,8 +68,8 @@ extension RouteExt on route {
 
   String get value {
     switch (this) {
-      //case route.fundTetraConnect:
-      //  return "fundTetraConnect";
+      case route.fundTetraConnect:
+       return "fundTetraConnect";
       case route.home:
         return "home";
       case route.friends:

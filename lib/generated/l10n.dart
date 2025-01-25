@@ -1140,6 +1140,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You are being redirected to the buymeacoffee page for the developers. Thank you for choosing to support us.`
+  String get fundMessage {
+    return Intl.message(
+      'You are being redirected to the buymeacoffee page for the developers. Thank you for choosing to support us.',
+      name: 'fundMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
