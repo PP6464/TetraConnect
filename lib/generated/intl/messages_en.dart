@@ -95,7 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fourth": MessageLookupByLibrary.simpleMessage("4th"),
         "friends": MessageLookupByLibrary.simpleMessage("Friends"),
         "fundMessage": MessageLookupByLibrary.simpleMessage(
-            "You are being redirected to the buymeacoffee page for the developers. Thank you for choosing to support us."),
+            "You are being redirected to the buymeacoffee page for the developers (If it doesn\'t work please try https://buymeacoffee.com/pp16). Thank you for choosing to support us."),
         "fundTetraConnect":
             MessageLookupByLibrary.simpleMessage("Fund TetraConnect"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),

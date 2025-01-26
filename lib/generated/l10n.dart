@@ -1141,10 +1141,10 @@ class S {
     );
   }
 
-  /// `You are being redirected to the buymeacoffee page for the developers. Thank you for choosing to support us.`
+  /// `You are being redirected to the buymeacoffee page for the developers (If it doesn't work please try https://buymeacoffee.com/pp16). Thank you for choosing to support us.`
   String get fundMessage {
     return Intl.message(
-      'You are being redirected to the buymeacoffee page for the developers. Thank you for choosing to support us.',
+      'You are being redirected to the buymeacoffee page for the developers (If it doesn\'t work please try https://buymeacoffee.com/pp16). Thank you for choosing to support us.',
       name: 'fundMessage',
       desc: '',
       args: [],

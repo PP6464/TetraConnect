@@ -31,9 +31,13 @@ class _FundTetraConnectPageState extends State<FundTetraConnectPage> {
     return Scaffold(
       appBar: normalAppBar(context, route.home),
       body: Center(
-        child: Text(
-          AppLocalizations.of(context)!.fundMessage,
-          textScaler: TextScaler.linear(provider(context).tsf),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            AppLocalizations.of(context)!.fundMessage,
+            textScaler: TextScaler.linear(provider(context).tsf),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
